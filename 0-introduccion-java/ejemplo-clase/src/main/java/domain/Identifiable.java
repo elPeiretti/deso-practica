@@ -1,5 +1,5 @@
 package domain;
 
 public interface Identifiable {
-    String getId();
+  String getId();
 }

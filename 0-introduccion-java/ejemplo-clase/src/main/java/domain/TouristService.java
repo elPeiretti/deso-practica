@@ -2,7 +2,7 @@ package domain;
 
 import java.util.UUID;
 
-public abstract class TouristService implements Identifiable{
+public abstract class TouristService implements Identifiable {
   protected UUID id;
   protected String company;
 

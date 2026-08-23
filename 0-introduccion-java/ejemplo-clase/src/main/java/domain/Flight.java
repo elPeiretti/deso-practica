@@ -11,7 +11,7 @@ public class Flight extends TouristService {
   private double length;
 
   public Flight(String company) {
-      super(company);
+    super(company);
   }
 
   @Override
@@ -68,5 +68,4 @@ public class Flight extends TouristService {
   }
 
   public record Aircraft(String name, double litersPerKm) {}
-
 }
