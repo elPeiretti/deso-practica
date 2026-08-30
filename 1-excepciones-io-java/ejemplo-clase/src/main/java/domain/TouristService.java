@@ -1,7 +1,11 @@
 package domain;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+
 import java.util.UUID;
 
+@Getter(value = AccessLevel.PROTECTED)
 public abstract class TouristService implements Identifiable {
   protected UUID id;
   protected String company;

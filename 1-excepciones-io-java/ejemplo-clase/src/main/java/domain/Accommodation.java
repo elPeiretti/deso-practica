@@ -1,7 +1,12 @@
 package domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
+@Getter
+@Setter
 public class Accommodation extends TouristService {
 
   private static final double GUEST_FACTOR = 0.03;
