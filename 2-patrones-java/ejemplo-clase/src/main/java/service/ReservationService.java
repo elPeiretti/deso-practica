@@ -6,6 +6,7 @@ import domain.User;
 import dto.reservation.CreateReservationRequest;
 import dto.reservation.ReservationResponse;
 import exception.DataAccessException;
+import exception.FlightNotFoundException;
 import exception.UserNotFoundException;
 import repository.dao.FlightDao;
 import repository.dao.ReservationDao;
@@ -23,12 +24,12 @@ public class ReservationService {
   }
 
   public ReservationResponse createReservation(CreateReservationRequest request)
-      throws DataAccessException, UserNotFoundException {
+      throws DataAccessException, UserNotFoundException, FlightNotFoundException {
     // 1. Resolver entidades de dominio desde los datos del DTO
     User user = userDao.findByUsername(request.username())
         .orElseThrow(() -> new UserNotFoundException(request.username()));
     TouristService service = flightDao.findByNumber(request.flightNumber())
-        .orElseThrow(() -> new IllegalArgumentException("Vuelo no encontrado: " + request.flightNumber()));
+        .orElseThrow(() -> new FlightNotFoundException(request.flightNumber()));
 
     // 2. Construir la reserva (lógica de dominio)
     Reservation reservation = new Reservation.Builder()

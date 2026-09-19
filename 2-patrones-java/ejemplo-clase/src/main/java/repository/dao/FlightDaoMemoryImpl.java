@@ -14,6 +14,7 @@ public class FlightDaoMemoryImpl implements FlightDao {
     // Datos de prueba pre-cargados en memoria
     Flight.Aircraft aircraft = new Flight.Aircraft("Boeing 747", 11);
     Flight flight = new Flight("FlyDeso");
+    flight.setNumber("ABC123");
     flight.setAircraft(aircraft);
     flight.setLength(1200);
     flights.put(flight.getNumber(), flight);

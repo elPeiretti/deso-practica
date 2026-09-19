@@ -2,6 +2,7 @@ import dto.reservation.CreateReservationRequest;
 import dto.reservation.ReservationResponse;
 import dto.user.UserResponse;
 import exception.DataAccessException;
+import exception.FlightNotFoundException;
 import exception.UserNotFoundException;
 import repository.dao.FlightDao;
 import repository.dao.FlightDaoMemoryImpl;
@@ -35,11 +36,13 @@ public class MainClase3 {
         return;
       }
 
-      CreateReservationRequest request = new CreateReservationRequest(user.username(), "FlyDeso", Instant.now());
+      CreateReservationRequest request = new CreateReservationRequest(user.username(), "ABC123", Instant.now());
       ReservationResponse reservation = reservationService.createReservation(request);
       IO.println("Reserva guardada con éxito. ID: " + reservation.reservationId());
     } catch (UserNotFoundException e) {
       IO.println("Usuario no encontrado");
+    } catch (FlightNotFoundException e) {
+      IO.println("Vuelo no encontrado");
     } catch (DataAccessException e) {
       IO.println("Error de acceso a datos: " + e.getMessage());
     } catch (Exception e) {
