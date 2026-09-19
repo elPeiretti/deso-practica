@@ -49,7 +49,7 @@ public class Reservation implements Identifiable {
     }
 
     public Reservation build() {
-      // 1. Validaciones de consistencia (ventaja clave del Builder)
+      // 1. Validaciones de consistencia
       if (service == null) {
         throw new IllegalStateException("La reserva debe tener un servicio asociado.");
       }

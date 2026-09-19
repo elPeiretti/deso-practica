@@ -14,6 +14,7 @@ public class ReservationDaoFileImpl implements ReservationDao {
   private ReservationDaoFileImpl() {
   }
 
+  // singleton
   public static synchronized ReservationDaoFileImpl getInstance() {
     if (instance == null) {
       instance = new ReservationDaoFileImpl();

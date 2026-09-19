@@ -17,6 +17,7 @@ public class UserDaoFileImpl implements UserDao {
   private UserDaoFileImpl() {
   }
 
+  // singleton
   public static synchronized UserDaoFileImpl getInstance() {
     if (instance == null) {
       instance = new UserDaoFileImpl();
