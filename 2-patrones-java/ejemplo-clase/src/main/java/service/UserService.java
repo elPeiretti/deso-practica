@@ -1,6 +1,7 @@
 package service;
 
 import domain.User;
+import dto.user.UserResponse;
 import exception.DataAccessException;
 import exception.UserNotFoundException;
 import repository.dao.UserDao;
@@ -12,8 +13,9 @@ public class UserService {
     this.userDao = userDao;
   }
 
-  public User getByUsername(String username) throws UserNotFoundException, DataAccessException {
-    return userDao.findByUsername(username)
+  public UserResponse getByUsername(String username) throws UserNotFoundException, DataAccessException {
+    User user = userDao.findByUsername(username)
         .orElseThrow(() -> new UserNotFoundException(username));
+    return new UserResponse(user.getId(), user.getUsername());
   }
 }

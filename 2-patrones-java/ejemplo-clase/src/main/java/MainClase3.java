@@ -1,8 +1,10 @@
-import domain.Flight;
-import domain.Reservation;
-import domain.User;
+import dto.reservation.CreateReservationRequest;
+import dto.reservation.ReservationResponse;
+import dto.user.UserResponse;
 import exception.DataAccessException;
 import exception.UserNotFoundException;
+import repository.dao.FlightDao;
+import repository.dao.FlightDaoMemoryImpl;
 import repository.dao.ReservationDao;
 import repository.dao.ReservationDaoFileImpl;
 import repository.dao.UserDao;
@@ -19,18 +21,13 @@ public class MainClase3 {
     UserService userService = new UserService(userDao);
 
     ReservationDao reservationDao = ReservationDaoFileImpl.getInstance();
-    ReservationService reservationService = new ReservationService(reservationDao);
+    FlightDao flightDao = FlightDaoMemoryImpl.getInstance();
+    ReservationService reservationService = new ReservationService(reservationDao, userDao, flightDao);
 
-    // 2. Datos de prueba
-    Flight.Aircraft aircraft = new Flight.Aircraft("Boeing 747", 11);
-    Flight flight = new Flight("FlyDeso");
-    flight.setAircraft(aircraft);
-    flight.setLength(1200);
-
-    // 3. Flujo de presentación (UI)
+    // 2. Flujo de presentación (UI)
     try {
       String username = IO.readln("Ingrese nombre de usuario: ");
-      User user = userService.getByUsername(username);
+      UserResponse user = userService.getByUsername(username);
 
       String shouldSave = IO.readln("reservar vuelo? (si/no)");
       if (!shouldSave.equalsIgnoreCase("si")) {
@@ -38,8 +35,9 @@ public class MainClase3 {
         return;
       }
 
-      Reservation reservation = reservationService.createReservation(user, flight, Instant.now());
-      IO.println("Reserva guardada con éxito. ID: " + reservation.getId());
+      CreateReservationRequest request = new CreateReservationRequest(user.username(), "FlyDeso", Instant.now());
+      ReservationResponse reservation = reservationService.createReservation(request);
+      IO.println("Reserva guardada con éxito. ID: " + reservation.reservationId());
     } catch (UserNotFoundException e) {
       IO.println("Usuario no encontrado");
     } catch (DataAccessException e) {
