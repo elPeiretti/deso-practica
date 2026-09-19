@@ -1,11 +1,12 @@
-import dao.ReservationDao;
-import dao.ReservationDaoFileImpl;
-import dao.UserDao;
-import dao.UserDaoFileImpl;
 import domain.Flight;
 import domain.Reservation;
 import domain.User;
+import exception.DataAccessException;
 import exception.UserNotFoundException;
+import repository.dao.ReservationDao;
+import repository.dao.ReservationDaoFileImpl;
+import repository.dao.UserDao;
+import repository.dao.UserDaoFileImpl;
 import service.ReservationService;
 import service.UserService;
 
@@ -41,6 +42,8 @@ public class MainClase3 {
       IO.println("Reserva guardada con éxito. ID: " + reservation.getId());
     } catch (UserNotFoundException e) {
       IO.println("Usuario no encontrado");
+    } catch (DataAccessException e) {
+      IO.println("Error de acceso a datos: " + e.getMessage());
     } catch (Exception e) {
       IO.println("Error en el sistema: " + e.getMessage());
     }

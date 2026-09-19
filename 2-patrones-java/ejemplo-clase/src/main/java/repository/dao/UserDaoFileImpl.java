@@ -1,10 +1,10 @@
-package dao;
+package repository.dao;
 
 import domain.User;
+import exception.DataAccessException;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Optional;
@@ -26,7 +26,7 @@ public class UserDaoFileImpl implements UserDao {
   }
 
   @Override
-  public Optional<User> findByUsername(String username) {
+  public Optional<User> findByUsername(String username) throws DataAccessException {
     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
       String userLine = reader.readLine();
       UUID userId = null;
@@ -42,15 +42,14 @@ public class UserDaoFileImpl implements UserDao {
         return Optional.empty();
       }
 
-      User user = new User();
-      user.setId(userId);
-      user.setUsername(username);
+      User user = User.builder()
+          .id(userId)
+          .username(username)
+          .build();
 
       return Optional.of(user);
-    } catch (FileNotFoundException e) {
-      throw new RuntimeException("No se pudo leer el archivo de usuarios", e);
     } catch (IOException e) {
-      throw new RuntimeException("Error al leer el archivo de usuarios", e);
+      throw new DataAccessException("Error al leer usuario", e);
     }
   }
 }

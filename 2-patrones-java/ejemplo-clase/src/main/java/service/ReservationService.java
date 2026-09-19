@@ -1,9 +1,10 @@
 package service;
 
-import dao.ReservationDao;
 import domain.Reservation;
 import domain.TouristService;
 import domain.User;
+import exception.DataAccessException;
+import repository.dao.ReservationDao;
 
 import java.time.Instant;
 
@@ -14,7 +15,7 @@ public class ReservationService {
     this.reservationDao = reservationDao;
   }
 
-  public Reservation createReservation(User user, TouristService service, Instant date) {
+  public Reservation createReservation(User user, TouristService service, Instant date) throws DataAccessException {
     Reservation reservation = new Reservation.Builder()
         .id((long) (Math.random() * 1000))
         .owner(user)

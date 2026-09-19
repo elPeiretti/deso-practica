@@ -1,6 +1,7 @@
-package dao;
+package repository.dao;
 
 import domain.Reservation;
+import exception.DataAccessException;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -24,7 +25,7 @@ public class ReservationDaoFileImpl implements ReservationDao {
   }
 
   @Override
-  public void save(Reservation reservation) {
+  public void save(Reservation reservation) throws DataAccessException {
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
       String line = String.format(
           "%s,%s,%s,%s\n",
@@ -34,7 +35,7 @@ public class ReservationDaoFileImpl implements ReservationDao {
           reservation.getDate());
       bw.write(line);
     } catch (IOException e) {
-      throw new RuntimeException("Error al guardar la reserva en el archivo", e);
+      throw new DataAccessException("Error al guardar la reserva", e);
     }
   }
 }
