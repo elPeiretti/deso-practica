@@ -3,7 +3,7 @@
 % logo UTN arriba a la izquierda, titulos en Merriweather y cuerpo en Roboto).
 %
 % Requiere XeLaTeX (fontspec) y la fuente Roboto instalada en el sistema
-% (apt install fonts-roboto). Merriweather viene en theme/fonts/.
+% (apt install fonts-roboto). Merriweather viene en fonts/ (junto a este archivo).
 \ProvidesPackage{beamerthemeUTN}[2026/10/25 Tema UTN FRSF - Desarrollo de Software]
 
 \RequirePackage{fix-cm} % permite tamanos de letra arbitrarios (fuentes CM escalables)
@@ -24,13 +24,13 @@
 \setmainfont{Roboto}[Ligatures=TeX]
 \setmonofont{DejaVu Sans Mono}[Scale=MatchLowercase]
 \newfontfamily\utnserif{Merriweather}[
-  Path=../theme/fonts/, Extension=.ttf,
+  Path=resources/fonts/, Extension=.ttf,
   UprightFont=*-Regular, BoldFont=*-Bold, ItalicFont=*-Italic,
   Ligatures=TeX]
 
 \mode<presentation>
 
-\graphicspath{{img/}{../theme/}}
+\graphicspath{{resources/img/}{resources/}}
 
 % --- Colores y fuentes de Beamer ------------------------------------------
 \setbeamercolor{normal text}{fg=utnText,bg=white}
