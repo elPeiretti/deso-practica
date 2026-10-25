@@ -1,0 +1,634 @@
+% Introducción a JavaScript - Desarrollo de Software
+% Compilar con: latexmk   (ver .latexmkrc; usa XeLaTeX y el tema de resources/)
+\documentclass[aspectratio=43,10pt,t]{beamer}
+
+\usepackage[spanish,es-noshorthands]{babel}
+\usetheme{UTN}
+\usepackage{deck}
+
+\hypersetup{pdftitle={Introducción a JavaScript - Desarrollo de Software},pdfauthor={UTN FRSF}}
+
+\begin{document}
+
+% 1
+\begin{utnfondo}
+  \utntitulo{0.045}{0.272}{Introducción}
+  \utntitulo{0.178}{0.475}{a JavaScript}
+  \utnsubtitulo{0.044}{0.625}{Desarrollo de Software}
+  \utnpic{js-logo}{0.750}{0.691}{0.192}
+\end{utnfondo}
+
+% 2
+\begin{frame}{¿Qué es JavaScript?}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{11.3}{14.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{10.4}{12.9}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{9.5}{11.8}\selectfont}
+\begin{itemize}
+  \item {\fontsize{11.3}{14.0}\selectfont JavaScript es el lenguaje de programación principal para el desarrollo web. Todos los navegadores usados ampliamente lo ejecutan.\par}
+  \item {\fontsize{12.2}{15.1}\selectfont Tiene un "garbage collector" que se encarga de gestionar la memoria\par}
+  \item {\fontsize{12.2}{15.1}\selectfont Tiene un único hilo de ejecución. Posee un modelo de concurrencia basado en un "loop de eventos" no bloqueante\par}
+  \item {\fontsize{12.2}{15.1}\selectfont Es multiparadigma, tiene~soporte para programación orientada a objetos, imperativa y~declarativa\par}
+  \item {\fontsize{12.2}{15.1}\selectfont Es "dinámico", sus tipos son implícitos, las variables y funciones pueden ser creadas en tiempo de ejecución y sus valores e incluso sus tipos pueden cambiarse\par}
+\end{itemize}
+\endgroup
+\note{"sencillo de aprender" : Hacer enfasis que muchas de las decisiones en js se hicieron con este en mente por más que nos parezcan contraintuitivas u hoy comprobadas como MALAS DECISIONES}
+\end{frame}
+
+% 3
+\begin{frame}{¿Cómo se ejecuta JavaScript?}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.2}{15.1}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{11.2}{13.9}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{10.3}{12.8}\selectfont}
+\begin{itemize}
+  \item Un runtime de JavaScript se refiere al entorno en el que se ejecuta código JavaScript. Proporciona las estructuras y recursos necesarios para que el código JavaScript se ejecute y se comunique con el sistema subyacente.~Uno de los runtimes de JavaScript más conocidos es V8.
+  \item V8 es un motor de ejecución de JavaScript desarrollado por Google. Es de código abierto y se utiliza en varios navegadores web, incluidos Google Chrome y Opera, para ejecutar JavaScript de manera eficiente en el navegador.
+  \item JavaScript se ejecuta tanto de forma interpretada como compilada, dependiendo del entorno en el que se ejecute.
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 4
+\begin{frame}{¿Cómo se ejecuta JavaScript?}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.1}{16.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item En su forma más básica, JavaScript se ejecuta de manera interpretada. Esto significa que el código fuente JavaScript se lee línea por línea y se ejecuta directamente por el motor de JavaScript sin necesidad de una compilación previa. 
+  \item Los motores de JavaScript modernos, como V8, utilizan una técnica llamada compilación JIT (just-in-time). En este enfoque, el código JavaScript se analiza y se compila en código de máquina de manera eficiente, pero esta compilación se realiza justo antes de la ejecución.
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 5
+\begin{frame}{¿Es posible ejecutar JS fuera del browser?}\relax
+\utnpic[height=0.343\paperheight,keepaspectratio=false]{nodejs}{0.050}{0.236}{0.439}
+\utnpic[height=0.343\paperheight,keepaspectratio=false]{deno}{0.523}{0.236}{0.457}
+\utnpic[height=0.191\paperheight,keepaspectratio=false]{bun}{0.554}{0.677}{0.426}
+\utnpic{winterjs}{0.002}{0.677}{0.535}
+\end{frame}
+
+% 6
+\begin{utnfondo}
+  \utntitulo{0.04}{0.380}{JavaScript}
+  \utnsubtitulo{0.044}{0.477}{Tipos de datos y sintaxis}
+\end{utnfondo}
+
+% 7
+{\usebackgroundtemplate{\utnpic[height=0.426\paperheight,keepaspectratio=false]{null-undefined}{0.438}{0.230}{0.531}}
+\begin{frame}{Tipos de datos primitivos}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.2}{15.1}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{11.3}{14.0}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{10.4}{12.9}\selectfont}
+\begin{itemize}
+  \item Los valores primitivos pueden ser de tipo:
+  \begin{itemize}
+    \item \red{Undefined}
+    \item \red{Null}
+    \item Boolean
+    \item Number (64 bit)
+    \item BigInt
+    \item String
+  \end{itemize}
+  \item Javascript los convierte automáticamente de un tipo a otro (a través de casting implícito).
+  \item Todo otro valor que no sea un valor primitivo es un \textbf{objeto}.
+  \item Conceptualmente, \textbf{undefined} indica la ausencia de un valor, mientras que \textbf{null} indica la ausencia de un objeto.
+\end{itemize}
+\endgroup
+\utnnote[anchor=east,font=\fontsize{6}{7}\selectfont]{0.980}{0.908}{\href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Data_structures}{\uline{https:/\allowbreak{}/\allowbreak{}developer.mozilla.org/\allowbreak{}en-US/\allowbreak{}docs/\allowbreak{}Web/\allowbreak{}JavaScript/\allowbreak{}Guide/\allowbreak{}Data\_structures}}}
+\end{frame}
+}
+
+% 8
+\begin{frame}{Variables}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.2}{15.1}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{11.3}{14.0}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{10.4}{12.9}\selectfont}
+\begin{itemize}
+  \item Las variables en JavaScript no son tipadas explícitamente sino que lo toman implícito del valor que se les asigna. Si no se les asigna valor, toman el tipo de dato “undefined”.
+  \item Debido a la naturaleza dinámica del lenguaje las variables pueden almacenar cualquier valor en cualquier momento.
+  \item Los nombres de variables empezar con una letra, un guión bajo `\textbf{\_}`, o un signo `\textbf{\$`}. Los siguientes caracteres pueden ser dígitos además de los anteriores.
+  \item \red{Maneras de declarar una variable:}
+  \begin{itemize}
+    \item \textbf{var} ~~~~~~<- para variables globales y locales (no se recomienda)
+    \item \textbf{let} ~~~~~~~<- para variables locales
+    \item \textbf{const} ~~<- para constantes locales
+  \end{itemize}
+\end{itemize}
+\endgroup
+\utnnote[anchor=east,font=\fontsize{6}{7}\selectfont]{0.980}{0.928}{\href{https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Grammar_and_types}{\uline{https:/\allowbreak{}/\allowbreak{}developer.mozilla.org/\allowbreak{}es/\allowbreak{}docs/\allowbreak{}Web/\allowbreak{}JavaScript/\allowbreak{}Guide/\allowbreak{}Grammar\_and\_types}}}
+\end{frame}
+
+% 9
+\begin{frame}{Strings y Booleans}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.2}{16.6}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{10.2}{13.8}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{10.2}{13.8}\selectfont}
+\begin{itemize}
+  \item {\fontsize{12.2}{16.6}\selectfont \textbf{Strings}\par}
+  \begin{itemize}
+    \item son una secuencia de caracteres Unicode.
+    \item Cada carácter puede ser accedido por su índice (el primero es cero).
+    \item Los strings se encierran entre " ", ' ', o ` `
+    \begin{itemize}
+      \item Los backticks (3ra opción) permiten definir strings de múltiples líneas e interpolación de strings usando expresiones.
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+\begin{itemize}
+  \item {\fontsize{13.2}{18.0}\selectfont \textbf{Booleans}\par}
+  \begin{itemize}
+    \item JavaScript las primitivas Boolean de javascript son \textbf{true} y \textbf{false}
+    \item False, 0, string vacio (""), NaN, null, y undefined son interpretados como \textbf{falso}.
+    \item Todo lo demás es interpretado como \textbf{verdadero}.
+  \end{itemize}
+\end{itemize}
+\endgroup
+\utncode[style=utncarbon,x=0.000,y=0.547,w=1.000,h=0.062,bg=2B2B2B,fs=7.84,lh=10.13,padx=22.4,pady=3.4,num=17.5,first=2]{template-literal.js}
+\end{frame}
+
+% 10
+\begin{frame}{¿Cómo se comparan cosas?}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{10.2}{13.8}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{9.3}{12.7}\selectfont}
+\begin{itemize}
+  \item JavaScript ofrece dos formas para calcular la igualdad, la igualdad estricta o la igualdad débil. ~
+  \begin{itemize}
+    \item La igualdad débil \uline{realizará conversión de tipos} cuando compara dos valores.~
+    \item En tanto que la forma estricta chequea los valores sin ninguna conversión de tipo. ~~---> ~por lo que se recomienda usar la estricta
+  \end{itemize}
+  \item La comparación estricta se realiza con \textbf{\red{===}} (\red{!==}) mientras que la débil con \textbf{\red{==}} (\red{!=})
+  \item JavaScript también provee los operadores \textbf{<}, \textbf{>}, \textbf{<=} y \textbf{>=} 
+\end{itemize}
+\endgroup
+\note{Recordar que se pensó así para "facilidad"}
+\end{frame}
+
+% 11
+\begin{frame}{¿Cómo se comparan cosas?}\relax
+\begin{minipage}[t]{0.520\paperwidth}
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.2}{16.6}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item \textbf{Comparación estricta ===}
+  \begin{itemize}
+    \item Si los valores son de \textbf{diferentes tipos de datos} NO son IGUALES.
+    \item Para valores no numéricos del mismo tipo, son iguales si sus \textbf{valores} son los mismos.
+    \item Para valores numéricos primitivos, compara si \textbf{los tipos y los valores son iguales}.
+  \end{itemize}
+\end{itemize}
+\endgroup
+\end{minipage}
+\utnpic[height=0.556\paperheight,keepaspectratio=false]{comparacion-meme}{0.573}{0.295}{0.420}
+\end{frame}
+
+% 12
+\begin{frame}{Valores Truthy \& Falsy de variables}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.2}{16.6}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item Una particularidad de javascript es que una variable al momento de ser evaluada en un “contexto booleano”, se consideran verdaderos o falsos dependiendo de su~contenido
+  \item Esta práctica se utiliza mucho en validaciones en los programas de JS y puede resultar poco intuitiva para quienes vengan de lenguajes más tradicionales.
+  \begin{itemize}
+    \item Podemos forzar esta evaluación usando un bloque condicional~\red{if(variable)} o también utilizando una doble negación \red{!!variable}.
+  \end{itemize}
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 13
+\begin{frame}{Operadores}\relax
+\utnnote[anchor=north west]{0.087}{0.186}{\begingroup
+  \fboxsep=0pt\renewcommand{\arraystretch}{1}\arrayrulewidth=1pt\setlength{\tabcolsep}{0pt}
+  \colorbox[HTML]{D9D9D9}{%
+  \begin{tabular}{@{}>{\centering\arraybackslash}p{97pt}|>{\centering\arraybackslash}p{103pt}@{}}
+    \rule[-9pt]{0pt}{24pt}\fontsize{12.5}{14}\selectfont\textbf{Operator Name} & \fontsize{12.5}{14}\selectfont\textbf{Operator} \\ \hline
+    \rule[-9pt]{0pt}{24pt}\fontsize{12.5}{14}\selectfont Arithmetic & \fontsize{8}{9}\selectfont +, -, *, /, \%, **, ++, -{}- \\ \hline
+    \rule[-9pt]{0pt}{24pt}\fontsize{12.5}{14}\selectfont Assignment & \fontsize{8}{9}\selectfont =, +=, -=,*=, /=, \%=, **= \\ \hline
+    \rule[-9pt]{0pt}{24pt}\fontsize{12.5}{14}\selectfont String & \fontsize{8}{9}\selectfont + \\ \hline
+    \rule[-9pt]{0pt}{24pt}\fontsize{12.5}{14}\selectfont Comparison & \fontsize{9}{10}\selectfont <, >, >=,<=, ==, != \\ \hline
+    \rule[-9pt]{0pt}{24pt}\fontsize{12.5}{14}\selectfont Identity & \fontsize{9}{10}\selectfont === \\ \hline
+    \rule[-9pt]{0pt}{24pt}\fontsize{12.5}{14}\selectfont Logical & \fontsize{11}{12}\selectfont ||, \&\&, ! \\ \hline
+    \rule[-9pt]{0pt}{24pt}\fontsize{12.5}{14}\selectfont Bitwise & \fontsize{9}{10}\selectfont \&, |, \textasciitilde, \textasciicircum, <<, >>,>>>
+  \end{tabular}}%
+\endgroup}
+\utnnote[anchor=north west,align=left,text width=.28\paperwidth,font=\fontsize{5.5}{6.5}\selectfont]{0.672}{0.500}{\textbf{y más…}\\\href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_operators}{\uline{https:/\allowbreak{}/\allowbreak{}developer.mozilla.org/\allowbreak{}en-US/\allowbreak{}docs/\allowbreak{}Web/\allowbreak{}JavaScript/\allowbreak{}Guide/\allowbreak{}Expressions\_and\_operators}}}
+\utnpic[height=0.169\paperheight,keepaspectratio=false]{operadores-meme}{0.644}{0.736}{0.334}
+\end{frame}
+
+% 14
+\begin{frame}{Ejemplos}\relax
+\utncode[style=utnclaro,x=0.017,y=0.264,w=0.967,h=0.540,bg=F8F8F8,fs=5.55,lh=7.28,padx=19.9,pady=0.6,num=9.5]{variables.js}
+\end{frame}
+
+% 15
+\begin{frame}{Sintaxis}\relax
+\utncode[style=utnclaro,x=0.012,y=0.195,w=0.323,h=0.297,bg=FFFFFF,fs=6.61,lh=8.50,padx=21.9,pady=2.7,num=9.1]{if-else.js}
+\utncode[style=utnclaro,x=0.338,y=0.195,w=0.324,h=0.360,bg=FFFFFF,fs=6.53,lh=8.61,padx=22.3,pady=3.1,num=9.1]{switch.js}
+\utncode[style=utnclaro,x=0.662,y=0.195,w=0.318,h=0.623,bg=FFFFFF,fs=5.82,lh=7.62,padx=18.8,pady=2.0,num=7.9]{bucles.js}
+\utncode[style=utnclaro,x=0.092,y=0.629,w=0.487,h=0.233,bg=FFFFFF,fs=6.65,lh=8.49,padx=21.9,pady=2.7,num=9.1]{try-catch.js}
+\utncode[style=utnclaro,x=0.672,y=0.818,w=0.299,h=0.160,bg=FFFFFF,fs=6.16,lh=8.39,padx=21.1,pady=1.9,num=8.6]{for-of.js}
+\end{frame}
+
+% 16
+\begin{frame}{Sintaxis: funciones}\relax
+\utncode[style=utnclaro,x=0.184,y=0.190,w=0.624,h=0.620,bg=FFFFFF,fs=6.04,lh=7.80,padx=20.1,pady=2.2,num=8.3]{funciones.js}
+\utnnote[anchor=north west,align=left,text width=.70\paperwidth,font=\fontsize{7.2}{9}\selectfont]{0.164}{0.846}{FYI: closures\\\href{https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions\#function_scopes_and_closures}{\uline{https:/\allowbreak{}/\allowbreak{}developer.mozilla.org/\allowbreak{}en-US/\allowbreak{}docs/\allowbreak{}Web/\allowbreak{}JavaScript/\allowbreak{}Guide/\allowbreak{}Functions\#function\_scopes\_and\_closures}}}
+\end{frame}
+
+% 17
+\begin{utnfondo}
+  \utntitulo[utnYellow]{0.04}{0.265}{Ejemplo}
+  \utnnote[anchor=north west,align=justify,text width=.92\paperwidth,text=white,font=\fontsize{12.3}{14.7}\selectfont]{0.042}{0.412}{Construir un script de JS que procese un texto de múltiples palabras (el cual será un string) y permita obtener la frecuencia de aparición de las vocales A, E, I, O y U.}
+  \utnnote[anchor=north west,text width=.95\paperwidth,text=white,font=\fontsize{10.8}{14.1}\selectfont]{0.03}{0.726}{\yellow{Ejemplo:} “Esta locuraaa, no la trates de entender” \\ \yellow{Resultado:} [A: 6, E: 6, I: ~0, O: 2, U: 1]}
+  \utnnote[anchor=east,text=white,font=\fontsize{13.2}{15}\selectfont]{0.97}{0.961}{\yellow{Probar en}  \href{https://runjs.app/play}{\uline{https:/\allowbreak{}/\allowbreak{}runjs.app/\allowbreak{}play}} }
+\end{utnfondo}
+
+% 18
+\begin{frame}{Objetos}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.1}{16.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item Los objetos en JavaScript son similares a los mapas de otros lenguajes de programación, no son más que un conjunto de propiedades que asocian un nombre (o clave) y un valor.
+  \item El valor de una propiedad puede ser una función, en cuyo caso la propiedad es conocida como un método.
+  \item A los objetos que se creen sin depender de una clase en particular, se le pueden agregar propiedades en tiempo de ejecución (ya que no definen un contrato sobre su estructura)
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 19
+\begin{frame}{Objetos}\relax
+\utncode[style=utnclaro,x=0.176,y=0.173,w=0.648,h=0.804,bg=FFFFFF,fs=6.37,lh=8.39,padx=21.1,pady=2.5,num=8.8]{objeto.js}
+\end{frame}
+
+% 20
+\begin{frame}{Objetos}\relax
+\utncode[style=utnclaro,x=0.169,y=0.207,w=0.662,h=0.684,bg=FFFFFF,fs=7.37,lh=9.56,padx=24.4,pady=2.6,num=10.1]{clase.js}
+\end{frame}
+
+% 21
+\begin{frame}{Arreglos}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{17.2}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.1}{15.8}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{14.5}\selectfont}
+\begin{itemize}
+  \item Un arreglo es una \textbf{colección ordenada de elementos}. Cada elemento puede ser accedido por un índice numérico.
+  \item Los arreglos en JavaScript no son tipados, y \textbf{pueden contener distintos tipos de elementos}. Incluso un elemento puede ser un objeto u otro array.
+  \item Son \textbf{dinámicos}, y su tamaño varía según las necesidades, no es necesario indicar su dimensión.
+  \item Los arreglos heredan propiedades de \textit{Array.prototype}, que define un conjunto extenso de métodos útiles para manipularlos
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 22
+\begin{frame}{Arreglos}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{9.1}{12.4}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{8.4}{11.4}\selectfont}
+\begin{itemize}
+  \item La forma más simple de crear un arreglo es definir una variables y asignarle una lista extensa de valores separados por coma y encerrados entre corchetes. 
+  \begin{itemize}
+    \item \code{var empty = []; // Arreglo vacío}
+    \item \code{var primes = [2, 3, 5, 7]; // Arreglo de 5 números}
+    \item \code{var misc = [\{\}, true, "a}\code{"]; ~// Arreglo de distintos tipos de datos}
+  \end{itemize}
+  \item También es posible usar el constructor Array()
+  \begin{itemize}
+    \item \code{var a = new Array();}
+    \item \code{var a = new Array(5, 4, 3, 2, 1, "testing");}
+  \end{itemize}
+\end{itemize}
+\endgroup
+\utnpic{array-memes}{0.721}{0.680}{0.259}
+\end{frame}
+
+% 23
+\begin{frame}\relax
+\utnpic[height=0.901\paperheight,keepaspectratio=false]{metodos-array}{0.189}{0.084}{0.643}
+\end{frame}
+
+% 24
+\begin{frame}\relax
+\utnpic[height=0.956\paperheight,keepaspectratio=false]{dedo}{0.017}{0.022}{0.956}
+\end{frame}
+
+% 25
+\begin{frame}{Ejercicio}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{11.2}{13.9}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{10.3}{12.8}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{9.5}{11.8}\selectfont}
+{\fontsize{11.2}{13.9}\selectfont Dado un arreglo de estudiantes con la siguiente estructura:\par}
+{\fontsize{13.5}{16.7}\selectfont\mbox{}\par}
+{\fontsize{13.5}{16.7}\selectfont\mbox{}\par}
+{\fontsize{13.5}{16.7}\selectfont\mbox{}\par}
+{\fontsize{13.5}{16.7}\selectfont\mbox{}\par}
+{\fontsize{13.5}{16.7}\selectfont\mbox{}\par}
+\begin{enumerate}
+  \item Implementa una \textbf{arrow function} que reciba un arreglo de números (notas) y devuelva el promedio.
+  \item Con esa función, genera un nuevo arreglo llamado \textbf{promediosEstudiantes} que contenga objetos con el nombre de cada estudiante y su promedio.
+  \item Muestra en consola la lista de estudiantes ordenada de mayor a menor promedio (mostrando el nombre y el promedio)
+  \item Vuelve a resolver lo anterior sin utilizar \textbf{while}, \textbf{for} ni \textbf{do-while}
+\end{enumerate}
+\endgroup
+\utncode[style=utnclaro,x=0.123,y=0.278,w=0.746,h=0.231,bg=FFFFFF,fs=8.78,lh=11.57,padx=29.7,pady=3.0,num=12.1]{estudiantes.js}
+\end{frame}
+
+% 26
+\begin{utnfondo}
+  \utntitulo{0.04}{0.380}{JavaScript}
+  \utnsubtitulo{0.044}{0.477}{Conceptos “avanzados”}
+\end{utnfondo}
+
+% 27
+\begin{frame}{Desestructuración y el operador Spread}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.1}{16.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item La \textbf{desestructuración} es una expresión de JavaScript que permite “desempacar” valores de arreglos o propiedades de objetos en distintas variables.
+  \item La \textbf{sintaxis spread} permite a un elemento iterable tal como un arreglo o cadena sea “expandido” en lugares donde cero o más argumentos (para llamadas de función) o elementos (para Array literales) son esperados, o a un objeto ser expandido en lugares donde cero o más pares de valores clave (para literales Tipo Objeto) son esperados.
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 28
+\begin{frame}{Desestructuración y el operador Spread}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.1}{16.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item La particularidad de la~\textbf{sintaxis spread} es que la operación \uline{termina funcionando como una copia superficial}~(shallow copy). Lo cual la vuelve útil para agregar elementos a un array u objeto~sin modificarlo
+\end{itemize}
+\endgroup
+\utncode[style=utnvscode,x=0.022,y=0.661,w=0.481,h=0.231,bg=1F1F1F,fs=6.80,lh=9.57,padx=4.5,pady=0.8]{destructuring-a.js}
+\utncode[style=utnvscode,x=0.450,y=0.660,w=0.538,h=0.233,bg=1F1F1F,fs=7.88,lh=11.20,padx=4.7,pady=3.4]{destructuring-b.js}
+\utnrect{red}{0.75}{.022}{.661}{.481}{.231}
+\utnrect{red}{0.75}{.450}{.660}{.538}{.233}
+\note{Avisar que el ejemplo de spread en un ejemplo es una clara pregunta de examen. Dar un ejemplo de copia por valor de un puntero a un objeto.}
+\end{frame}
+
+% 29
+\begin{frame}{Desestructuración y el operador Spread}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.1}{16.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item Es posible usar el spread operator para quedarse con el resto de valores de un array
+\end{itemize}
+\endgroup
+\utncode[style=utnnoche,x=0.055,y=0.388,w=0.890,h=0.371,bg=171B21,fs=10.73,lh=15.30,padx=5.2,pady=0.8]{spread-resto.js}
+\end{frame}
+
+% 30
+\begin{frame}{Desestructuración y el operador Spread}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{10.2}{13.8}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{9.3}{12.7}\selectfont}
+\begin{itemize}
+  \item Sirve para hacer copias
+  \begin{itemize}
+    \item \red{No olvidar que sólo copia valores en el primer nivel (shallow copy)}
+  \end{itemize}
+\end{itemize}
+\endgroup
+\utncode[style=utnnoche,x=0.031,y=0.369,w=0.930,h=0.472,bg=171B21,fs=8.97,lh=12.01,padx=4.6,pady=4.3]{spread-copia.js}
+\end{frame}
+
+% 31
+\begin{frame}{Desestructuración y el operador Spread}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.1}{16.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item Nos permite concatenar delante y detrás de un array
+\end{itemize}
+\endgroup
+\utncode[style=utnnoche,x=0.047,y=0.339,w=0.906,h=0.469,bg=171B21,fs=6.28,lh=8.76,padx=2.3,pady=2.6]{spread-concatenar.js}
+\end{frame}
+
+% 32
+\begin{frame}{Desestructuración y el operador Spread}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.1}{16.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item También pueden utilizarse en objetos:
+\end{itemize}
+\endgroup
+\utncode[style=utnnoche,x=0.032,y=0.312,w=0.936,h=0.523,bg=171B21,fs=6.49,lh=8.99,padx=3.5,pady=1.8]{spread-objetos.js}
+\end{frame}
+
+% 33
+\begin{frame}{Desestructuración y el operador Spread}\relax
+\utncode[style=utnnoche,x=0.012,y=0.196,w=0.969,h=0.756,bg=171B21,fs=8.12,lh=14.70,padx=4.9,pady=4.9]{spread-objetos-nuevo.js}
+\end{frame}
+
+% 34
+\begin{frame}{¿Cómo podemos realizar tareas asíncronas?}\relax
+\utnpic[height=0.735\paperheight,keepaspectratio=false]{programming-pro-tip}{0.099}{0.209}{0.831}
+\end{frame}
+
+% 35
+\begin{frame}{Asincronía en JavaScript}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.1}{16.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item El runtime de Javascript solo puede ejecutar \textbf{una sola cosa a la vez}, es un lenguaje de programación single-threaded (un hilo) y por lo tanto sólo puede procesarse de a una instrucción.
+  \item Esto nos impone una limitante al tratar de realizar operaciones que se extienden en el tiempo como consultar APIs. 
+  \item Si nuestra función demora estaremos bloqueando el hilo principal 
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 36
+\begin{frame}{Asincronía en~JavaScript}\relax
+\utnpic{asincronia-diagrama}{0.054}{0.196}{0.884}
+\end{frame}
+
+% 37
+\begin{frame}{Asincronía en JavaScript}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.1}{16.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item ¿Cómo podría verse esta tarea en JS? --->
+\end{itemize}
+\endgroup
+\utnpic[height=0.166\paperheight,keepaspectratio=false]{tareas-secuencial}{0.724}{0.150}{0.266}
+\utncode[style=utnpromesas,x=0.034,y=0.316,w=0.938,h=0.588,bg=282C34,fs=10.12,lh=14.29,padx=7.6,pady=1.2]{busqueda-sincrona.js}
+\end{frame}
+
+% 38
+\begin{frame}{Asincronía en Javascript}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.2}{15.1}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{11.2}{13.9}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{10.3}{12.8}\selectfont}
+\begin{itemize}
+  \item ¿Cómo podemos modelar que estas tareas "\textbf{demoran}"? Es decir, ¿cómo modelamos esta asincronía de forma que a simple vista entendamos lo que sucede? -> \textbf{Promesas}
+\end{itemize}
+\endgroup
+\utncode[style=utnpromesas,x=0.089,y=0.414,w=0.822,h=0.515,bg=282C34,fs=8.86,lh=12.51,padx=6.7,pady=1.0]{busqueda-sincrona.js}
+\utnrect{utnYellow}{2.25}{.368}{.512}{.351}{.050}
+\utnrect{utnYellow}{2.25}{.355}{.743}{.544}{.050}
+\end{frame}
+
+% 39
+\begin{frame}{Modelando asincronía - Promesas}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.2}{16.6}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item En Javascript, una \textbf{Promise} es un objeto que \red{PUEDE} producir un valor en algún momento futuro. Se utilizan para representar la terminación o el fracaso de una operación asíncrona.
+  \item Admite 3 estados posibles:
+  \begin{itemize}
+    \item \textbf{\emoji{check} Completada}: La operación terminó exitosamente y tenemos nuestro valor
+    \item \textbf{\emoji{cross} Rechazada}: La operación terminó de manera no exitosa y puede contener el error como resultado.
+    \item \textbf{\emoji{hourglass} Pendiente}: La operación está en proceso, no sabemos si~terminará~como éxito o error.
+  \end{itemize}
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 40
+\begin{frame}{Modelando asincronía - Promesas}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.1}{14.2}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{11.2}{13.1}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{10.3}{12.1}\selectfont}
+\begin{itemize}
+  \item El objeto \textbf{Promise} expone 2 métodos
+  \begin{itemize}
+    \item \textbf{then}(value~=> \{\}): Recibe como argumento un función que será llamada cuando la promesa se complete con el valor recibido como parámetro.
+    \item \textbf{catch}(err? => \{\}): Recibe como argumento una función que se llamará en caso de que se rechace y puede tener un argumento con el tipo de error
+  \end{itemize}
+  \item Cuando usamos estos argumentos de funciones que se llaman una vez que la tarea es completada o se requiere de alguna acción decimos que estamos usando \textbf{callbacks}
+  \item El método \textbf{then} aplicado a una función devuelve otra promesa, esto nos permite \textbf{encadenarlas}.
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 41
+\begin{frame}{Modelando asincronía - Promesas}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.1}{16.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item Supongamos que tenemos un método \textbf{getUserInfo()} que utiliza una API de internet para recuperar los datos de un usuario. Esta tarea no es instantánea, ya que una consulta de red puede demorar varios segundos. Si nuestra función devuelve un objeto promise entonces podemos modelarlo de la siguiente manera:
+\end{itemize}
+\endgroup
+\utncode[style=utnpromesas,x=0.048,y=0.661,w=0.927,h=0.153,bg=282C34,fs=8.78,lh=12.37,padx=6.6,pady=1.9]{promesa-then.js}
+\end{frame}
+
+% 42
+\begin{frame}{Modelando asincronía - Promesas}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.1}{16.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item Si existen más funciones que deben ser llamadas, podemos encadenarlas con otro \textbf{then()}:
+  \item El método catch al final de nuestro ejemplo se ejecutará tanto si falla cualquiera de las funciones. También se permite \uline{encadenar diferentes catch}.
+\end{itemize}
+\endgroup
+\utncode[style=utnpromesas,x=0.039,y=0.568,w=0.922,h=0.360,bg=282C34,fs=8.05,lh=11.35,padx=3.8,pady=0.2]{promesa-encadenada.js}
+\end{frame}
+
+% 43
+\begin{frame}{Modelando asincronía - Promesas}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.1}{16.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item Desde ES6 existen las palabras claves~\textbf{async~}y~\textbf{await} que~junto a un bloque \textbf{try/catch} nos permite expresar el mismo código como:
+\end{itemize}
+\endgroup
+\utncode[style=utnpromesas,x=0.151,y=0.396,w=0.722,h=0.544,bg=282C34,fs=6.35,lh=8.95,padx=3.8,pady=2.2]{async-await.js}
+\utnrect{utnYellow}{2.25}{.329}{.503}{.056}{.030}
+\utnrect{utnYellow}{2.25}{.329}{.471}{.056}{.030}
+\utnrect{utnYellow}{2.25}{.290}{.405}{.056}{.030}
+\end{frame}
+
+% 44
+\begin{frame}{Modelando asincronía - Promesas}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.0}{13.6}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{11.1}{12.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{10.2}{11.5}\selectfont}
+\begin{itemize}
+  \item La keyword \textbf{await} funciona haciendo que, de alguna manera, la ejecución del código “espere” hasta que la promesa se resuelva y luego continúe retornando el resultado de la promesa.
+  \item No se puede utilizar \textbf{await} en funciones regulares. Solo en funciones asincrónicas, para esto es necesario que nuestra~función incluya la palabra clave \textbf{async} en su definición.
+  \item \red{Cuidado!} No usar el bloque \textbf{finally} de un \textbf{try/catch} cuando se utiliza \textbf{await} en promesas. \uline{En caso de hacerlo veremos como el bloque finally se ejecutará varias veces}, lo cual probablemente no sea el resultado esperado
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 45
+\begin{frame}\relax
+\utnpic[height=0.722\paperheight,keepaspectratio=false]{mucho-texto}{0.019}{0.173}{0.963}
+\end{frame}
+
+% 46
+\begin{utnfondo}
+  \utntitulo[utnYellow]{0.04}{0.265}{Ejemplo}
+  \utnnote[anchor=north west,align=justify,text width=.92\paperwidth,text=white,font=\fontsize{10.3}{12.4}\selectfont]{0.042}{0.412}{Implementar una función que reciba un monto en pesos argentinos (ARS) y retorne la cantidad de dólares oficiales a los que equivale, utilizando la cotización del último minuto.\\Extra: resolver lo mismo para el valor de dolar blue, en paralelo.}
+  \utnnote[anchor=north west,text width=.95\paperwidth,text=white,font=\fontsize{10.8}{14.1}\selectfont]{0.03}{0.678}{\yellow{Ejemplo:} pesosToUSD(6000) -> (asumiendo que 1 USD = 1400 ARS) \\ \yellow{Resultado:} 4.28 ARS}
+  \utnnote[anchor=north west,text width=.95\paperwidth,text=white,font=\fontsize{10.8}{14.1}\selectfont]{0.03}{0.943}{\yellow{Ayuda:} Utilizar \textbf{fetch(\{URL\})} para consultar a una API}
+\end{utnfondo}
+
+% 47
+\begin{frame}{Ejercicio}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{10.6}{13.1}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{6.9}{8.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{6.3}{7.9}\selectfont}
+{\fontsize{10.6}{13.1}\selectfont Implementar un script que consulte el \href{https://thesimpsonsapi.com/\#docs}{\uline{API de los simpsons}} y:\par}
+\begin{enumerate}
+  \item Obtenga los primeros 60 personajes (hay 20 por página)
+  \begin{enumerate}
+    \item \href{https://thesimpsonsapi.com/api/characters}{\uline{\code{https:/\allowbreak{}/\allowbreak{}thesimpsonsapi.com/\allowbreak{}api/\allowbreak{}characters}}}\uline{\code{?page=\{pagina\}}}
+  \end{enumerate}
+  \item Para cada personaje, obtenga el nombre del episodio en el cual apareció por primera vez
+  \begin{enumerate}
+    \item \href{https://thesimpsonsapi.com/api/characters/5}{\uline{\code{https:/\allowbreak{}/\allowbreak{}thesimpsonsapi.com/\allowbreak{}api/\allowbreak{}characters/\allowbreak{}}}}\uline{\code{\{id\}}}
+  \end{enumerate}
+  \item Y teniendo esta info, imprima el nombre de los episodios (evitando repetidos)
+\end{enumerate}
+{\fontsize{10.6}{13.1}\selectfont\mbox{}\par}
+\begin{itemize}
+  \item[-] Resolverlo primero con los métodos que proveen las Promises, y luego utilizando \textbf{async} y \textbf{await}. Puedes implementar todas las funciones que consideres útiles/necesarias
+  \item[-] \href{https://stackblitz.com/edit/node}{\uline{https:/\allowbreak{}/\allowbreak{}stackblitz.com/\allowbreak{}edit/\allowbreak{}node}}
+\end{itemize}
+\endgroup
+\end{frame}
+
+\end{document}
