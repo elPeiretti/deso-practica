@@ -1,0 +1,14 @@
+<style>
+  .error {
+    color: red;
+  }
+  .error.destacado {
+    color: blue;
+  }
+  .destacado {
+    font-size: 15px;
+  }
+  .especial {
+    font-weight: bold;
+  }
+</style>
