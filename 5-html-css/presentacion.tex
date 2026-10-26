@@ -1,0 +1,1322 @@
+% Introducción a HTML y CSS - Desarrollo de Software
+% Compilar con: latexmk   (ver .latexmkrc; usa XeLaTeX y el tema de resources/)
+\documentclass[aspectratio=43,10pt,t]{beamer}
+
+\usepackage[spanish,es-noshorthands]{babel}
+\usetheme{UTN}
+\usepackage{deck}
+\definecolor{ptNavyB}{HTML}{31394D}
+\definecolor{ptGray}{HTML}{666666}
+\setbeamersize{text margin left=0.017\paperwidth}
+\AtBeginDocument{\setlength{\leftmargini}{1.65em}}
+
+\hypersetup{pdftitle={Introducción a HTML y CSS - Desarrollo de Software},pdfauthor={UTN FRSF}}
+
+\begin{document}
+
+% 1
+\begin{utnfondo}
+  \utnnote[anchor=base west,text=white,font=\utnserif\fontsize{47}{52}\selectfont]{0.045}{0.284}{Introducción}
+  \utnnote[anchor=base west,text=white,font=\utnserif\fontsize{47}{52}\selectfont]{0.085}{0.487}{a HTML y CSS}
+  \utnsubtitulo{0.044}{0.625}{Desarrollo de Software}
+  \utnpic[height=0.262\paperheight,keepaspectratio=false]{html5-css3}{0.601}{0.679}{0.349}
+\end{utnfondo}
+
+% 2
+\begin{frame}\relax
+\utnpic[height=0.419\paperheight,keepaspectratio=false]{html-js-css}{0.237}{0.196}{0.536}
+\utnpic[height=0.419\paperheight,keepaspectratio=false]{html-js-css}{0.237}{0.196}{0.536}
+\utnrect{ptNavyB}{1}{0.020}{0.731}{0.946}{0.201}
+\utnnote[anchor=north west]{0.033}{0.742}{\begin{minipage}[t]{.92\paperwidth}\setbeamerfont{itemize/enumerate body}{size=\fontsize{10.7}{12.6}\selectfont}\fontsize{10.7}{12.6}\selectfont\begin{itemize}
+\item \textbf{HTML} describe la estructura un documento.
+\item \textbf{CSS} describe cómo debe visualizarse.
+\item \textbf{JavaScript} describe cómo debe responder a interacciones con el usuario.
+\end{itemize}\end{minipage}}
+\end{frame}
+
+% 3
+\begin{utnfondo}
+  \utnnote[anchor=base west,text=white,font=\utnserif\fontsize{51}{56}\selectfont]{0.044}{0.425}{HTML}
+  \utnnote[anchor=base west,text=white,font=\utnserif\fontsize{15.2}{18}\selectfont]{0.049}{0.509}{HyperText Markup language}
+  \utnpic[height=0.262\paperheight,keepaspectratio=false]{html5}{0.763}{0.688}{0.171}
+\end{utnfondo}
+
+% 4
+\begin{frame}{¿Qué es HTML?}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{16.4}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.1}{15.1}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{13.9}\selectfont}
+\begin{itemize}
+  \item\relax HTML es un lenguaje de etiquetado para describir páginas web.
+  \item\relax Contiene un conjunto de \textbf{tags} para definir porciones de una página que son interpretadas por un renderizador \flecha{} \textbf{Navegador WEB}
+  \item\relax Cada elemento de un tag describe contenido diferente.
+  \item\relax El propósito fundamental de HTML es proveer para un documento que se puede transferir a través de la WEB, una descripción de la semántica de su contenido y establecer la estructura del documento (jerarquía de los componentes).
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 5
+\begin{frame}{Estructura de un documento}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.7}{17.3}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{11.7}{15.9}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{10.7}{14.6}\selectfont}
+\begin{itemize}
+  \item\relax HTML define una \textbf{estructura principal} para un documento en formato de árbol
+\end{itemize}
+\endgroup
+\utnpic[height=0.482\paperheight,keepaspectratio=false]{estructura-documento}{0.045}{0.391}{0.439}
+\utnpic[height=0.548\paperheight,keepaspectratio=false]{head-body}{0.633}{0.355}{0.321}
+\utnpic[height=0.482\paperheight,keepaspectratio=false]{estructura-documento}{0.045}{0.391}{0.439}
+\utnpic[height=0.548\paperheight,keepaspectratio=false]{head-body}{0.633}{0.355}{0.321}
+\utnline[ptBlue,line width=0.6pt,->]{0.705}{0.463}{0.484}{0.523}
+\utnline[ptBlue,line width=0.6pt,->]{0.678}{0.740}{0.448}{0.716}
+\end{frame}
+
+% 6
+\begin{frame}\relax
+\utnnote[anchor=center,text=utnTitle,font=\utnserif\fontsize{12.9}{15.5}\selectfont]{0.4965}{0.1105}{Ejemplo HTML}
+
+\utncode[style=htmlvs,x=0.091,y=0.183,w=0.817,h=0.783,bg=FFFFFF,fs=5.90,lh=8.52,padx=27.0,pady=0.3,num=14.2]{ejemplo.html}
+\utnpic[height=0.0345\paperheight,keepaspectratio=false]{html5-icono}{0.098}{0.148}{0.0250}
+\utnnote[anchor=west,font=\fontsize{5.3}{6}\selectfont]{0.129}{0.166}{\color[HTML]{616161}mi\_primer\_pagina\_web.html\ \ >\ \ …}
+\end{frame}
+
+% 7
+\begin{frame}{Visualización}\relax
+\utnpic[height=0.525\paperheight,keepaspectratio=false]{visualizacion}{0.017}{0.259}{0.967}
+\end{frame}
+
+% 8
+\begin{frame}{DOCTYPE}\relax
+\begin{minipage}[t]{0.438\paperwidth}
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.2}{16.6}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{10.2}{13.8}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{9.3}{12.7}\selectfont}
+\begin{itemize}
+  \item\relax El tag <!DOCTYPE> es el primer elemento que aparece en un documento HTML5 y precisamente se utiliza para indicar esta característica al navegador \textbf{el tipo de documento que va a abrir}.
+  \item\relax Para un documento HTML se utiliza:
+  \begin{itemize}
+    \item\relax \textbf{\textcolor[HTML]{0F243E}{<!DOCTYPE html>.}}
+  \end{itemize}
+\end{itemize}
+\endgroup
+\end{minipage}
+\utncode[style=htmlvs,x=0.500,y=0.196,w=0.789,h=0.756,bg=FFFFFF,fs=5.70,lh=8.22,padx=26.0,pady=0.3,num=13.7]{ejemplo.html}
+\utnrect{ptGreen}{1.50}{0.511}{0.187}{0.208}{0.048}
+\end{frame}
+
+% 9
+\begin{frame}{Tag HTML}\relax
+\utnnote[anchor=west]{0.018}{0.500}{\begin{minipage}[t]{0.426\paperwidth}
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.1}{16.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item\relax Es la raíz de todo el documento e indica el inicio y fin del código HTML en el documento.\\
+\end{itemize}
+\endgroup
+\end{minipage}}
+\utncode[style=htmlvs,x=0.500,y=0.196,w=0.789,h=0.756,bg=FFFFFF,fs=5.70,lh=8.22,padx=26.0,pady=0.3,num=13.7]{ejemplo.html}
+\utnrect{ptGreen}{1.50}{0.512}{0.220}{0.208}{0.048}
+\end{frame}
+
+% 10
+\begin{frame}{Tag HEAD}\relax
+\begin{minipage}[t]{0.438\paperwidth}
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.1}{16.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item\relax Posee la información que describe al documento (metadatos) y la información de recursos necesarios para mostrar el documento correctamente, como por ejemplo la ubicación de hojas de estilos o archivos de script.
+\end{itemize}
+\endgroup
+\end{minipage}
+\utncode[style=htmlvs,x=0.500,y=0.196,w=0.789,h=0.756,bg=FFFFFF,fs=5.70,lh=8.22,padx=26.0,pady=0.3,num=13.7]{ejemplo.html}
+\utnrect{ptGreen}{1.50}{0.506}{0.250}{0.435}{0.129}
+\end{frame}
+
+% 11
+\begin{frame}{Tag META}\relax
+\begin{minipage}[t]{0.438\paperwidth}
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.2}{16.6}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item\relax El elemento "meta" permite definir diferentes tipos de metadata en el documento.
+  \item\relax Se coloca siempre en el "head" de una página.
+  \item\relax Los atributos posibles son:
+  \begin{itemize}
+    \item\relax name, content, charset, http-equiv
+  \end{itemize}
+\end{itemize}
+\endgroup
+\end{minipage}
+\utncode[style=htmlvs,x=0.500,y=0.196,w=0.789,h=0.756,bg=FFFFFF,fs=5.70,lh=8.22,padx=26.0,pady=0.3,num=13.7]{ejemplo.html}
+\utnrect{ptGreen}{1.50}{0.506}{0.250}{0.435}{0.129}
+\utnrect{red}{1.50}{0.522}{0.314}{0.402}{0.045}
+\end{frame}
+
+% 12
+\begin{frame}{Tag META}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.2}{16.6}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item\relax Otros atributos posibles de META Tags:
+  \begin{itemize}
+    \item\relax \textit{application name}: el nombre de la aplicación web de la cual la página actual es parte.
+    \item\relax \textit{author}: el autor de la página.
+    \item\relax \textit{description}: descripción de la página
+    \item\relax \textit{generator}: nombre del software que generó la página si fuese generada así.
+    \item\relax \textit{keywords}: lista separada por comas de strings que describen el contenido de la página.
+    \item\relax \textit{open graph tags}: para compartir en redes sociales
+  \end{itemize}
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 13
+\begin{frame}{Tag LINK}\relax
+\begin{minipage}[t]{0.438\paperwidth}
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{9.2}{11.5}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{8.5}{10.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{7.8}{9.7}\selectfont}
+\begin{itemize}
+  \item\relax {\fontsize{9.2}{11.5}\selectfont El tag <link> define la relación entre un documento y un recurso externo.\par}
+  \item\relax {\fontsize{8.5}{10.6}\selectfont "rel" especifica la relación entre el documento linkeado y el documento. Aquí puede ser de utilidad el atributo \textbf{“prefetch”} que un recurso se pueda cargar en los tiempos ociosos del navegador, lo que hace que se cargue más rápido la página en algunas ocasiones.\par}
+  \item\relax {\fontsize{8.5}{10.6}\selectfont "href" especifica la ubicación del recurso que puede ser una ruta absoluta o relativa.\par}
+  \item\relax {\fontsize{8.5}{10.6}\selectfont "type" especifica el tipo que soportará el recurso (json, xml, etc)\par}
+\end{itemize}
+\endgroup
+\end{minipage}
+\utncode[style=htmlvs,x=0.500,y=0.196,w=0.789,h=0.756,bg=FFFFFF,fs=5.70,lh=8.22,padx=26.0,pady=0.3,num=13.7]{ejemplo.html}
+\end{frame}
+
+% 14
+\begin{frame}{Tag LINK}\relax
+{\fontsize{13.2}{18.0}\selectfont ¿Como vamos a utilizarlo nosotros? Generalmente para importar nuestro archivo css con estilos\par}
+\utncode[style=htmlk,x=0.122,y=0.392,w=0.755,h=0.430,bg=FFFFFF,fs=8.61,lh=11.26,padx=26.4,pady=2.7,num=10.3]{link-css.html}
+\end{frame}
+
+% 15
+\begin{frame}{Tag SCRIPT}\relax
+\begin{minipage}[t]{0.438\paperwidth}
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.3}{15.2}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{11.3}{14.0}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{10.4}{12.9}\selectfont}
+\begin{itemize}
+  \item\relax El elemento <\textit{script>} permite incluir secuencias de comando, ya sea definidos en el documento o referenciados a un archivo externo y controlar su ejecución. El tipo de \textit{script} más usado es \textit{JavaScript}.
+  \item\relax Normalmente se lo utiliza dentro del elemento \textit{<head>}.
+\end{itemize}
+\endgroup
+\end{minipage}
+\utnnote[anchor=west]{0.506}{0.370}{\begin{minipage}[t]{0.426\paperwidth}
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{9.4}{11.7}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{9.4}{11.7}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{8.7}{10.8}\selectfont}
+\begin{itemize}
+  \item\relax Atributos:
+  \begin{itemize}
+    \item\relax \textit{\textbf{type}}: especifica el tipo de script, para ~~JavaScript puede ser omitido.
+    \item\relax \textit{\textbf{src}}: especifica la URL para un archivo script externo.
+    \item\relax \textit{\textbf{defer}}: le dice al navegador que no ejecute el script hasta que la página sea cargada completamente.
+    \item\relax \textit{\textbf{async}}:especifica que el script será ejecutado asincrónicamente cuando esté disponible.
+  \end{itemize}
+\end{itemize}
+\endgroup
+\end{minipage}}
+\utncode[style=htmlk,x=0.160,y=0.545,w=0.644,h=0.450,bg=FFFFFF,fs=5.72,lh=7.51,padx=17.6,pady=1.8,num=6.9]{script.html}
+\utnrect{ptGreen}{1.50}{0.132}{0.658}{0.677}{0.198}
+\end{frame}
+
+% 16
+\begin{frame}{Tag Body}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{11.5}{14.2}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{10.6}{13.1}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{9.7}{12.1}\selectfont}
+\begin{itemize}
+  \item\relax El elemento <body> de HTML representa el contenido de un documento HTML. 
+  \item\relax Solo puede haber un elemento <body> en un documento.
+  \item\relax Dentro de él, se define la estructura completa del documento a través de diferentes tags
+\end{itemize}
+\endgroup
+\utnpic[height=0.444\paperheight,keepaspectratio=false]{layout-body}{0.409}{0.500}{0.452}
+\utnpic[height=0.257\paperheight,keepaspectratio=false]{head-body}{0.132}{0.542}{0.151}
+\utnpic[height=0.444\paperheight,keepaspectratio=false]{layout-body}{0.409}{0.500}{0.452}
+\utnpic[height=0.257\paperheight,keepaspectratio=false]{head-body}{0.132}{0.542}{0.151}
+\utnline[ptBeige,line width=1.2pt]{0.264}{0.635}{0.408}{0.502}
+\utnline[ptBeige,line width=1.2pt]{0.269}{0.779}{0.414}{0.944}
+\end{frame}
+
+% 17
+\begin{frame}{Tag BODY}\relax
+\utncode[style=htmlvs,x=0.105,y=0.191,w=0.789,h=0.756,bg=FFFFFF,fs=5.70,lh=8.22,padx=26.0,pady=0.3,num=13.7]{ejemplo.html}
+\utnpic[height=0.280\paperheight,keepaspectratio=false]{visualizacion}{0.549}{0.191}{0.516}
+\utnrect{ptGreen}{1.50}{0.114}{0.374}{0.706}{0.544}
+\end{frame}
+
+% 18
+\begin{frame}{¿Que tags se pueden usar en el body?}\relax
+\utnnote[anchor=north west]{0.063}{0.270}{\begin{minipage}[t]{0.835\paperwidth}
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.1}{16.5}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{enumerate}
+  \item\relax Elementos que permiten definir secciones
+  \item\relax Elementos que permiten agrupar contenido
+  \item\relax Elementos que permiten dar “formato” al texto
+  \item\relax Elementos que permiten definir datos tabulares
+  \item\relax Elementos que permiten definir formularios
+\end{enumerate}
+\endgroup
+\end{minipage}}
+\utnpic[height=0.355\paperheight,keepaspectratio=false]{meme-programmer}{0.720}{0.601}{0.215}
+\end{frame}
+
+% 19
+\begin{frame}{Elementos semánticos para definir secciones}\relax
+\utnnote[anchor=north west]{0.035}{0.176}{\begingroup\setlength{\tabcolsep}{2pt}\renewcommand{\arraystretch}{1.0}\arrayrulewidth=0.6pt
+\begin{tabular}{|>{\raggedright\arraybackslash}p{0.201\paperwidth}|>{\raggedright\arraybackslash}p{0.712\paperwidth}|}
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/section}{\uline{<section>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Define una sección en un documento.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/nav}{\uline{<nav>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Define una sección que solamente contiene enlaces de navegación} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/article}{\uline{<article>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Define contenido autónomo que podría existir independientemente del resto del contenido.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/aside}{\uline{<aside>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Define algunos contenidos vagamente relacionados con el resto del contenido de la página. Si es removido, el contenido restante seguirá teniendo sentido} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/en-US/docs/HTML/Element/Heading_Elements}{\uline{<h1>,<h2>,<h3>,}}\href{https://developer.mozilla.org/en-US/docs/HTML/Element/Heading_Elements}{\uline{<h4>,<h5>,<h6>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Los elemento de cabecera ~implementan seis niveles de cabeceras de documentos;~<h1>~es la de mayor y~<h6>~es la de menor importancia. Un elemento de cabecera describe brevemente el tema de la sección que introduce.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/header}{\uline{<header>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Define la cabecera de una página o sección. Usualmente contiene un logotipo, el título del sitio Web y una tabla de navegación de contenidos.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/footer}{\uline{<footer>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Define el pie de una página o sección. Usualmente contiene un mensaje de derechos de autoría, algunos enlaces a información legal o direcciones para dar información de retroalimentación.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/address}{\uline{<address>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Define una sección que contiene información de contacto.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/main}{\uline{<main>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Define el contenido principal o importante en el documento. Solamente existe un elemento~<main>~en el documento.} \\
+\hline
+\end{tabular}\endgroup}
+\end{frame}
+
+% 20
+\begin{frame}{Elementos que permiten agrupar contenido}\relax
+\utnnote[anchor=north west]{0.047}{0.174}{\begingroup\setlength{\tabcolsep}{2pt}\renewcommand{\arraystretch}{1.0}\arrayrulewidth=0.6pt
+\begin{tabular}{|>{\raggedright\arraybackslash}p{0.169\paperwidth}|>{\raggedright\arraybackslash}p{0.705\paperwidth}|}
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/p}{\uline{<p>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Define una parte que debe mostrarse como un párrafo.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/hr}{\uline{<hr>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa un quiebre temático entre parrafos de una sección o articulo o cualquier contenido.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/pre}{\uline{<pre>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Indica que su contenido esta preformateado y que este formato debe ser preservado.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/blockquote}{\uline{<blockquote>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa una contenido citado desde otra fuente.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/ol}{\uline{<ol>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Define una lista ordenada de artículos.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/ul}{\uline{<ul>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Define una lista de artículos sin orden. \href{http://www.mclibre.org/consultar/htmlcss/html/html-listas.html}{\uline{http:/\allowbreak{}/\allowbreak{}www.mclibre.org/\allowbreak{}consultar/\allowbreak{}htmlcss/\allowbreak{}html/\allowbreak{}html-listas.html}}} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/li}{\uline{<li>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Define un artículo de una lista ennumerada.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/dl}{\uline{<dl>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Define una lista de definiciones, es decir, una lista de términos y sus definiciones asociadas.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/dt}{\uline{<dt>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa un término definido por el siguiente~<dd>.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/dd}{\uline{<dd>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa la definición de los terminos listados antes que él.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/figure}{\uline{<figure>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa una figura ilustrada como parte ~del documento.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/figcaption}{\uline{<figcaption>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa la leyenda de una figura.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/div}{\uline{<div>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa un contenedor genérico sin ningún significado especial.} \\
+\hline
+\end{tabular}\endgroup}
+\end{frame}
+
+% 21
+\begin{frame}{Semántica a nivel de Texto}\relax
+\utnnote[anchor=north west,align=left]{0.292}{0.956}{\fontsize{9.1}{10.9}\selectfont \href{http://www.mclibre.org/consultar/htmlcss/html/html-texto.html}{\uline{http:/\allowbreak{}/\allowbreak{}www.mclibre.org/\allowbreak{}consultar/\allowbreak{}htmlcss/\allowbreak{}html/\allowbreak{}html-texto.html}}}
+\utnnote[anchor=north west]{0.018}{0.175}{\begingroup\setlength{\tabcolsep}{2pt}\renewcommand{\arraystretch}{1.0}\arrayrulewidth=0.6pt
+\begin{tabular}{|>{\raggedright\arraybackslash}p{0.122\paperwidth}|>{\raggedright\arraybackslash}p{0.807\paperwidth}|}
+\hline
+{\fontsize{8.1}{9.7}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/a}{\uline{<a>}}} & {\fontsize{8.1}{9.7}\selectfont\raggedright Representa un~hiperenlace~, enlazando a otro recurso. (\href{http://www.mclibre.org/consultar/htmlcss/html/html-enlaces.html}{\uline{http:/\allowbreak{}/\allowbreak{}www.mclibre.org/\allowbreak{}consultar/\allowbreak{}htmlcss/\allowbreak{}html/\allowbreak{}html-enlaces.html}} ) } \\
+\hline
+{\fontsize{8.1}{9.7}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/em}{\uline{<em>}}} & {\fontsize{8.1}{9.7}\selectfont\raggedright Representa un texto~enfatizado~, como un acento de intensidad.} \\
+\hline
+{\fontsize{8.1}{9.7}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/strong}{\uline{<strong>}}} & {\fontsize{8.1}{9.7}\selectfont\raggedright Representa un texto especialmente~importante~.} \\
+\hline
+{\fontsize{8.1}{9.7}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/small}{\uline{<small>}}} & {\fontsize{8.1}{9.7}\selectfont\raggedright Representa un~comentario aparte~, es decir, textos como un descargo de responsabilidad o una nota de derechos de autoría, que no son esenciales para la comprensión del documento.} \\
+\hline
+{\fontsize{8.1}{9.7}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/time}{\uline{<time>}}} & {\fontsize{8.1}{9.7}\selectfont\raggedright Representa un valor de~fecha~y~hora; el equivalente legible por máquina puede ser representado en el atributo~datetime.} \\
+\hline
+{\fontsize{8.1}{9.7}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/code}{\uline{<code>}}} & {\fontsize{8.1}{9.7}\selectfont\raggedright Representa un~código de~ordenador~.} \\
+\hline
+{\fontsize{8.1}{9.7}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/sub}{\uline{<sub>}},\href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/sup}{\uline{<sup>}}} & {\fontsize{8.1}{9.7}\selectfont\raggedright Representan un~subíndice~y un~superíndice,~respectivamente.} \\
+\hline
+{\fontsize{8.1}{9.7}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/i}{\uline{<i>}}} & {\fontsize{8.1}{9.7}\selectfont\raggedright Representa un texto en una voz o estado de ánimo~alterno, o por lo menos de diferente calidad, como una designación taxonómica, un término técnico, una frase idiomática, un pensamiento o el nombre de un barco.} \\
+\hline
+{\fontsize{8.1}{9.7}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/b}{\uline{<b>}}} & {\fontsize{8.1}{9.7}\selectfont\raggedright Representa un texto hacia el cual se llama la atención para~propósitos utilitaros.~No confiere ninguna importancia adicional y no implica una voz alterna.} \\
+\hline
+{\fontsize{8.1}{9.7}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/u}{\uline{<u>}}} & {\fontsize{8.1}{9.7}\selectfont\raggedright Representa una anotación no textual~sin-articular, como etiquetar un texto como mal escrito o etiquetar un nombre propio en texto en Chino.} \\
+\hline
+{\fontsize{8.1}{9.7}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/span}{\uline{<span>}}} & {\fontsize{8.1}{9.7}\selectfont\raggedright Representa texto sin un significado específico. ~Este debe ser usado cuando~ningún otro~elemento semántico le confiere un significado adecuado, en cuyo caso, provendrá de atributos globales como~class,~lang, o~dir.} \\
+\hline
+{\fontsize{8.1}{9.7}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/br}{\uline{<br>}}} & {\fontsize{8.1}{9.7}\selectfont\raggedright Representa un~salto de línea.} \\
+\hline
+\end{tabular}\endgroup}
+\end{frame}
+
+% 22
+\begin{frame}{Datos tabulares}\relax
+\utnnote[anchor=north west]{0.022}{0.173}{\begingroup\setlength{\tabcolsep}{2pt}\renewcommand{\arraystretch}{1.0}\arrayrulewidth=0.6pt
+\begin{tabular}{|>{\raggedright\arraybackslash}p{0.122\paperwidth}|>{\raggedright\arraybackslash}p{0.815\paperwidth}|}
+\hline
+{\fontsize{10.2}{12.2}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/table}{\uline{<table>}}} & {\fontsize{12.2}{14.6}\selectfont\raggedright Representa~datos con más de una dimensión.} \\
+\hline
+{\fontsize{10.2}{12.2}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/caption}{\uline{<caption>}}} & {\fontsize{12.2}{14.6}\selectfont\raggedright Representa el~título de una tabla.} \\
+\hline
+{\fontsize{10.2}{12.2}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/colgroup}{\uline{<colgroup>}}} & {\fontsize{12.2}{14.6}\selectfont\raggedright Representa un~conjunto de una o más columnas~de una tabla.} \\
+\hline
+{\fontsize{10.2}{12.2}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/col}{\uline{<col>}}} & {\fontsize{12.2}{14.6}\selectfont\raggedright Representa una~columna~de una tabla.} \\
+\hline
+{\fontsize{10.2}{12.2}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/tbody}{\uline{<tbody>}}} & {\fontsize{12.2}{14.6}\selectfont\raggedright Representa el bloque de filas que describen los~datos contretos~de una tabla.} \\
+\hline
+{\fontsize{10.2}{12.2}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/thead}{\uline{<thead>}}} & {\fontsize{12.2}{14.6}\selectfont\raggedright Representa el bloque de filas que describen las~etiquetas de columna~de una tabla.} \\
+\hline
+{\fontsize{10.2}{12.2}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/tfoot}{\uline{<tfoot>}}} & {\fontsize{12.2}{14.6}\selectfont\raggedright Representa los bloques de filas que describen los~resúmenes de columna~de una tabla.} \\
+\hline
+{\fontsize{10.2}{12.2}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/tr}{\uline{<tr>}}} & {\fontsize{12.2}{14.6}\selectfont\raggedright Representa una~fila de celdas~en una tabla.} \\
+\hline
+{\fontsize{10.2}{12.2}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/td}{\uline{<td>}}} & {\fontsize{12.2}{14.6}\selectfont\raggedright Representa una~celda de datos~en una tabla.} \\
+\hline
+{\fontsize{10.2}{12.2}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/th}{\uline{<th>}}} & {\fontsize{12.2}{14.6}\selectfont\raggedright Representa una~celda encabezado~en una tabla.~} \\
+\hline
+\end{tabular}\endgroup}
+\end{frame}
+
+% 23
+\begin{frame}{Elementos de formularios}\relax
+\utnnote[anchor=north west,align=left]{0.063}{0.898}{\fontsize{9.1}{10.9}\selectfont \href{http://www.mclibre.org/consultar/htmlcss/html/html-formularios.html}{\uline{http:/\allowbreak{}/\allowbreak{}www.mclibre.org/\allowbreak{}consultar/\allowbreak{}ht\\mlcss/\allowbreak{}html/\allowbreak{}html-formularios.html}}}
+\utnnote[anchor=north west]{0.020}{0.193}{\begingroup\setlength{\tabcolsep}{2pt}\renewcommand{\arraystretch}{1.0}\arrayrulewidth=0.6pt
+\begin{tabular}{|>{\raggedright\arraybackslash}p{0.138\paperwidth}|>{\raggedright\arraybackslash}p{0.799\paperwidth}|}
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/form}{\uline{<form>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa un~formulario, consistiendo de controles que puede ser enviado a un servidor para procesamiento.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/fieldset}{\uline{<fieldset>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa un~conjunto de controles.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/legend}{\uline{<legend>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa el~título~de un~<fieldset>.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/label}{\uline{<label>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa el~título~de un control de formulario.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/input}{\uline{<input>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa un~campo de datos escrito~que permite al usuario editar los datos.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/button}{\uline{<button>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa un~botón~.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/select}{\uline{<select>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa un control que permite la~selección entre un conjunto de opciones.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/option}{\uline{<option>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa una~opción~en un elemento~<select>, o una sugerencia de un elemento~<datalist>.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/textarea}{\uline{<textarea>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa un~control de edición de texto multi-línea.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/progress}{\uline{<progress>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa el~progreso de finalización~de una tarea.} \\
+\hline
+{\fontsize{9.1}{11.0}\selectfont\raggedright \href{https://developer.mozilla.org/es/docs/Web/HTML/Elemento/meter}{\uline{<meter>}}} & {\fontsize{9.1}{11.0}\selectfont\raggedright Representa la~medida~escalar (o el valor fraccionario) dentro de un rango conocido.} \\
+\hline
+\end{tabular}\endgroup}
+\end{frame}
+
+% 24
+\begin{frame}{Ejercicio}\relax
+\utnpic[height=0.783\paperheight,keepaspectratio=false]{desotravel}{0.141}{0.192}{0.718}
+\utnrect{ptGray}{0.38}{0.141}{0.192}{0.718}{0.783}
+\end{frame}
+
+% 25
+\begin{frame}{Formularios}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.2}{15.1}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{11.3}{14.0}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{10.4}{12.9}\selectfont}
+\begin{itemize}
+  \item\relax Los formularios en HTML son elementos que usamos para capturar la entrada del usuario de diversas maneras.
+  \item\relax Un formulario HTML es una sección de un documento que contiene contenido normal, código, elementos especiales llamados \href{http://html.conclase.net/w3c/html401-es/interact/forms.html\#form-controls}{\uline{\textit{controles}}} (checkboxes, radiobotones, menúes, etc.), y rótulos (labels) en esos controles. 
+  \item\relax Los usuarios "completan" un formulario modificando sus controles 
+  \begin{itemize}
+    \item\relax introduciendo texto
+    \item\relax seleccionando objetos de un menú
+    \item\relax etc.
+  \end{itemize}
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 26
+\begin{frame}{Botones}\relax
+\begin{minipage}[t]{0.458\paperwidth}
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{11.1}{13.7}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{10.2}{12.7}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{9.4}{11.7}\selectfont}
+\begin{itemize}
+  \item\relax Botones
+  \begin{itemize}
+    \item\relax botones \textbf{de envío} (type=”submit”): envía un formulario. 
+    \item\relax botones \textbf{de reinicialización} (type=”reset”): reinicia todos los controles a sus valores iniciales.
+    \item\relax botones \textbf{pulsadores} (type=”button”): no tienen un comportamiento por defecto. Cada botón pulsador puede tener asociados scripts en el lado del cliente
+  \end{itemize}
+\end{itemize}
+\endgroup
+\end{minipage}
+\utncode[style=htmlk,x=0.498,y=0.222,w=0.502,h=0.229,bg=FFFFFF,fs=3.91,lh=5.56,padx=12.9,pady=-0.1,num=4.7]{botones.html}
+\utnpic[height=0.255\paperheight,keepaspectratio=false]{botones-resultado}{0.584}{0.555}{0.308}
+\utnrect{ptGray}{0.75}{0.584}{0.555}{0.308}{0.255}
+\end{frame}
+
+% 27
+\begin{frame}{Input}\relax
+\begin{minipage}[t]{0.458\paperwidth}
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{8.1}{11.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{8.1}{11.0}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{7.5}{10.2}\selectfont}
+\begin{itemize}
+  \item\relax Input es muy útil para los formularios, ya que permite ingresar diferentes tipos de datos. Es posible utilizarlo como: 
+  \begin{itemize}
+    \item\relax entrada de texto
+    \item\relax entrada de password
+    \item\relax checkbox
+    \item\relax radio
+    \item\relax file
+    \item\relax y otros…. 
+  \end{itemize}
+  \item\relax El tipo de control se define en el type, y su valor por defecto es "text".
+  \item\relax El atributo name asigna el nombre de control.
+  \item\relax El atributo value especifica el valor inicial del control. Es opcional excepto cuando el atributo type tenga el valor "radio" o "checkbox".
+\end{itemize}
+\endgroup
+\end{minipage}
+\utncode[style=htmlk,x=0.514,y=0.196,w=0.467,h=0.344,bg=FFFFFF,fs=3.65,lh=5.20,padx=12.9,pady=0.1,num=5.2]{input.html}
+\utnpic[height=0.289\paperheight,keepaspectratio=false]{input-resultado}{0.545}{0.612}{0.403}
+\end{frame}
+
+% 28
+\begin{frame}{Radio buttons}\relax
+\begin{minipage}[t]{0.458\paperwidth}
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{10.2}{12.7}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{9.4}{11.7}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{8.7}{10.8}\selectfont}
+\begin{itemize}
+  \item\relax <input type=”radio” name=”opciones”...>
+  \item\relax Los botones de radio son como los checkboxes, excepto en que cuando varios comparten el mismo nombre de control, son mutuamente exclusivos: 
+  \begin{itemize}
+    \item\relax cuando uno está "encendido", todos los demás con el mismo nombre se "apagan". 
+  \end{itemize}
+  \item\relax Si ninguno de los elementos \textcolor[HTML]{E50000}{<input>} de un conjunto de botones de radio especifica 'CHECKED', entonces el navegador debe marca el primer botón del conjunto inicialmente.
+\end{itemize}
+\endgroup
+\end{minipage}
+\utncode[style=htmlk,x=0.500,y=0.185,w=0.466,h=0.543,bg=FFFFFF,fs=3.55,lh=5.05,padx=12.5,pady=0.7,num=5.0]{radio.html}
+\utnpic[height=0.278\paperheight,keepaspectratio=false]{radio-resultado}{0.586}{0.700}{0.294}
+\utnrect{ptGreen}{1.50}{0.596}{0.390}{0.303}{0.205}
+\end{frame}
+
+% 29
+\begin{frame}{Formularios: ¿Cómo los utilizamos?}\relax
+\begin{minipage}[t]{0.424\paperwidth}
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{11.2}{15.2}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{9.1}{12.4}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{8.4}{11.4}\selectfont}
+\begin{itemize}
+  \item\relax El tag \textcolor[HTML]{E50000}{<form>} permite definir una función a ejecutar cuando se presione algún botón de envío (type submit)
+  \begin{itemize}
+    \item\relax ó se presiona enter dentro de algún input
+    \item\relax ó un script llama al método requestSubmit() del form
+  \end{itemize}
+  \item\relax Esta función se define a través de la propiedad \textbf{onSubmit}
+\end{itemize}
+\endgroup
+\end{minipage}
+\utncode[style=htmlk,x=0.475,y=0.206,w=0.525,h=0.369,bg=FFFFFF,fs=4.08,lh=5.82,padx=11.9,pady=0.1,num=3.4]{onsubmit.html}
+\utnpic[height=0.140\paperheight,keepaspectratio=false]{consola-submit}{0.410}{0.716}{0.575}
+\end{frame}
+
+% 30
+\begin{frame}{Ejemplo}\relax
+\utncode[style=htmlk,x=0.031,y=0.195,w=0.784,h=0.604,bg=FFFFFF,fs=6.99,lh=9.15,padx=34.2,pady=0.2,num=12.7,first=56]{form-action.html}
+\utnpic[height=0.298\paperheight,keepaspectratio=false]{formulario-resultado}{0.614}{0.678}{0.362}
+\end{frame}
+
+% 31
+\begin{frame}{Más sobre forms}\relax
+\utnnote[anchor=center,font=\fontsize{8.1}{9.7}\selectfont]{0.500}{0.500}{\href{https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms}{\uline{https:/\allowbreak{}/\allowbreak{}developer.mozilla.org/\allowbreak{}en-US/\allowbreak{}docs/\allowbreak{}Learn\_web\_development/\allowbreak{}Extensions/\allowbreak{}Forms}}}
+\end{frame}
+
+% 32
+\begin{utnfondo}
+  \utnnote[anchor=base west,text=white,font=\utnserif\fontsize{51}{56}\selectfont]{0.044}{0.425}{CSS}
+  \utnnote[anchor=base west,text=white,font=\utnserif\fontsize{15.2}{18}\selectfont]{0.049}{0.509}{Cascading Style Sheets}
+  \utnpic[height=0.262\paperheight,keepaspectratio=false]{css3}{0.763}{0.688}{0.171}
+\end{utnfondo}
+
+% 33
+\begin{frame}{CSS3}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{11.3}{14.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{10.4}{12.9}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{9.5}{11.8}\selectfont}
+\begin{itemize}
+  \item\relax CSS es el acrónimo de \textit{Cascading Style Sheets}.
+  \item\relax Es un mecanismo que permite configurar mediante una sintaxis muy sencilla, las propiedades visuales de cualquier elemento HTML, como \textbf{fuentes, colores, bordes, márgenes, dimensión}, etc.
+  \item\relax Permite de manera sencilla separar la estructura y el contenido de la forma en que se presenta.
+  \item\relax Los estilos CSS se pueden definir en un archivo separado o en el mismo documento.
+  \item\relax Una hoja de estilo se compone de una lista de reglas las cuales cada una posee uno o más~\textit{selectores}~y un~\textit{bloque de declaración}
+  \item\relax CSS3 no es parte de la especificación HTML5, \textbf{pero es una tecnología clave cuando escribimos aplicaciones basadas en HTML5.}
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 34
+\begin{frame}{Definiendo una regla CSS}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{9.1}{10.7}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{9.1}{10.7}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{8.4}{9.8}\selectfont}
+\begin{itemize}
+  \item\relax Regla: cada uno de los estilos que componen una hoja de estilos CSS. 
+  \begin{itemize}
+    \item\relax Cada regla está compuesta de una parte de "selectores", un símbolo de "llave de apertura" (\{), otra parte denominada "declaración" y por último, un símbolo de "llave de cierre" (\}).
+  \end{itemize}
+  \item\relax Selector: indica el/los elemento/s a los que se aplica la regla CSS.
+  \item\relax Declaración: especifica el/los estilo/s que se aplican a los elementos.
+  \item\relax Propiedad: característica que se modifica en el elemento seleccionado.
+  \item\relax Valor: establece el nuevo valor de la característica modificada en el elemento.
+\end{itemize}
+\endgroup
+\utnpic[height=0.369\paperheight,keepaspectratio=false]{regla-css}{0.121}{0.603}{0.498}
+\utnpic[height=0.369\paperheight,keepaspectratio=false]{html-css-casa}{0.694}{0.603}{0.220}
+\end{frame}
+
+% 35
+\begin{frame}{Selectores}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.2}{15.8}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{10.2}{13.2}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{9.3}{12.1}\selectfont}
+\begin{itemize}
+  \item\relax Cuando queremos definir un estilo para un elemento HTML, lo que define CSS son reglas para seleccionar el elemento en cuestión que se denominan, \textbf{selectores.}
+  \item\relax Existen distintos tipos de selectores.
+  \item\relax \textbf{Selector universal: *}
+  \begin{itemize}
+    \item\relax {\fontsize{10.2}{13.2}\selectfont Selecciona todos los elementos de la página.\par}
+    \item\relax {\fontsize{10.2}{13.2}\selectfont Por ejemplo eliminar el margen y el relleno de todos los elementos HTML:\par}
+  \end{itemize}
+  \begin{enumerate}
+    \item\relax {\fontsize{9.1}{11.9}\selectfont \textit{\textbf{* \{}}\par}
+    \item\relax {\fontsize{9.1}{11.9}\selectfont  ~\textit{\textbf{margin: 0;}}\par}
+    \item\relax {\fontsize{9.1}{11.9}\selectfont  ~\textit{\textbf{padding: 0;}}\par}
+    \item\relax {\fontsize{9.1}{11.9}\selectfont \textit{\textbf{\}}}\par}
+  \end{enumerate}
+  \begin{itemize}
+    \item\relax {\fontsize{9.1}{11.9}\selectfont \textit{Su uso no es muy común de manera aislada, pero sí en combinación con otros selectores.}\par}
+  \end{itemize}
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 36
+\begin{frame}{Ejemplo del Selector universal}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{10.2}{13.8}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{9.3}{12.7}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{8.6}{11.7}\selectfont}
+\begin{itemize}
+  \item\relax Sin utilizar CSS:
+\end{itemize}
+{\fontsize{9.5}{13.0}\selectfont\mbox{}\par}
+{\fontsize{9.5}{13.0}\selectfont\mbox{}\par}
+{\fontsize{9.5}{13.0}\selectfont\mbox{}\par}
+{\fontsize{9.5}{13.0}\selectfont\mbox{}\par}
+{\fontsize{9.5}{13.0}\selectfont\mbox{}\par}
+{\fontsize{9.5}{13.0}\selectfont\mbox{}\par}
+\begin{itemize}
+  \item\relax Con el ejemplo anterior:
+\end{itemize}
+\endgroup
+\utncode[style=css,x=0.045,y=0.659,w=0.200,h=0.246,bg=FFFFFF,fs=7.37,lh=10.71,padx=4.7,pady=0.8]{css-universal.css}
+\utnrect{ptGray}{0.75}{0.045}{0.659}{0.200}{0.246}
+\utnpic[height=0.347\paperheight,keepaspectratio=false]{universal-sin-css}{0.311}{0.196}{0.642}
+\utnrect{ptGray}{0.75}{0.311}{0.196}{0.642}{0.347}
+\utnpic[height=0.276\paperheight,keepaspectratio=false]{universal-con-css}{0.311}{0.644}{0.656}
+\utnrect{ptGray}{0.75}{0.311}{0.644}{0.656}{0.276}
+\end{frame}
+
+% 37
+\begin{frame}{Selectores}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.2}{16.6}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item\relax \textbf{Selector de tipo o etiqueta:}
+  \begin{itemize}
+    \item\relax Selecciona todos los elementos de la página cuya etiqueta HTML coincide con el valor del selector. El siguiente ejemplo selecciona todos los párrafos de la página
+    \item\relax Para utilizar este selector, solamente es necesario indicar el \textbf{nombre de una etiqueta HTML} (\textit{sin los caracteres < >}).
+    \item\relax El siguiente ejemplo aplica diferentes estilos a los titulares y a los párrafos de una página HTML:
+    \begin{itemize}
+      \item\relax h1 \{ ~~color: red; \}
+      \item\relax h2 \{ ~color: blue; \}
+      \item\relax  p \{ ~~color: black; \}
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 38
+\begin{frame}{Ejemplo del Selector de tipo o etiqueta}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{10.2}{13.8}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{9.3}{12.7}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{8.6}{11.7}\selectfont}
+\begin{itemize}
+  \item\relax Sin utilizar CSS:
+\end{itemize}
+{\fontsize{9.4}{12.8}\selectfont\mbox{}\par}
+{\fontsize{9.4}{12.8}\selectfont\mbox{}\par}
+{\fontsize{9.4}{12.8}\selectfont\mbox{}\par}
+{\fontsize{9.4}{12.8}\selectfont\mbox{}\par}
+{\fontsize{9.4}{12.8}\selectfont\mbox{}\par}
+{\fontsize{9.4}{12.8}\selectfont\mbox{}\par}
+\begin{itemize}
+  \item\relax Con el ejemplo anterior:
+\end{itemize}
+\endgroup
+\utncode[style=css,x=0.032,y=0.630,w=0.180,h=0.331,bg=FFFFFF,fs=5.68,lh=8.11,padx=2.2,pady=-0.1]{css-tipo.css}
+\utnrect{ptGray}{0.75}{0.032}{0.630}{0.180}{0.331}
+\utnpic[height=0.347\paperheight,keepaspectratio=false]{tipo-sin-css}{0.301}{0.196}{0.642}
+\utnrect{ptGray}{0.75}{0.301}{0.196}{0.642}{0.347}
+\utnpic[height=0.354\paperheight,keepaspectratio=false]{tipo-con-css}{0.301}{0.619}{0.648}
+\utnrect{ptGray}{0.75}{0.301}{0.619}{0.648}{0.354}
+\end{frame}
+
+% 39
+\begin{frame}{Selectores}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.2}{15.1}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{9.4}{11.6}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{8.6}{10.7}\selectfont}
+\begin{itemize}
+  \item\relax {\fontsize{12.2}{15.1}\selectfont \textbf{Selectores de etiqueta agrupados}: si queremos aplicar el mismo estilo a más de una etiqueta, podemos indicarlo separándolos por \textbf{coma}:\par}
+  \begin{enumerate}
+    \item\relax \textbf{\textcolor[HTML]{0070C0}{h1, h2, h3}} \textcolor[HTML]{0070C0}{\{}
+    \item\relax  ~\textcolor[HTML]{0070C0}{color: \#8A8E27;}
+    \item\relax  ~\textcolor[HTML]{0070C0}{font-family: Arial, Helvetica, sans-serif;}
+    \item\relax \textcolor[HTML]{0070C0}{\}}
+  \end{enumerate}
+  \item\relax {\fontsize{12.2}{15.1}\selectfont \textbf{Selector descendente:} \textbf{{\fontsize{10.2}{13.2}\selectfont s}}{\fontsize{10.2}{13.2}\selectfont elecciona los elementos que se encuentran dentro de otros elementos. Un elemento es descendiente de otro cuando se encuentra entre las etiquetas de apertura y de cierre del otro elemento.}\par}
+  \item\relax {\fontsize{9.4}{11.6}\selectfont Ejemplo: aplicar un estilo a todos los elementos <span> que estén dentro de un elemento <p> (aunque no necesariamente de forma directa)\par}
+\end{itemize}
+\begin{enumerate}
+  \item\relax {\fontsize{9.4}{11.6}\selectfont \textbf{\textcolor[HTML]{0070C0}{p span}} \textcolor[HTML]{0070C0}{\{ color: red; \}}\par}
+\end{enumerate}
+\endgroup
+\end{frame}
+
+% 40
+\begin{frame}{Ejemplo del Selector de etiqueta agrupados}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{10.2}{13.8}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{9.3}{12.7}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{8.6}{11.7}\selectfont}
+\begin{itemize}
+  \item\relax Utilizando el HTML\\anterior:
+\end{itemize}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+\begin{itemize}
+  \item\relax Resultado:
+\end{itemize}
+\endgroup
+\utncode[style=css,x=0.351,y=0.196,w=0.604,h=0.345,bg=FFFFFF,fs=7.99,lh=11.51,padx=3.7,pady=0.4]{css-agrupados.css}
+\utnrect{ptGray}{0.75}{0.351}{0.196}{0.604}{0.345}
+\utnpic[height=0.315\paperheight,keepaspectratio=false]{agrupados-resultado}{0.314}{0.617}{0.642}
+\utnrect{ptGray}{0.75}{0.314}{0.617}{0.642}{0.315}
+\utnnote[anchor=north west,align=center,text width=0.251\paperwidth,inner sep=2pt,fill=ptCallout,rounded corners=7pt,text=white,minimum height=0.240\paperheight,minimum width=0.263\paperwidth]{0.022}{0.650}{\fontsize{7.1}{8.5}\selectfont Importante la separación por COMAS ( , ) \\ Si no se confundirá con el otro selector}
+\end{frame}
+
+% 41
+\begin{frame}{Ejemplo del Selector descendente}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{10.2}{13.8}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{9.3}{12.7}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{8.6}{11.7}\selectfont}
+\begin{itemize}
+  \item\relax Utilizando el CSS\\del ejemplo \\anterior:
+\end{itemize}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+\begin{itemize}
+  \item\relax Resultado:
+\end{itemize}
+\endgroup
+\utncode[style=htmlsin,x=0.314,y=0.182,w=0.639,h=0.401,bg=FFFFFF,fs=6.37,lh=9.13,padx=4.2,pady=-0.2]{body-descendente.html}
+\utnrect{ptGray}{0.75}{0.314}{0.182}{0.639}{0.401}
+\utncode[style=css,x=0.032,y=0.687,w=0.289,h=0.246,bg=FFFFFF,fs=9.12,lh=12.97,padx=5.4,pady=0.5]{css-descendente.css}
+\utnrect{ptGray}{0.75}{0.032}{0.687}{0.289}{0.246}
+\utnpic[height=0.171\paperheight,keepaspectratio=false]{descendente-resultado}{0.352}{0.762}{0.621}
+\utnrect{ptGray}{0.75}{0.352}{0.762}{0.621}{0.171}
+\utnnote[anchor=north west,align=center,text width=0.496\paperwidth,inner sep=2pt,fill=ptCallout,rounded corners=7pt,text=white,minimum height=0.072\paperheight,minimum width=0.508\paperwidth]{0.389}{0.624}{\fontsize{7.1}{8.5}\selectfont Sin comas se interpreta como selector descendente}
+\end{frame}
+
+% 42
+\begin{frame}{Selectores}\relax
+\utnnote[anchor=north west]{0.037}{0.194}{\begin{minipage}[t]{0.907\paperwidth}
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{11.6}{14.4}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{8.7}{10.8}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{8.0}{9.9}\selectfont}
+\begin{itemize}
+  \item\relax \textbf{Selector de clase:}  podemos definir un estilo con un nombre de clase específico y luego aplicárselo al atributo “class” de cualquier elemento HTML.
+  \item\relax Por ejemplo si definimos el estilo destacado como
+  \begin{itemize}
+    \item\relax \textbf{\textcolor[HTML]{244061}{.destacado \{ color: red; \}}}
+  \end{itemize}
+  \item\relax Luego podemos usarlo en un documento HTML
+  \begin{enumerate}
+    \item\relax <body>
+    \item\relax  ~\textbf{\red{<p class="destacado">Lorem ipsum dolor sit amet...</p>}}
+    \item\relax  ~<p>Nunc sed lacus et est adipiscing accumsan...</p>
+    \item\relax </body>
+  \end{enumerate}
+\end{itemize}
+\endgroup
+\end{minipage}}
+\utnnote[anchor=north west,align=center,text width=0.413\paperwidth,inner sep=2pt,fill=ptNavy,draw=ptLine,line width=1.0pt,rounded corners=8pt,text=white,minimum height=0.193\paperheight,minimum width=0.425\paperwidth]{0.031}{0.772}{\fontsize{8.1}{9.7}\selectfont El selector .destacado se interpreta como "cualquier elemento de la página cuyo atributo class sea igual a destacado"}
+\utnnote[anchor=north west,align=center,text width=0.445\paperwidth,inner sep=2pt,fill=ptNavy,draw=ptLine,line width=1.0pt,rounded corners=8pt,text=white,minimum height=0.193\paperheight,minimum width=0.457\paperwidth]{0.500}{0.772}{\fontsize{8.1}{9.7}\selectfont Este selector permite en una misma página HTML que varios elementos diferentes utilicen el mismo valor en el atributo class}
+\end{frame}
+
+% 43
+\begin{frame}{Ejemplo del Selector de clase}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{10.2}{13.8}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{9.3}{12.7}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{8.6}{11.7}\selectfont}
+\begin{itemize}
+  \item\relax HTML:
+\end{itemize}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+\begin{itemize}
+  \item\relax Con el CSS del ejemplo anterior:
+\end{itemize}
+\endgroup
+\utncode[style=htmlsin,x=0.171,y=0.272,w=0.809,h=0.220,bg=FFFFFF,fs=8.20,lh=11.77,padx=6.5,pady=-0.3]{body-clase.html}
+\utnrect{ptGray}{0.75}{0.171}{0.272}{0.809}{0.220}
+\utncode[style=css,x=0.039,y=0.652,w=0.336,h=0.283,bg=FFFFFF,fs=10.63,lh=15.28,padx=11.6,pady=-0.9]{css-clase.css}
+\utnrect{ptGray}{0.75}{0.039}{0.652}{0.336}{0.283}
+\utnpic[height=0.237\paperheight,keepaspectratio=false]{clase-resultado}{0.421}{0.664}{0.469}
+\utnrect{ptGray}{0.75}{0.421}{0.664}{0.469}{0.237}
+\end{frame}
+
+% 44
+\begin{frame}{Selectores}\relax
+\utnnote[anchor=north west]{0.025}{0.180}{\begin{minipage}[t]{0.919\paperwidth}
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{15.8}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.2}{14.6}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{13.4}\selectfont}
+\begin{itemize}
+  \item\relax {\fontsize{13.2}{15.8}\selectfont Selector de clase combinado con etiqueta: \textit{{\fontsize{10.2}{13.2}\selectfont Aplicar una fuente “roja” solo a los elementos de tipo “p” que tienen un atributo class con valor “destacado”}}\par}
+  \begin{itemize}
+    \item\relax p.destacado \{ color: red \}
+  \end{itemize}
+  \item\relax {\fontsize{10.2}{12.2}\selectfont En cambio si queremos aplicarlo a cualquier elemento que tenga como valor del atributo class “destacado” y que esté dentro de un elemento <p>, en lugar de usar el punto dejamos un espacio.\par}
+  \begin{itemize}
+    \item[]
+    \begin{itemize}
+      \item\relax p destacado \{ color: red \}
+    \end{itemize}
+  \end{itemize}
+  \item\relax {\fontsize{10.2}{12.2}\selectfont Combinar selectores\par}
+\end{itemize}
+\endgroup
+\end{minipage}}
+\utnline[ptBeige,line width=1.5pt]{0.381}{0.697}{0.446}{0.651}
+\utnline[ptBeige,line width=1.5pt]{0.708}{0.746}{0.708}{0.816}
+\utnnote[anchor=north west,align=left,text width=0.391\paperwidth,inner sep=2pt,fill=ptNavy,draw=ptLine,line width=1.0pt,text=white,minimum height=0.238\paperheight,minimum width=0.403\paperwidth]{0.027}{0.689}{\fontsize{8.1}{9.7}\selectfont 1.~.error \{ color: red; \} \\ 2.~.error.destacado \{ color: blue; \} \\ 3.~.destacado \{ font-size: 15px; \} \\ 4.~.especial ~\{ font-weight: bold; \}}
+\utnnote[anchor=north west,align=center,text width=0.517\paperwidth,inner sep=2pt,fill=ptNavy,draw=ptLine,line width=1.0pt,rounded corners=8pt,text=white,minimum height=0.117\paperheight,minimum width=0.529\paperwidth]{0.452}{0.610}{\fontsize{9.1}{10.9}\selectfont <p class="especial destacado error">texto...</p>}
+\utnnote[anchor=north west,align=center,text width=0.517\paperwidth,inner sep=2pt,fill=white,draw=ptNavy,line width=1.0pt,text=ptNavy,minimum height=0.133\paperheight,minimum width=0.529\paperwidth]{0.452}{0.835}{\fontsize{9.1}{10.9}\selectfont Se mostrará en azul dado que selecciona .error.destacado que \textbf{es más específico}}
+\end{frame}
+
+% 45
+\begin{frame}{Ejemplo del Selectores combinados}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{10.2}{13.8}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{9.3}{12.7}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{8.6}{11.7}\selectfont}
+\begin{itemize}
+  \item\relax HTML:
+\end{itemize}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+\begin{itemize}
+  \item\relax CSS:\\Resultado:
+\end{itemize}
+\endgroup
+\utncode[style=htmlsin,x=0.047,y=0.266,w=0.921,h=0.160,bg=FFFFFF,fs=9.96,lh=14.18,padx=4.0,pady=0.3]{body-combinados.html}
+\utnrect{ptGray}{0.75}{0.047}{0.266}{0.921}{0.160}
+\utncode[style=css,x=0.175,y=0.471,w=0.262,h=0.492,bg=FFFFFF,fs=6.63,lh=9.60,padx=4.4,pady=-0.3]{css-combinados.css}
+\utnrect{ptGray}{0.75}{0.175}{0.471}{0.262}{0.492}
+\utnpic[height=0.141\paperheight,keepaspectratio=false]{combinados-resultado}{0.656}{0.639}{0.262}
+\utnrect{ptGray}{0.75}{0.656}{0.639}{0.262}{0.141}
+\end{frame}
+
+% 46
+\begin{frame}{Selectores}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.2}{16.6}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item\relax \textbf{Selectores de ID}: En ocasiones, es necesario aplicar estilos CSS a \textbf{un único elemento de la página}. Aunque puede utilizarse un selector de clase para aplicar estilos a un único elemento, existe otro selector más eficiente en este caso.
+  \item\relax El selector de ID permite seleccionar un elemento de la página a través del valor de su atributo id. 
+  \item\relax La sintaxis es similar a la del selector de estilo, pero en lugar del prefijo “.” utiliza el prefijo “\#”.
+  \begin{itemize}
+    \item\relax \#destacado \{ color: red; \}
+  \end{itemize}
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 47
+\begin{frame}{Ejemplo del Selectores combinados}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{10.2}{13.8}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{9.3}{12.7}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{8.6}{11.7}\selectfont}
+\begin{itemize}
+  \item\relax HTML:
+\end{itemize}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+\begin{itemize}
+  \item\relax CSS:\\Resultado:
+\end{itemize}
+\endgroup
+\utncode[style=htmlsin,x=0.185,y=0.218,w=0.749,h=0.170,bg=FFFFFF,fs=8.10,lh=11.57,padx=4.3,pady=-0.5]{body-id.html}
+\utnrect{ptGray}{0.75}{0.185}{0.218}{0.749}{0.170}
+\utncode[style=css,x=0.069,y=0.513,w=0.377,h=0.429,bg=FFFFFF,fs=9.90,lh=14.31,padx=4.7,pady=-0.5]{css-id.css}
+\utnrect{ptGray}{0.75}{0.069}{0.513}{0.377}{0.429}
+\utnpic[height=0.214\paperheight,keepaspectratio=false]{id-resultado}{0.557}{0.534}{0.377}
+\utnrect{ptGray}{0.75}{0.557}{0.534}{0.377}{0.214}
+\utnnote[anchor=north west,align=center,text width=0.391\paperwidth,inner sep=2pt,fill=ptCallout,rounded corners=7pt,text=white,minimum height=0.126\paperheight,minimum width=0.403\paperwidth]{0.547}{0.807}{\fontsize{7.1}{8.5}\selectfont Sólo podemos tener un único ID asociado, para estos casos se debe utilizar el selector de ~\textbf{class}}
+\end{frame}
+
+% 48
+\begin{frame}{Selectores}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{17.2}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.2}{15.8}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{14.6}\selectfont}
+\begin{itemize}
+  \item\relax \textbf{Selector de hijos}: es ~similar al selector descendente, pero selecciona un elemento que es hijo \textbf{\textcolor[HTML]{17365D}{directo}} de otro elemento y se indica mediante el "signo de mayor que" (>):
+  \item\relax Dado el estilo:
+  \begin{itemize}
+    \item\relax p > span \{ color: blue; \}
+  \end{itemize}
+  \item\relax Y dado el siguiente HTML
+  \begin{itemize}
+    \item\relax <p>\textcolor[HTML]{0070C0}{<span>Texto1</span>}</p>
+    \item\relax <p><a href="\#">\red{<span>Texto2</span>}</a></p>
+  \end{itemize}
+  \item\relax Solo se aplicará a Texto1, que es el único elemento <span> hijo directo de un elemento <p> 
+\end{itemize}
+\endgroup
+\utnpic[height=0.289\paperheight,keepaspectratio=false]{meme-css}{0.701}{0.415}{0.217}
+\end{frame}
+
+% 49
+\begin{frame}{Ejemplo del Selector de hijo}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{10.2}{13.8}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{9.3}{12.7}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{8.6}{11.7}\selectfont}
+\begin{itemize}
+  \item\relax Utilizando el \\mismo HTML que\\para el selector\\descendente:
+\end{itemize}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+{\fontsize{10.2}{13.8}\selectfont\mbox{}\par}
+\begin{itemize}
+  \item\relax Resultado:
+\end{itemize}
+\endgroup
+\utncode[style=htmlsin,x=0.314,y=0.182,w=0.639,h=0.401,bg=FFFFFF,fs=6.37,lh=9.13,padx=4.2,pady=-0.2]{body-descendente.html}
+\utnrect{ptGray}{0.75}{0.314}{0.182}{0.639}{0.401}
+\utncode[style=css,x=0.033,y=0.648,w=0.307,h=0.278,bg=FFFFFF,fs=10.22,lh=14.61,padx=4.7,pady=1.1]{css-hijo.css}
+\utnrect{ptGray}{0.75}{0.033}{0.648}{0.307}{0.278}
+\utnpic[height=0.181\paperheight,keepaspectratio=false]{hijo-resultado}{0.357}{0.736}{0.595}
+\utnrect{ptGray}{0.75}{0.357}{0.736}{0.595}{0.181}
+\utnrect{ptGold}{1.10}{0.105}{0.716}{0.025}{0.035}
+\utnnote[anchor=north west,align=center,text width=0.496\paperwidth,inner sep=2pt,fill=ptCallout,rounded corners=7pt,text=white,minimum height=0.072\paperheight,minimum width=0.508\paperwidth]{0.389}{0.624}{\fontsize{7.1}{8.5}\selectfont Sólo afecta a los hijos directos (span dentro de p)}
+\end{frame}
+
+% 50
+\begin{frame}{Unidades de Medida}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{16.4}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{10.2}{12.6}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{9.3}{11.6}\selectfont}
+\begin{itemize}
+  \item\relax Mediante CSS se pueden definir la altura, el ancho, los márgenes y otras dimensiones de los elementos HTML.
+  \item\relax Las unidades que se pueden utilizar son diversas y se pueden diferenciar las relativas de las \red{absolutas}
+  \begin{itemize}
+    \item\relax {\fontsize{10.2}{12.6}\selectfont \red{in, pulgadas ("inches", en inglés). Una pulgada equivale a 2.54 centímetros.}\par}
+    \item\relax {\fontsize{10.2}{12.6}\selectfont \red{cm, centímetros.}\par}
+    \item\relax {\fontsize{10.2}{12.6}\selectfont \red{mm, milímetros.}\par}
+    \item\relax {\fontsize{9.1}{11.3}\selectfont \textbf{em}, \flechag{} relativa respecto del tamaño de letra del elemento.\par}
+    \item\relax {\fontsize{9.1}{11.3}\selectfont \textbf{px, (píxel)} \flechag{} ~relativa respecto de la resolución de la pantalla del dispositivo en el que se visualiza la página HTML.\par}
+    \item\relax {\fontsize{9.1}{11.3}\selectfont \textbf{vw, (view width)} \flechag{} equivale al \% del ancho de la ventana. Ej, un elemento con width: 50vw; ocupará la mitad del ancho de la pantalla visible.\par}
+    \item\relax {\fontsize{9.1}{11.3}\selectfont \textbf{vh, (view height)} \flechag{} equivale al \% de la altura de la ventana. Ej, ejemplo, un elemento con height: 100vh; llenará completamente la altura de la pantalla.\par}
+  \end{itemize}
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 51
+\begin{frame}{Colores}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.2}{16.6}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item\relax Los colores en CSS se pueden indicar de cinco formas diferentes: palabras clave, colores del sistema, RGB hexadecimal, RGB numérico y RGB porcentual. Aunque el método más habitual es el del RGB hexadecimal.
+  \item\relax Ejemplos
+  \begin{itemize}
+    \item\relax p \{ color: rgb(71, 98, 176); \}
+    \item\relax p \{ color: \#4762B0; \}
+  \end{itemize}
+\end{itemize}
+\endgroup
+\utnpic[height=0.446\paperheight,keepaspectratio=false]{colores}{0.535}{0.490}{0.417}
+\end{frame}
+
+% 52
+\begin{frame}{Buscar “rgb to hex” o similar}\relax
+\utnpic[height=0.689\paperheight,keepaspectratio=false]{rgb-to-hex}{0.070}{0.209}{0.713}
+\utnnote[anchor=north west,align=center,text width=0.154\paperwidth,inner sep=2pt,fill=ptCallout,rounded corners=14pt,text=white,minimum height=0.299\paperheight,minimum width=0.166\paperwidth]{0.803}{0.424}{\fontsize{7.1}{8.5}\selectfont Permite pasar de RGB a HEX\\o de\\HEX a RGB}
+\end{frame}
+
+% 53
+\begin{frame}\relax
+\utnnote[anchor=center,text=utnTitle,font=\utnserif\fontsize{14.0}{16.8}\selectfont]{0.4965}{0.1205}{Modelo de cajas}
+
+\utnnote[anchor=north west]{0.010}{0.151}{\begin{minipage}[t]{0.942\paperwidth}
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{10.2}{13.2}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{9.3}{12.1}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{8.6}{11.2}\selectfont}
+\begin{itemize}
+  \item\relax CSS utiliza para representar todos los elementos un modelo de cajas que se compone de 6 partes. En principio no tienen visibilidad pero le permiten al desarrollador modificar para lograr la apariencia deseada.
+\end{itemize}
+\endgroup
+\end{minipage}}
+\utnpic[height=0.606\paperheight,keepaspectratio=false]{modelo-cajas}{0.500}{0.336}{0.483}
+\utnnote[anchor=north west,align=left,text width=0.446\paperwidth,inner sep=2pt,fill=white,draw=ptNavy,line width=1.0pt,text=black,minimum height=0.657\paperheight,minimum width=0.458\paperwidth]{0.019}{0.311}{\fontsize{7.9}{9.5}\selectfont \textbf{content}: contenido HTML del elemento (palabras, una imagen, etc.) \\ \textbf{padding}: espacio libre opcional existente entre el contenido y el borde. \\ \textbf{border}: línea que encierra completamente el contenido y su relleno. \\ \textbf{background-image}: imagen que se muestra por detrás del contenido y el espacio de relleno. \\ \textbf{background-color}: color que se muestra por detrás del contenido y el espacio de relleno. \\ \textbf{margin}: ~separación opcional existente entre la caja y el resto de cajas adyacentes.}
+\end{frame}
+
+% 54
+\begin{frame}{Modelo de cajas - Dimensiones}\relax
+\utnnote[anchor=north west]{0.025}{0.178}{\begin{minipage}[t]{0.919\paperwidth}
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{19.8}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.2}{18.3}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{16.8}\selectfont}
+\begin{itemize}
+  \item\relax Para controlar los márgenes y el relleno de costado se definen los atributos
+  \begin{itemize}
+    \item\relax margin y padding
+  \end{itemize}
+  \item\relax Ancho y alto: {\fontsize{10.2}{13.2}\selectfont width} y {\fontsize{10.2}{13.2}\selectfont heigth}
+  \item\relax Bordes:
+  \begin{itemize}
+    \item\relax border-width / border-color / border-style
+  \end{itemize}
+  \item\relax Ejemplo
+\end{itemize}
+\endgroup
+\end{minipage}}
+\utnpic[height=0.263\paperheight,keepaspectratio=false]{modelo-dimensiones}{0.479}{0.237}{0.477}
+\utnnote[anchor=north west,align=left,text width=0.319\paperwidth,inner sep=2pt,fill=white,draw=teal,line width=1.0pt,text=black,minimum height=0.323\paperheight,minimum width=0.331\paperwidth]{0.028}{0.608}{\fontsize{8.6}{10.3}\selectfont \textbullet~~div \{ \\ \textbullet~~ ~width: 300px; \\ \textbullet~~ ~padding-left: ~50px; \\ \textbullet~~ ~padding-right: 50px; \\ \textbullet~~ ~margin-left: ~~30px; \\ \textbullet~~ ~margin-right: ~30px; \\ \textbullet~~ ~border: 10px solid black; \\ \textbullet~~\}}
+\utnnote[anchor=north west,align=center,text width=0.594\paperwidth,inner sep=2pt,fill=ptNavy,draw=ptNavy,line width=1.0pt,text=white,minimum height=0.221\paperheight,minimum width=0.606\paperwidth]{0.374}{0.660}{\fontsize{8.4}{10.1}\selectfont El ancho del elemento en pantalla será la suma de la anchura original, los márgenes, los bordes y los rellenos: \\ 30px + 10px + 50px + 300px + 50px + 10px + 30px = 480 píxel}
+\end{frame}
+
+% 55
+\begin{frame}{Ejemplo de <div>}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{10.2}{13.8}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{9.3}{12.7}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{8.6}{11.7}\selectfont}
+\begin{itemize}
+  \item\relax HTML:
+\end{itemize}
+{\fontsize{8.6}{11.7}\selectfont\mbox{}\par}
+{\fontsize{8.6}{11.7}\selectfont\mbox{}\par}
+{\fontsize{8.6}{11.7}\selectfont\mbox{}\par}
+\begin{itemize}
+  \item\relax CSS:
+\end{itemize}
+{\fontsize{8.6}{11.7}\selectfont\mbox{}\par}
+{\fontsize{8.6}{11.7}\selectfont\mbox{}\par}
+{\fontsize{8.6}{11.7}\selectfont\mbox{}\par}
+{\fontsize{8.6}{11.7}\selectfont\mbox{}\par}
+{\fontsize{8.6}{11.7}\selectfont\mbox{}\par}
+\begin{itemize}
+  \item\relax Resultado:
+\end{itemize}
+\endgroup
+\utncode[style=htmlsin,x=0.216,y=0.196,w=0.632,h=0.128,bg=FFFFFF,fs=8.04,lh=11.55,padx=4.5,pady=1.8]{body-div.html}
+\utnrect{ptGray}{0.75}{0.216}{0.196}{0.632}{0.128}
+\utncode[style=css,x=0.216,y=0.346,w=0.320,h=0.333,bg=FFFFFF,fs=6.29,lh=8.87,padx=2.0,pady=0.5]{css-div.css}
+\utnrect{ptGray}{0.75}{0.216}{0.346}{0.320}{0.333}
+\utnpic[height=0.158\paperheight,keepaspectratio=false]{div-resultado}{0.105}{0.767}{0.815}
+\utnrect{ptGray}{0.75}{0.105}{0.767}{0.815}{0.158}
+\end{frame}
+
+% 56
+\begin{frame}{Modelo de cajas - Fondo}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{11.9}{14.7}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{11.0}{13.6}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{10.1}{12.5}\selectfont}
+\begin{itemize}
+  \item\relax El fondo puede ser un color simple o una imagen. Solamente se visualiza en el área ocupada por el contenido y su relleno.
+  \item\relax CSS tiene 5 propiedades para definir el fondo de cada elemento:
+  \begin{itemize}
+    \item\relax background-color
+    \item\relax background-image
+    \item\relax background-repeat\flechag{} \textit{{\fontsize{9.1}{11.9}\selectfont si la imagen que queremos mostrar es más pequeña que la caja, entonces la misma por defecto se repetirá horizontal y verticalmente. Con este atributo, podemos cambiar el comportamiento por defecto, e indicar que solo lo haga en un sentido o que no se repita.}}
+    \item\relax background-attachment
+    \item\relax background-position \flechag{} \textit{{\fontsize{9.1}{11.9}\selectfont permite controlar la posición de la imagen dentro del fondo del elemento mediante la propiedad}}
+  \end{itemize}
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 57
+\begin{frame}{Posicionamiento}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18.0}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.2}{16.6}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\begin{itemize}
+  \item\relax En HTML los elementos se pueden agrupar en dos grandes categorías
+  \begin{itemize}
+    \item\relax \textbf{block}: siempre empiezan en una nueva línea y ocupan todo el espacio disponible hasta el final de la línea
+    \item\relax \textbf{inline}: no empiezan \textbf{necesariamente} en nueva línea y sólo ocupan el espacio necesario para mostrar sus contenidos.
+  \end{itemize}
+  \item\relax Esto tiene incidencia en el tamaño de las cajas
+\end{itemize}
+\endgroup
+\utnpic[height=0.280\paperheight,keepaspectratio=false]{block-inline}{0.170}{0.671}{0.653}
+\utnrect{black}{0.75}{0.170}{0.671}{0.653}{0.280}
+\end{frame}
+
+% 58
+\begin{frame}{Posicionamiento}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.2}{15.1}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{10.2}{12.6}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{9.3}{11.6}\selectfont}
+\begin{itemize}
+  \item\relax CSS define cinco modelos diferentes para posicionar una caja:
+  \begin{itemize}
+    \item\relax \textbf{estático}: se usa por defecto en navegadores.
+    \item\relax \textbf{relativo}: posiciona una caja según el posicionamiento estático y después desplazarla respecto de su posición original.
+    \item\relax \textbf{absoluto}: la posición de una caja se establece de forma absoluta respecto de su elemento contenedor.
+    \item\relax \textbf{fijo}: convierte una caja en un elemento inamovible. Su posición en la pantalla siempre es la misma independientemente del resto de elementos o de si el usuario sube o baja la página en el navegador.
+    \item\relax \textbf{flotante}: desplaza las cajas todo lo posible hacia la izquierda o hacia la derecha de la línea en la que se encuentran.
+  \end{itemize}
+  \item\relax El atributo “position” define el tipo de posicionamiento y los atributos top, right, bottom y ~left indican el desplazamiento
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 59
+\begin{frame}{Posicionamiento}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.7}{17.3}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{11.7}{15.9}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{10.7}{14.6}\selectfont}
+\begin{itemize}
+  \item\relax El posicionamiento estático sólo se tiene en cuenta si el elemento es de bloque o en línea, sus propiedades width y height y su contenido.
+  \item\relax El posicionamiento relativo desplaza una caja respecto de su posición el posicionamiento estático. El desplazamiento de la caja se controla con las propiedades top, right, bottom y left.
+\end{itemize}
+\endgroup
+\utnpic[height=0.298\paperheight,keepaspectratio=false]{posicionamiento}{0.184}{0.662}{0.632}
+\end{frame}
+
+% 60
+\begin{frame}{Visualización}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.2}{15.1}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{11.3}{14.0}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{10.4}{12.9}\selectfont}
+\begin{itemize}
+  \item\relax Con las propiedades display y visibility ~se controla la visualización de los elementos. 
+  \begin{itemize}
+    \item\relax permiten ocultar cualquier elemento de la página. 
+    \item\relax se utilizan junto con JavaScript para crear efectos dinámicos.
+  \end{itemize}
+  \item\relax “\textbf{display}” permite ocultar completamente un elemento haciendo que desaparezca de la página. 
+  \begin{itemize}
+    \item\relax Como el elemento oculto no se muestra, el resto de elementos de la página se mueven para ocupar su lugar.
+  \end{itemize}
+  \item\relax “\textbf{visibility}” hace invisible un elemento, lo que significa que el navegador crea la caja del elemento pero no la muestra. 
+  \begin{itemize}
+    \item\relax El resto de elementos de la página no modifican su posición, ya que aunque la caja no se ve, sigue ocupando sitio.
+  \end{itemize}
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 61
+\begin{frame}{Visualización}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.2}{16.6}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{10.3}{14.0}\selectfont}
+\begin{itemize}
+  \item\relax Ejemplo donde se nota la diferencia entre display (que deja libre el lugar cuando no está seteado) y visibility que simplemente no dibuja el elemento pero deja el espacio reservado.
+\end{itemize}
+\endgroup
+\utnpic[height=0.505\paperheight,keepaspectratio=false]{display-visibility}{0.227}{0.406}{0.724}
+\end{frame}
+
+% 62
+\begin{frame}{Texto}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.2}{14.6}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{10.2}{12.2}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{9.3}{11.2}\selectfont}
+\begin{itemize}
+  \item\relax Para modificar el aspecto de un texto tenemos varios atributos:
+  \begin{itemize}
+    \item\relax \textbf{color}: define el color del texto
+    \item\relax \textbf{font-family}: se puede indicar de dos maneras, con el nombre de una tipográfía ("Arial", "Verdana", "Garamond“) o con el nombre genérico de una familia tipográfía que hace referencia al estilo del tipo de letra ( serif - sans-serif - cursive, fantasy y monospace).
+    \item\relax \textbf{font-size}: establece el tamaño de letra utilizado para el texto. Puede indicarse como una medida de tamaño: ~absoluto (xx-small, x-small, small, medium, large, x-large, xx-large) ~- relativo ( solo se indica large o smaller y será en relación al elemento padreo)- unidad de medida – porcentaje.
+    \item\relax \textbf{font-weight}: establece el ancho de la fuente. Puede tomar valores normal | bold | bolder | lighter
+    \item\relax \textbf{font-style}: stilo de la letra que puede ser normal | italic | oblique
+  \end{itemize}
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 63
+\begin{frame}{Texto}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.2}{14.6}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{10.2}{12.2}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{9.3}{11.2}\selectfont}
+\begin{itemize}
+  \item\relax También se pueden modificar aspectos mas elaborados
+  \begin{itemize}
+    \item\relax \textbf{text-align}: indica la alineación del texto si será left | right | center | justify
+    \item\relax \textbf{line-height}: indica el espacio entre las líneas de un texto
+    \item\relax \textbf{text-decoration}: indica la decoración que tendrá, los valores pueden ser: none - underline -overline - line-through - blink (parpadeante)
+    \item\relax \textbf{text-transform}: transforma las letras del texto original, en mayúsculas o minúsculas (capitalize - uppercase - lowercase- none)
+    \item\relax \textbf{white-space}: indica como tratar a los espacios en blanco. (normal | pre | nowrap | pre-wrap | pre-line )
+    \item\relax \textbf{word-spacing} y \textbf{letter-spacing}: permiten establecer el espacio entre las letras o las palabras.
+    \item\relax \textbf{text-indent}: Tabula desde la izquierda la primera línea del texto original la unidad de medida indicada.
+  \end{itemize}
+\end{itemize}
+\endgroup
+\utnpic[height=0.263\paperheight,keepaspectratio=false]{meme-bigote}{0.590}{0.672}{0.254}
+\end{frame}
+
+% 64
+\begin{frame}{Enlaces}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.2}{15.1}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{10.2}{12.6}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{9.3}{11.6}\selectfont}
+\begin{itemize}
+  \item\relax Al igual que con los textos, con los enlaces podemos modificar el tamaño de letra, su color y la decoración del texto del enlace.
+  \item\relax Pero además se pueden aplicar diferentes estilos a un mismo enlace en función de su estado. (visitado, o cuando el mouse pasa por encima por ejemplo).
+  \item\relax Para esto se incluyen en CSS “pseudo-clases” que permiten aplicar más de un estilo a un selector según su estado
+  \begin{itemize}
+    \item\relax :link, aplica estilos a los enlaces que apuntan a páginas o recursos que aún no han sido visitados por el usuario.
+    \item\relax :visited, aplica estilos a los enlaces que apuntan a recursos que han sido visitados anteriormente por el usuario
+    \item\relax :hover, aplica estilos al enlace sobre el que está el mouse.
+    \item\relax :active, aplica estilos al enlace que está haciendo click el usuario.
+  \end{itemize}
+\end{itemize}
+\endgroup
+\end{frame}
+
+% 65
+{\setbeamertemplate{enumerate item}{\insertenumlabel)}\begin{frame}{Ejercicio 2 (CSS)}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{11.5}{13.7}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{10.5}{12.6}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{9.7}{11.6}\selectfont}
+{\fontsize{11.5}{13.7}\selectfont Añadir \textbf{estilos} a la “Página de DesoTravel”, conectando un archivo \textbf{.css} con el \textbf{.html} anterior.\par}
+\begin{itemize}
+  \item\relax Los estilos son libres, pero deben cumplir las siguientes condiciones:
+\end{itemize}
+\begin{enumerate}
+  \item\relax Utilizar al menos un <section> o un <article>
+  \item\relax Utilizar selectores de elemento, ID y de clase
+  \item\relax Centrar el título principal y la foto
+  \item\relax Colorear el fondo, ya sea con una imagen o con un color sólido (también se pueden hacer gradientes): \href{https://cssgradient.io/}{\uline{https:/\allowbreak{}/\allowbreak{}cssgradient.io/\allowbreak{}}} 
+  \item\relax Separar las partes de “Servicios disponibles” (color verde / más amigable) de las “Condiciones de cancelación” (color rojo / menos amigable).
+\end{enumerate}
+\endgroup
+\end{frame}
+}
+
+% 66
+\begin{frame}{Flexbox Layout}\relax
+\begingroup
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12.2}{16.6}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{11.2}{15.2}\selectfont}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\fontsize{10.3}{14.0}\selectfont}
+\begin{itemize}
+  \item\relax Existen múltiples layouts como son \textbf{flexbox (unidimensional)} y \textbf{grid (bidimensional)}
+  \item\relax Básicamente nos ayudan a crear layouts dinámicos y flexibles de una manera sencilla
+  \item\relax Se debe definir el contenedor padre con \textbf{display: flex;} y desde ahí se puede direccionar con el atributo \textbf{flex-direction}
+  \item\relax Más información interesante: \href{https://css-tricks.com/snippets/css/a-guide-to-flexbox/}{\uline{https:/\allowbreak{}/\allowbreak{}css-tricks.com/\allowbreak{}snippets/\allowbreak{}css/\allowbreak{}a-guide-to-flexbox/\allowbreak{}}} 
+\end{itemize}
+\endgroup
+\utnpic[height=0.299\paperheight,keepaspectratio=false]{meme-backend}{0.611}{0.701}{0.166}
+\end{frame}
+
+\end{document}

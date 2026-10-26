@@ -1,0 +1,10 @@
+<style>
+  div {
+    width: 300px;
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-left: 30px;
+    margin-right: 30px;
+    border: 10px solid black;
+  }
+</style>

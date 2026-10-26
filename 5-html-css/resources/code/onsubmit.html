@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function mostrarNombre(event) {
+                console.log("esto se muestra al presionar submit");
+                event.preventDefault();
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Formulario:</h1>
+        <form onsubmit="mostrarNombre(event)">
+            <input name="usr" placeholder="usuario...">
+            <input name="pwd" type="password" placeholder="contrasenia">
+            <div>
+                <label>capo?</label>
