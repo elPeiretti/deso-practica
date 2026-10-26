@@ -1,0 +1,147 @@
+% Tema Beamer UTN FRSF para las presentaciones de Desarrollo de Software.
+% Replica la plantilla de las diapositivas originales (4:3, fondo blanco,
+% logo UTN arriba a la izquierda, titulos en Merriweather y cuerpo en Roboto).
+%
+% Requiere XeLaTeX (fontspec) y la fuente Roboto instalada en el sistema
+% (apt install fonts-roboto). Merriweather viene en fonts/ (junto a este archivo).
+\ProvidesPackage{beamerthemeUTN}[2026/10/25 Tema UTN FRSF - Desarrollo de Software]
+
+\RequirePackage{fix-cm} % permite tamanos de letra arbitrarios (fuentes CM escalables)
+\RequirePackage{fontspec}
+\RequirePackage{tikz}
+\usetikzlibrary{calc}
+
+% --- Colores (tomados de la plantilla original) ---------------------------
+\definecolor{utnNavy}{HTML}{31394D}   % fondo de portada y secciones
+\definecolor{utnTitle}{HTML}{172A69}  % titulos de diapositiva
+\definecolor{utnText}{HTML}{222222}   % cuerpo
+\definecolor{utnLink}{HTML}{009384}   % enlaces
+\definecolor{utnGray}{HTML}{666666}
+\definecolor{utnRed}{HTML}{FF0000}    % comandos resaltados
+
+% --- Fuentes --------------------------------------------------------------
+\setsansfont{Roboto}[Ligatures=TeX]
+\setmainfont{Roboto}[Ligatures=TeX]
+\setmonofont{DejaVu Sans Mono}[Scale=MatchLowercase]
+\newfontfamily\utnserif{Merriweather}[
+  Path=resources/fonts/, Extension=.ttf,
+  UprightFont=*-Regular, BoldFont=*-Bold, ItalicFont=*-Italic,
+  Ligatures=TeX]
+
+\mode<presentation>
+
+\graphicspath{{resources/img/}{resources/}}
+
+% --- Colores y fuentes de Beamer ------------------------------------------
+\setbeamercolor{normal text}{fg=utnText,bg=white}
+\setbeamercolor{itemize item}{fg=utnText}
+\setbeamercolor{itemize subitem}{fg=utnText}
+\setbeamercolor{enumerate item}{fg=utnText}
+\setbeamercolor{enumerate subitem}{fg=utnText}
+\setbeamercolor{frametitle}{fg=utnTitle}
+\hypersetup{colorlinks=true,urlcolor=utnLink,linkcolor=utnLink}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamersize{text margin left=0.035\paperwidth,text margin right=0.02\paperwidth}
+
+% Tamanos del cuerpo (proporcionales a la plantilla original, que es 10x7.5 in).
+\setbeamerfont{normal text}{size=\fontsize{13.2}{18}\selectfont}
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{13.2}{18}\selectfont}
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{12.3}{17}\selectfont}
+\urlstyle{same}
+
+\setbeamertemplate{itemize item}{$\bullet$}
+\setbeamertemplate{itemize subitem}{$\circ$}
+\AtBeginDocument{\setlength{\leftmargini}{1.5em}}
+% La plantilla original no separa los items de una lista.
+\setbeamertemplate{itemize/enumerate body begin}{\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}\setlength{\topsep}{0pt}}
+\setbeamertemplate{itemize/enumerate subbody begin}{\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}\setlength{\topsep}{0pt}}
+\setbeamertemplate{enumerate item}{\insertenumlabel.}
+\setbeamertemplate{enumerate subitem}{\alph{enumii}.}
+
+% --- Cabecera: logo UTN, nombre de la materia y espacio del titulo --------
+\setbeamertemplate{headline}{%
+  \vbox to 0.112\paperheight{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=north west,inner sep=0] at
+        ($(current page.north west)+(0.0124\paperwidth,-0.0245\paperheight)$)
+        {\includegraphics[width=0.2635\paperwidth]{utn-santafe-logo}};
+      \node[anchor=east,inner sep=0,text=utnText,font=\fontsize{7}{8}\selectfont] at
+        ($(current page.north east)+(-0.0196\paperwidth,-0.0607\paperheight)$)
+        {Desarrollo de Software};
+    \end{tikzpicture}%
+    \vss}%
+}
+
+% --- Titulo de diapositiva: centrado, Merriweather ------------------------
+\setbeamertemplate{frametitle}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=center,inner sep=0,text width=0.969\paperwidth,align=center,
+          text=utnTitle,font=\utnserif\fontsize{14}{17}\selectfont] at
+      ($(current page.north west)+(0.4965\paperwidth,-0.143\paperheight)$)
+      {\insertframetitle};
+  \end{tikzpicture}%
+}
+
+% --- Pie: area/sede y numero de diapositiva -------------------------------
+\setbeamertemplate{footline}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=west,inner sep=0,text=utnText,font=\fontsize{5}{6}\selectfont] at
+      ($(current page.south west)+(0.004\paperwidth,0.0157\paperheight)$)
+      {ISI -- FRSF - UTN};
+    \node[anchor=east,inner sep=0,text=utnText,font=\fontsize{5}{6}\selectfont] at
+      ($(current page.south east)+(-0.0196\paperwidth,0.0157\paperheight)$)
+      {\insertframenumber};
+  \end{tikzpicture}%
+}
+
+% --- Macros de ayuda --------------------------------------------------------
+% Texto en codigo (archivos, rutas) y comando resaltado en rojo.
+\newcommand{\code}[1]{{\ttfamily #1}}
+% (sin ligaduras TeX: "--" y comillas rectas se muestran tal cual)
+\newfontfamily\utnplain{Roboto}
+\newcommand{\cmd}[1]{{\utnplain\color{utnRed}#1}}
+
+% Enlace subrayado. \weblink{url} muestra la URL; \weblink[texto]{url} el texto.
+\newcommand{\weblink}[2][]{%
+  \href{#2}{\underline{\ifx\relax#1\relax\nolinkurl{#2}\else#1\fi}}}
+
+% Imagen posicionada con fracciones de la diapositiva:
+% \utnpic[opciones]{archivo}{x}{y}{ancho}  (x, y desde arriba a la izquierda)
+\newcommand{\utnpic}[5][]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=north west,inner sep=0] at
+      ($(current page.north west)+(#3\paperwidth,-#4\paperheight)$)
+      {\includegraphics[width=#5\paperwidth,#1]{#2}};
+  \end{tikzpicture}}
+
+% Texto posicionado con fracciones de la diapositiva:
+% \utnnote[opciones tikz]{x}{y}{texto}  (el ancla se elige con "anchor=")
+\newcommand{\utnnote}[4][]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[inner sep=0,#1] at
+      ($(current page.north west)+(#2\paperwidth,-#3\paperheight)$) {#4};
+  \end{tikzpicture}}
+
+% Portada: \utnportada{logo}{subtitulo}
+\newcommand{\utnportada}[2]{%
+  \begin{frame}[plain]
+    \begin{tikzpicture}[remember picture,overlay]
+      \fill[utnNavy] ($(current page.north west)+(0,-0.856\paperheight)$)
+        -- ($(current page.north east)+(0,-0.347\paperheight)$)
+        -- (current page.south east) -- (current page.south west) -- cycle;
+    \end{tikzpicture}%
+    \utnpic{#1}{0.034}{0.108}{0.568}%
+    \utnnote[anchor=west,text=utnGray,font=\small]{0.044}{0.482}{#2}%
+  \end{frame}}
+
+% Diapositiva de seccion (fondo azul oscuro): \utnseccion{Titulo}[imagenes]
+\newcommand{\utnseccion}[2]{%
+  {\setbeamercolor{background canvas}{bg=utnNavy}%
+   \begin{frame}[plain]
+     \utnnote[anchor=base west,text=white,font=\utnserif\fontsize{51}{56}\selectfont]
+       {0.04}{0.372}{#1}%
+     #2%
+   \end{frame}}}
+
+\mode<all>
