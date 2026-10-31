@@ -1,0 +1,257 @@
+% Macros y estilos propios de la presentacion de JavaScript:
+% resaltado de codigo (listings), diapositivas de seccion con subtitulo amarillo,
+% emojis y texto con formato. El tema compartido esta en beamerthemeUTN.sty.
+\ProvidesPackage{deck}[2026/10/25 Macros de la presentacion de JavaScript]
+
+\RequirePackage{array}
+\RequirePackage{listings}
+\RequirePackage[normalem]{ulem}
+
+% --- Colores ----------------------------------------------------------------
+\definecolor{utnOrange}{HTML}{F16528}
+\definecolor{ptGreen}{HTML}{6AA84F}
+\definecolor{ptBlue}{HTML}{4A7DBA}
+\definecolor{ptBeige}{HTML}{D9C4B1}
+\definecolor{ptNavy}{HTML}{002F4A}
+\definecolor{ptLine}{HTML}{395E89}
+\definecolor{ptCallout}{HTML}{0070C0}
+\definecolor{ptGold}{HTML}{BF9000}
+\definecolor{utnYellow}{HTML}{F7DF1E}   % amarillo de JavaScript
+\definecolor{lstGray}{HTML}{6E7681}
+
+% El texto original ya trae comillas y guiones tipograficos: se usa la familia sin
+% ligaduras TeX (\utnplain) como fuente por defecto, para que " ' ` -- y << se
+% muestren tal cual (la del tema aplica ligaduras TeX).
+\makeatletter
+\begingroup\utnplain\xdef\utn@plainfam{\f@family}\endgroup
+\renewcommand{\sfdefault}{\utn@plainfam}
+\renewcommand{\rmdefault}{\utn@plainfam}
+\makeatother
+
+% --- Texto con formato --------------------------------------------------------
+\newcommand{\red}[1]{\textcolor{utnRed}{#1}}
+\newcommand{\yellow}[1]{\textcolor{utnYellow}{#1}}
+\newcommand{\emoji}[1]{\raisebox{-0.12em}{\includegraphics[height=1em]{emoji-#1}}}
+
+% Codigo en linea: DejaVu Sans Mono es mas ancha que Consolas, se reduce un poco
+\renewcommand{\code}[1]{{\ttfamily\addfontfeature{Scale=0.83}#1}}
+% Sin cortes de palabra (el texto original no los tiene)
+\hyphenpenalty=10000 \exhyphenpenalty=10000
+
+% --- Muestras de color (como en el editor) ---------------------------------------
+\newcommand{\swatch}[1]{\raisebox{-0.1em}{\fboxsep=0pt\fboxrule=0.4pt\fbox{\textcolor[HTML]{#1}{\rule{0.62em}{0.62em}}}}\kern0.4em}
+\newcommand{\swR}[1]{\swatch{E8392A}\textcolor[HTML]{0451A5}{#1}}
+\newcommand{\swB}[1]{\swatch{0000FF}\textcolor[HTML]{0451A5}{#1}}
+\newcommand{\swK}[1]{\swatch{000000}\textcolor[HTML]{0451A5}{#1}}
+\newcommand{\swO}[1]{\swatch{8A8E27}\textcolor[HTML]{0451A5}{#1}}
+
+% Vinetas un poco mas grandes, como en la plantilla original
+\setbeamertemplate{itemize item}{\scalebox{1.3}{$\bullet$}}
+
+% Flechas (Roboto no las incluye)
+\newfontfamily\utnsymbols{DejaVu Sans}
+\newcommand{\flecha}{{\utnsymbols\char"2192}}
+\newcommand{\flechag}{{\utnsymbols\char"2794}}
+
+% Los sub-items llevan algo mas de separacion que en la plantilla del tema
+\setbeamertemplate{itemize/enumerate subbody begin}{\setlength{\itemsep}{2.2pt}\setlength{\parsep}{0pt}\setlength{\topsep}{0pt}}
+
+% Vinetas de tercer nivel (cuadrado chico, como en la plantilla original)
+\setbeamertemplate{itemize subsubitem}{\tiny$\blacksquare$}
+\setbeamercolor{itemize subsubitem}{fg=utnText}
+
+% --- Diapositivas de seccion (fondo azul oscuro) ------------------------------
+% \utnportadajs{imagen} : portada con titulo en dos lineas
+% \utnfondo{contenido}  : diapositiva sin cabecera con fondo azul
+\newenvironment{utnfondo}
+  {\begingroup\setbeamercolor{background canvas}{bg=utnNavy}\begin{frame}[plain]}
+  {\end{frame}\endgroup}
+
+% Titulo grande en Merriweather (ancla en la linea base)
+\newcommand{\utntitulo}[4][white]{% [color]{x}{y}{texto}
+  \utnnote[anchor=base west,text=#1,font=\utnserif\fontsize{51}{56}\selectfont]{#2}{#3}{#4}}
+\newcommand{\utnsubtitulo}[3]{% {x}{y}{texto}
+  \utnnote[anchor=west,text=utnOrange,font=\fontsize{15.2}{18}\selectfont]{#1}{#2}{#3}}
+
+% --- Codigo -------------------------------------------------------------------
+\lstdefinelanguage{JS}{
+  morekeywords=[1]{var,let,const,function,class,new,async,await},
+  morekeywords=[2]{if,else,switch,case,break,continue,default,try,catch,finally,for,while,do,of,return,throw},
+  morekeywords=[3]{this,true,false,null,undefined},
+  sensitive=true,
+  morecomment=[l]{//},
+  morestring=[b]",
+  morestring=[b]',
+  morestring=[b]`,
+}
+
+\lstset{language=JS,showstringspaces=false,columns=fixed,keepspaces=true,
+  tabsize=2,aboveskip=0pt,belowskip=0pt,xleftmargin=0pt,resetmargins=true,
+  upquote=false,extendedchars=true}
+
+% Editor claro (con numeros de linea)
+\definecolor{lightFg}{HTML}{0B1B5E}
+\lstdefinestyle{utnclaro}{
+  basicstyle=\color{lightFg},
+  keywordstyle=[1]\color[HTML]{0000FF},
+  keywordstyle=[2]\color[HTML]{B000B0},
+  keywordstyle=[3]\color[HTML]{0070C1},
+  stringstyle=\color[HTML]{A31515},
+  commentstyle=\color[HTML]{008000},
+  numbers=left,numberstyle=\color[HTML]{555555},
+  emph={log,error,sqrt,saludar,suma},emphstyle=\color[HTML]{795E26}}
+
+% VS Code oscuro
+\lstdefinestyle{utnvscode}{
+  basicstyle=\color[HTML]{9CDCFE},
+  keywordstyle=[1]\color[HTML]{569CD6},
+  keywordstyle=[2]\color[HTML]{C586C0},
+  keywordstyle=[3]\color[HTML]{569CD6},
+  stringstyle=\color[HTML]{CE9178},
+  commentstyle=\color[HTML]{6A9955},
+  emph={log},emphstyle=\color[HTML]{DCDCAA}}
+
+% Tema oscuro azulado (ejemplos de spread/destructuring)
+\lstdefinestyle{utnnoche}{
+  basicstyle=\color[HTML]{E6EDF3},
+  keywordstyle=[1]\color[HTML]{FF7B72},
+  keywordstyle=[2]\color[HTML]{FF7B72},
+  keywordstyle=[3]\color[HTML]{79C0FF},
+  stringstyle=\color[HTML]{A5D6FF},
+  commentstyle=\color[HTML]{8B949E},
+  emph={log,pop},emphstyle=\color[HTML]{D2A8FF}}
+
+% Tema oscuro de promesas
+\lstdefinestyle{utnpromesas}{
+  basicstyle=\color[HTML]{FFCB6B},
+  keywordstyle=[1]\color[HTML]{C792EA},
+  keywordstyle=[2]\color[HTML]{C792EA},
+  keywordstyle=[3]\color[HTML]{F78C6C},
+  stringstyle=\color[HTML]{C3E88D},
+  commentstyle=\color[HTML]{697098},
+  emph={[1]searchByNameAndMinPrice,getProductsByName,getProductDetails,getUserInfo,getPendingDebt,then,catch,filter,map,log,error,task},
+  emphstyle={[1]\color[HTML]{82AAFF}},
+  emph={[2]name,minPrice,price,id,amount,p,err},
+  emphstyle={[2]\color[HTML]{F07178}}}
+
+% Captura de Carbon (una sola linea)
+\lstdefinestyle{utncarbon}{
+  basicstyle=\color[HTML]{E8896A},
+  keywordstyle=[1]\color[HTML]{E8896A},
+  stringstyle=\color[HTML]{FFD700},
+  commentstyle=\color[HTML]{C8C8C8},
+  numbers=left,numberstyle=\color[HTML]{8A8A8A}}
+
+% \utncode[claves]{archivo}  -- bloque de codigo posicionado con fracciones de la
+% diapositiva (x, y, w, h) y medidas en puntos (letra, interlineado, margenes).
+% Claves: style, x, y, w, h, bg (HTML), fs, lh, padx, pady, num (distancia desde el
+% borde izquierdo hasta el borde derecho de los numeros de linea), first.
+\pgfkeys{/utncode/.cd,
+  style/.store in=\ucStyle, x/.store in=\ucX, y/.store in=\ucY,
+  w/.store in=\ucW, h/.store in=\ucH, bg/.store in=\ucBg,
+  fs/.store in=\ucFS, lh/.store in=\ucLH,
+  padx/.store in=\ucPadX, pady/.store in=\ucPadY,
+  num/.store in=\ucNum, first/.store in=\ucFirst}
+\newcommand{\utncode}[2][]{%
+  \begingroup
+  \pgfkeys{/utncode/.cd,first=1,num=0,#1}%
+  \definecolor{ucbg}{HTML}{\ucBg}%
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[ucbg] ($(current page.north west)+(\ucX\paperwidth,-\ucY\paperheight)$)
+      rectangle +(\ucW\paperwidth,-\ucH\paperheight);
+    \clip ($(current page.north west)+(\ucX\paperwidth,-\ucY\paperheight)$)
+      rectangle +(\ucW\paperwidth,-\ucH\paperheight);
+    \node[anchor=north west,inner sep=0] at
+      ($(current page.north west)+(\ucX\paperwidth+\ucPadX pt,-\ucY\paperheight-\ucPadY pt)$) {%
+      \begin{minipage}{\dimexpr\ucW\paperwidth-\ucPadX pt\relax}
+        \ttfamily\fontsize{\ucFS}{\ucLH}\selectfont
+        \lstinputlisting[style=\ucStyle,firstnumber=\ucFirst,
+          numbersep=\dimexpr\ucPadX pt-\ucNum pt\relax]{resources/code/#2}%
+      \end{minipage}};
+  \end{tikzpicture}%
+  \endgroup}
+
+% \utnrect{color}{grosor}{x}{y}{w}{h}: rectangulo sin relleno (resaltados, marcos)
+\newcommand{\utnrect}[6]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \draw[#1,line width=#2pt] ($(current page.north west)+(#3\paperwidth,-#4\paperheight)$)
+      rectangle +(#5\paperwidth,-#6\paperheight);
+  \end{tikzpicture}}
+
+
+% ===== Lenguajes y estilos de HTML y CSS ==========================================
+\definecolor{htTag}{HTML}{800000}
+\definecolor{htAttr}{HTML}{E50000}
+\definecolor{htStr}{HTML}{0000FF}
+\definecolor{htCom}{HTML}{008000}
+\definecolor{htJsStr}{HTML}{A31515}
+\definecolor{cssNum}{HTML}{098658}
+\definecolor{cssVal}{HTML}{0451A5}
+
+% Los atributos se resaltan por nombre; entre ">" y "<" el texto queda en negro.
+\lstdefinelanguage{HTMLx}{
+  sensitive=true,
+  morestring=[b]",
+  moredelim=[s][\color{black}]{>}{<},
+  morecomment=[s]{<!--}{-->},
+  morekeywords=[1]{lang,charset,href,rel,src,type,name,placeholder,value,checked,onclick,onsubmit,id,class,for,action,method},
+  morekeywords=[2]{function},
+  literate={!-- Salto de línea --}{{\textcolor{htCom}{!-{}- Salto de línea -{}-}}}{19}
+           {console.log("escribiendo js directo en el HTML");}{{\textcolor[HTML]{001080}{console}.\textcolor[HTML]{795E26}{log}(\textcolor{htJsStr}{"escribiendo js directo en el HTML"});}}{49}
+           {console.log("esto se muestra al presionar submit");}{{\textcolor[HTML]{001080}{console}.\textcolor[HTML]{795E26}{log}(\textcolor{htJsStr}{"esto se muestra al presionar submit"});}}{50}
+           {event.preventDefault();}{{event.\textcolor[HTML]{795E26}{preventDefault}();}}{23}
+           {function}{{\textcolor{htStr}{function}}}{8}
+           {jsEnHTML}{{\textcolor[HTML]{795E26}{jsEnHTML}}}{8}
+           {mostrarNombre}{{\textcolor[HTML]{795E26}{mostrarNombre}}}{13}
+           {\{}{{\textcolor{htStr}{\{}}}1 {\}}{{\textcolor{htStr}{\}}}}1
+           {<!DOCTYPE html>}{{<!DOCTYPE \textcolor{htAttr}{html}>}}{15}
+           {page-one.html}{{\smash{\underline{page-one.html}}}}{13}
+           {page-two.html}{{\smash{\underline{page-two.html}}}}{13}
+           {index.html}{{\smash{\underline{index.html}}}}{10}
+           {styles.css}{{\smash{\underline{styles.css}}}}{10}
+           {miCodigo.js}{{\smash{\underline{miCodigo.js}}}}{10}
+           {otroCodigo.js}{{\smash{\underline{otroCodigo.js}}}}{13}
+           {http://server.com/procesar}{{\smash{\underline{http://server.com/procesar}}}}{26},
+}
+\lstdefinelanguage{CSSx}{
+  sensitive=true,
+  alsoletter={-\#0123456789},
+  morekeywords=[1]{color,margin,padding,width,font-size,font-weight,font-family,padding-left,padding-right,margin-left,margin-right,border},
+  morekeywords=[2]{bold,solid,Arial,Helvetica,sans-serif},
+  morekeywords=[7]{blue},
+  morekeywords=[3]{0,300px,50px,30px,10px,15px},
+  morekeywords=[4]{red},
+  morekeywords=[5]{black},
+  morekeywords=[6]{\#8a8e27},
+  literate={\{}{{\textcolor[HTML]{0000FF}{\{}}}1 {\}}{{\textcolor[HTML]{0000FF}{\}}}}1,
+}
+% Editor claro con etiquetas rojo oscuro (numeros de linea turquesa)
+\lstdefinestyle{htmlvs}{language=HTMLx,basicstyle=\color{htTag},
+  keywordstyle=[1]\color{htAttr},stringstyle=\color{htStr},commentstyle=\color{htCom},
+  numbers=left,numberstyle=\color[HTML]{237893}}
+% Ídem sin numeros
+\lstdefinestyle{htmlsin}{style=htmlvs,numbers=none}
+% Editor con etiquetas negras y numeros grises
+\lstdefinestyle{htmlk}{language=HTMLx,basicstyle=\color{black},
+  keywordstyle=[1]\color{htAttr},keywordstyle=[2]\color{htStr},
+  stringstyle=\color{htStr},commentstyle=\color{htCom},
+  moredelim=[s][\color{htJsStr}]{console.log("}{")},
+  numbers=left,numberstyle=\color[HTML]{6E7681}}
+\lstdefinestyle{css}{language=CSSx,basicstyle=\color{htTag},
+  keywordstyle=[1]\color{htAttr},keywordstyle=[2]\color{cssVal},keywordstyle=[3]\color{cssNum},
+  keywordstyle=[4]\swR,keywordstyle=[5]\swK,keywordstyle=[6]\swO,keywordstyle=[7]\swB}
+
+% ===== Cajas, lineas y tablas =======================================================
+% \utnbox[opciones tikz]{x}{y}{ancho}{alto}{contenido}: caja con texto centrado
+\newcommand{\utnbox}[6][]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=north west,inner sep=3pt,text width=#4\paperwidth-6pt,minimum width=#4\paperwidth,
+          minimum height=#5\paperheight,align=center,#1] at
+      ($(current page.north west)+(#2\paperwidth,-#3\paperheight)$) {#6};
+  \end{tikzpicture}}
+% \utnline[opciones]{x1}{y1}{x2}{y2}: linea (o flecha) entre dos puntos
+\newcommand{\utnline}[5][]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \draw[#1] ($(current page.north west)+(#2\paperwidth,-#3\paperheight)$) --
+              ($(current page.north west)+(#4\paperwidth,-#5\paperheight)$);
+  \end{tikzpicture}}
