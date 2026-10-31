@@ -1,0 +1,162 @@
+% Git - Desarrollo de Software
+% Compilar con: latexmk   (ver .latexmkrc; usa XeLaTeX y el tema de resources/)
+\documentclass[aspectratio=43,10pt,t]{beamer}
+
+\usepackage[spanish,es-noshorthands]{babel}
+\usetheme{UTN}
+
+\hypersetup{pdftitle={Git - Desarrollo de Software},pdfauthor={UTN FRSF}}
+
+\begin{document}
+
+% 1
+\utnportada{git-logo}{Desarrollo de Software}
+
+% 2
+\begin{frame}{VCS: Funcionalidades clave}
+  \begin{itemize}
+    \item Rastrea y gestiona los cambios en el código fuente del software.
+    \item Permite el seguimiento individual de cada desarrollador, identificando áreas de conflicto y evitando sobreescrituras.
+    \item Mantiene un historial detallado de toda la vida del proyecto.
+    \item Permite revertir al instante el código a cualquier punto previo en el tiempo.
+  \end{itemize}
+\end{frame}
+
+% 3
+\begin{frame}{Qué es Git?}
+  \begin{itemize}
+    \item Git es un Sistema de Control de Versiones (VCS)
+    \item Creado por Linus Torvalds (creador de Linux)
+    \item Es la herramienta más adoptada de su clase; todo desarrollador la conoce.
+  \end{itemize}
+  \utnpic{git-help-terminal}{0.038}{0.500}{0.388}
+  \utnpic{linus-torvalds}{0.453}{0.537}{0.514}
+\end{frame}
+
+% 4
+\begin{frame}{Qué es Github?}
+  \begin{itemize}
+    \item Es una plataforma en la nube para almacenar, compartir y colaborar en la escritura de código.
+    \begin{itemize}
+      \item Rastrea y gestiona los cambios en tu código a lo largo del tiempo.
+      \item Permite que otros revisen tu código y hagan sugerencias para mejorarlo.
+      \item Colabora en un proyecto compartido sin preocuparte de impactar el trabajo de los demás antes de estar listo para integrarlo.
+    \end{itemize}
+  \end{itemize}
+  \utnnote[anchor=east,font=\fontsize{6}{7}\selectfont]{0.969}{0.912}
+    {\weblink{https://docs.github.com/en/get-started/start-your-journey/about-github-and-git}}
+\end{frame}
+
+% 5
+\begin{frame}{Qué es Github?}
+  \utnpic{github-dashboard}{0.033}{0.180}{0.926}
+\end{frame}
+
+% 6
+\begin{frame}{Qué es Github?}
+  \utnpic{github-repo}{0.031}{0.179}{0.929}
+\end{frame}
+
+% 7
+\begin{frame}{Cómo empezar?}
+  \begin{enumerate}
+    \item Instalar git: \weblink{https://git-scm.com/downloads}
+    \item Crear una cuenta en GitHub: \weblink{https://github.com/}
+    \item Configurar usuario en git:
+    \begin{enumerate}
+      \item Se puede chequear que git esté instalado con el comando \cmd{git --version}
+      \item \cmd{git config --global user.name "John Doe"}
+      \item \cmd{git config --global user.email }\weblink[johndoe@example.com]{mailto:johndoe@example.com}
+    \end{enumerate}
+    \item Crear un repositorio en Github y seguir los pasos indicados.
+  \end{enumerate}
+\end{frame}
+
+% 8
+\begin{frame}{Cómo empezar?}
+  \utnpic{github-quick-setup}{0.079}{0.173}{0.841}
+\end{frame}
+
+% 9
+\begin{frame}{Cómo empezar?}
+  \utnnote[anchor=west,font=\fontsize{13.2}{18}\selectfont]{0.022}{0.245}{Eso es todo}
+  \utnpic{thumbs-up-cat}{0.155}{0.279}{0.682}
+\end{frame}
+
+% 10
+\begin{frame}{Git: TOP 10 comandos más utilizados}
+  \utnnote[anchor=north west,align=left,font=\fontsize{15.6}{19.7}\selectfont]{0.028}{0.211}
+    {1. git add\\2. git commit -m\\3. git push\\4. git checkout\\5. git pull}
+  \utnnote[anchor=north west,align=left,font=\fontsize{15.6}{24.1}\selectfont]{0.575}{0.34}
+    {6. git status\\7. git rebase -i\\8. git reset\\9. git merge\\10. git log}
+  \utnnote[anchor=west,font=\fontsize{6}{7}\selectfont]{0.574}{0.185}
+    {(basados en mi experiencia)}
+  \utnnote[anchor=west,font=\fontsize{15.6}{19.7}\selectfont]{0.139}{0.887}{Mención honorífica: git branch}
+\end{frame}
+
+% 11
+\begin{frame}
+  \utnpic{git-areas}{0.025}{0.134}{0.951}
+\end{frame}
+
+% 12
+\utnseccion{Ejemplo}{\utnpic{typing-egg}{0.586}{0.442}{0.404}}
+
+% 13
+{\setbeamerfont{itemize/enumerate body}{size=\fontsize{11.1}{12.9}\selectfont}
+\begin{frame}{Git: ejercicio - parte 1}
+  \begin{enumerate}
+    \item Crear un nuevo repositorio siguiendo los pasos anteriores.
+    \item Crear dos archivos nuevos: \code{main.java} y \code{other.txt}.
+    \item Agregar contenido a los archivos creados.
+    \item Realizar commit de los cambios y subirlos al repositorio remoto.
+    \item Editar el archivo \code{main.java} agregando nuevas líneas.
+    \item Preparar los cambios (stage), y luego agregar más líneas de texto al mismo archivo.
+    \item Verificar el estado del repositorio local y observar qué sucedió.
+    \item Realizar commit de los cambios sin incluir la última modificación y subirlos.
+    \item Revisar el repositorio de GitHub y observa qué sucedió.
+    \item Revertir cambios que no fueron stageados.
+  \end{enumerate}
+\end{frame}}
+
+% 14
+\begin{frame}{Git: ejercicio - parte 2}
+  \begin{enumerate}
+    \item Crear una nueva rama y comenzar a trabajar en ella.
+    \item Editar el archivo \code{other.txt}.
+    \item Subir los cambios al repositorio remoto. Consultar el repositorio de GitHub para ver qué cambió.
+    \item Mergear la nueva rama con main y enviar los cambios.
+    \item Eliminar la rama creada anteriormente.
+    \item Consultar el repositorio de GitHub para ver qué cambió.
+    \item Revertir el merge y subir los cambios a GitHub.
+  \end{enumerate}
+\end{frame}
+
+% 15
+\utnseccion{Workflows}{}
+
+% 16
+\begin{frame}{Workflows: Centralized}
+  \utnpic{workflow-centralized}{0.189}{0.209}{0.622}
+  \utnnote[anchor=center,font=\fontsize{6}{7}\selectfont]{0.4955}{0.939}
+    {\weblink{https://www.atlassian.com/git/tutorials/comparing-workflows}}
+\end{frame}
+
+% 17
+\begin{frame}{Workflows: Feature Branch}
+  \utnpic{workflow-feature-branch}{0.024}{0.262}{0.952}
+  \utnnote[anchor=center,font=\fontsize{6}{7}\selectfont]{0.4955}{0.939}
+    {\weblink{https://www.atlassian.com/git/tutorials/comparing-workflows}}
+\end{frame}
+
+% 18
+\begin{frame}{Workflows: Gitflow}
+  \utnpic{workflow-gitflow}{0.081}{0.173}{0.838}
+  \utnnote[anchor=center,font=\fontsize{6}{7}\selectfont]{0.4955}{0.939}
+    {\weblink{https://www.atlassian.com/git/tutorials/comparing-workflows}}
+\end{frame}
+
+% 19
+\utnseccion{Ejemplo}{\utnpic{typing-keyboard}{0.391}{0.475}{0.592}}
+
+\end{document}
