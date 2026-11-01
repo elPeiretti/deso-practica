@@ -3,6 +3,8 @@ package domain;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 public class Flight extends TouristService {
@@ -17,6 +19,10 @@ public class Flight extends TouristService {
 
   public Flight(String company) {
     super(company);
+  }
+
+  public Flight(UUID id, String company) {
+    super(id, company);
   }
 
   @Override

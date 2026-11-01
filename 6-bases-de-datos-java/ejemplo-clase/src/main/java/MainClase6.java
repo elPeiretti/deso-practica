@@ -6,9 +6,9 @@ import exception.DataAccessException;
 import exception.FlightNotFoundException;
 import exception.UserNotFoundException;
 import repository.dao.FlightDao;
-import repository.dao.FlightDaoMemoryImpl;
+import repository.dao.FlightDaoJdbcImpl;
 import repository.dao.ReservationDao;
-import repository.dao.ReservationDaoFileImpl;
+import repository.dao.ReservationDaoJdbcImpl;
 import repository.dao.UserDao;
 import repository.dao.UserDaoJdbcImpl;
 import service.ReservationService;
@@ -20,7 +20,7 @@ import java.time.Instant;
 
 public class MainClase6 {
   void main() {
-    // Abre automáticamente el navegador en la consola de H2 conectado a la BD en memoria
+    // Abre automáticamente el navegador en la consola de H2 conectado a la BD
     DatabaseConnection.openWebConsole();
 
     // Inspección de DatabaseMetaData
@@ -29,22 +29,20 @@ public class MainClase6 {
       IO.println("Conectado a: " + metaData.getDatabaseProductName() + " " + metaData.getDatabaseProductVersion());
       IO.println("Soporta transacciones: " + metaData.supportsTransactions());
     } catch (Exception e) {
-      IO.println("Aviso al leer metadata: " + e.getMessage());
+      IO.println("Error al leer metadata: " + e.getMessage());
     }
 
     // 1. Configuración de dependencias
-    // Notar el desacoplamiento: La única diferencia con la Clase 3 es que usamos
-    // UserDaoJdbcImpl
     UserDao userDao = UserDaoJdbcImpl.getInstance();
     UserService userService = new UserService(userDao);
 
-    ReservationDao reservationDao = ReservationDaoFileImpl.getInstance();
-    FlightDao flightDao = FlightDaoMemoryImpl.getInstance();
+    ReservationDao reservationDao = ReservationDaoJdbcImpl.getInstance();
+    FlightDao flightDao = FlightDaoJdbcImpl.getInstance();
     ReservationService reservationService = new ReservationService(reservationDao, userDao, flightDao);
 
     // 2. Flujo de presentación (UI)
     try {
-      String username = IO.readln("Ingrese nombre de usuario (ej: 'fede' o 'karen'): ");
+      String username = IO.readln("Ingrese nombre de usuario:");
       UserResponse user = userService.getByUsername(username);
       IO.println("Usuario autenticado: " + user.username() + " (ID: " + user.id() + ")");
 
