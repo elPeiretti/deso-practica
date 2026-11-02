@@ -26,13 +26,12 @@ public class DatabaseConnection {
 
   // Abre automáticamente el navegador en la consola web de H2
   public static void openWebConsole() {
-    try {
-      // Inicia el servidor web en puerto 8082 sin bloquear el hilo
-      Server server = Server.createWebServer("-web", "-webAllowOthers", "-webPort", "8082").start();
-      Server.openBrowser("http://localhost:8082");
-      System.out.println("🌐 [H2 Console] Abierta en: http://localhost:8082");
-    } catch (Exception e) {
-      System.err.println("No se pudo abrir la consola web: " + e.getMessage());
-    }
+    new Thread(() -> {
+      try {
+        Server.startWebServer(getConnection());
+      } catch (SQLException e) {
+        System.err.println("Error al abrir consola web: " + e.getMessage());
+      }
+    }).start();
   }
 }
