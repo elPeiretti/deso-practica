@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/reservations")
@@ -25,8 +26,13 @@ public class ReservationController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public ReservationResponse create(@Valid @RequestBody CreateReservationRequest request)
-      throws UserNotFoundException, FlightNotFoundException, DataAccessException {
-    return reservationService.createReservation(request);
+  public ReservationResponse create(@Valid @RequestBody CreateReservationRequest request) {
+    try {
+      return reservationService.createReservation(request);
+    } catch (UserNotFoundException | FlightNotFoundException e) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+    } catch (DataAccessException e) {
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error de acceso a datos", e);
+    }
   }
 }
