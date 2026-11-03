@@ -6,7 +6,6 @@ import com.deso.practica.exception.DataAccessException;
 import com.deso.practica.exception.FlightNotFoundException;
 import com.deso.practica.exception.UserNotFoundException;
 import com.deso.practica.service.ReservationService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +25,14 @@ public class ReservationController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public ReservationResponse create(@Valid @RequestBody CreateReservationRequest request) {
+  public ReservationResponse create(@RequestBody CreateReservationRequest request) {
+    if (request.username() == null || request.username().isBlank()
+        || request.flightNumber() == null || request.flightNumber().isBlank()
+        || request.date() == null) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+          "username, flightNumber y date son obligatorios");
+    }
+
     try {
       return reservationService.createReservation(request);
     } catch (UserNotFoundException | FlightNotFoundException e) {
