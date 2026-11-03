@@ -3,25 +3,15 @@ package com.deso.practica.repository.dao;
 import com.deso.practica.config.DatabaseConnection;
 import com.deso.practica.domain.Reservation;
 import com.deso.practica.exception.DataAccessException;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
+@Repository
 public class ReservationDaoJdbcImpl implements ReservationDao {
-
-  private static ReservationDaoJdbcImpl instance;
-
-  private ReservationDaoJdbcImpl() {
-  }
-
-  public static synchronized ReservationDaoJdbcImpl getInstance() {
-    if (instance == null) {
-      instance = new ReservationDaoJdbcImpl();
-    }
-    return instance;
-  }
 
   @Override
   public void save(Reservation reservation) throws DataAccessException {

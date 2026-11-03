@@ -3,6 +3,7 @@ package com.deso.practica.repository.dao;
 import com.deso.practica.config.DatabaseConnection;
 import com.deso.practica.domain.User;
 import com.deso.practica.exception.DataAccessException;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,20 +12,8 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
 public class UserDaoJdbcImpl implements UserDao {
-
-  private static UserDaoJdbcImpl instance;
-
-  private UserDaoJdbcImpl() {
-  }
-
-  // Patrón Singleton consistente con UserDaoFileImpl
-  public static synchronized UserDaoJdbcImpl getInstance() {
-    if (instance == null) {
-      instance = new UserDaoJdbcImpl();
-    }
-    return instance;
-  }
 
   @Override
   public Optional<User> findByUsername(String username) throws DataAccessException {

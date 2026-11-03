@@ -3,6 +3,7 @@ package com.deso.practica.repository.dao;
 import com.deso.practica.config.DatabaseConnection;
 import com.deso.practica.domain.Flight;
 import com.deso.practica.exception.DataAccessException;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,18 +12,8 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
 public class FlightDaoJdbcImpl implements FlightDao {
-
-  private static FlightDaoJdbcImpl instance;
-
-  private FlightDaoJdbcImpl() {}
-
-  public static synchronized FlightDaoJdbcImpl getInstance() {
-    if (instance == null) {
-      instance = new FlightDaoJdbcImpl();
-    }
-    return instance;
-  }
 
   @Override
   public Optional<Flight> findByNumber(String number) throws DataAccessException {

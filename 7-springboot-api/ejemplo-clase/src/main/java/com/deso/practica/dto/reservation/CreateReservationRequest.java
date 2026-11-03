@@ -1,9 +1,12 @@
 package com.deso.practica.dto.reservation;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.Instant;
 
 public record CreateReservationRequest(
-    String username,
-    String flightNumber,
-    Instant date
+    @NotBlank String username,
+    @NotBlank String flightNumber,
+    @NotNull Instant date
 ) {}
