@@ -18,7 +18,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.time.Instant;
 
-public class MainClase6 {
+public class MainClase7 {
   void main() {
     // Abre automáticamente el navegador en la consola de H2 conectado a la BD
     DatabaseConnection.openWebConsole();

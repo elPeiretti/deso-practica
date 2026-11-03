@@ -2,6 +2,7 @@ package repository.dao;
 
 import config.DatabaseConnection;
 import domain.Flight;
+import exception.DataAccessException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +25,7 @@ public class FlightDaoJdbcImpl implements FlightDao {
   }
 
   @Override
-  public Optional<Flight> findByNumber(String number) {
+  public Optional<Flight> findByNumber(String number) throws DataAccessException {
     String sql = "SELECT id, number, company, aircraft_name, liters_per_km, length FROM flights WHERE UPPER(number) = UPPER(?)";
 
     try (Connection conn = DatabaseConnection.getConnection();
@@ -51,7 +52,7 @@ public class FlightDaoJdbcImpl implements FlightDao {
         return Optional.empty();
       }
     } catch (SQLException e) {
-      throw new RuntimeException("Error al consultar vuelo por número: " + number, e);
+      throw new DataAccessException("Error al consultar vuelo por número: " + number, e);
     }
   }
 }
