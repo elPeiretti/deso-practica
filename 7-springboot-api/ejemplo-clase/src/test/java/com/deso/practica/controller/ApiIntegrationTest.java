@@ -32,7 +32,7 @@ class ApiIntegrationTest {
   void getUser_unknown_returns404() throws Exception {
     mockMvc.perform(get("/api/users/nadie"))
         .andExpect(status().isNotFound())
-        .andExpect(jsonPath("$.detail").value("User with nadie username not found"));
+        .andExpect(jsonPath("$.message").value("User with nadie username not found"));
   }
 
   @Test
