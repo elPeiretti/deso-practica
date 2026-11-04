@@ -15,11 +15,17 @@ import java.util.UUID;
 @Repository
 public class FlightDaoJdbcImpl implements FlightDao {
 
+  private final DatabaseConnection databaseConnection;
+
+  public FlightDaoJdbcImpl(DatabaseConnection databaseConnection) {
+    this.databaseConnection = databaseConnection;
+  }
+
   @Override
   public Optional<Flight> findByNumber(String number) throws DataAccessException {
     String sql = "SELECT id, number, company, aircraft_name, liters_per_km, length FROM flights WHERE UPPER(number) = UPPER(?)";
 
-    try (Connection conn = DatabaseConnection.getConnection();
+    try (Connection conn = databaseConnection.getConnection();
          PreparedStatement stmt = conn.prepareStatement(sql)) {
 
       stmt.setString(1, number);

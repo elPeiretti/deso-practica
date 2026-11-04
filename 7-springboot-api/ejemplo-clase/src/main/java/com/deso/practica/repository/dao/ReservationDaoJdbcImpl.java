@@ -13,11 +13,17 @@ import java.sql.Timestamp;
 @Repository
 public class ReservationDaoJdbcImpl implements ReservationDao {
 
+  private final DatabaseConnection databaseConnection;
+
+  public ReservationDaoJdbcImpl(DatabaseConnection databaseConnection) {
+    this.databaseConnection = databaseConnection;
+  }
+
   @Override
   public void save(Reservation reservation) throws DataAccessException {
     String sql = "INSERT INTO reservations (id, service_id, user_id, reservation_date) VALUES (?, ?, ?, ?)";
 
-    try (Connection conn = DatabaseConnection.getConnection();
+    try (Connection conn = databaseConnection.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)) {
 
       stmt.setLong(1, Long.parseLong(reservation.getId()));

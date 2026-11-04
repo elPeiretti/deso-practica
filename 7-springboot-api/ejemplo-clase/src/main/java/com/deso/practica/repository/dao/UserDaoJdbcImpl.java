@@ -15,6 +15,12 @@ import java.util.UUID;
 @Repository
 public class UserDaoJdbcImpl implements UserDao {
 
+  private final DatabaseConnection databaseConnection;
+
+  public UserDaoJdbcImpl(DatabaseConnection databaseConnection) {
+    this.databaseConnection = databaseConnection;
+  }
+
   @Override
   public Optional<User> findByUsername(String username) throws DataAccessException {
     String sql = "SELECT id, username, name FROM users WHERE LOWER(username) = LOWER(?)";
@@ -22,7 +28,7 @@ public class UserDaoJdbcImpl implements UserDao {
     // Try-with-resources: cierra automáticamente Connection, PreparedStatement y
     // ResultSet
     try (
-        Connection conn = DatabaseConnection.getConnection();
+        Connection conn = databaseConnection.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)) {
 
       // Suministrar valores a los parámetros '?'
