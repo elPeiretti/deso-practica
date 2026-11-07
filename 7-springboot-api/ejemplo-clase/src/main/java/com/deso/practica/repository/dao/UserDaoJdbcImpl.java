@@ -3,6 +3,7 @@ package com.deso.practica.repository.dao;
 import com.deso.practica.config.DatabaseConnection;
 import com.deso.practica.domain.User;
 import com.deso.practica.exception.DataAccessException;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,19 +12,13 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
 public class UserDaoJdbcImpl implements UserDao {
 
-  private static UserDaoJdbcImpl instance;
+  private final DatabaseConnection databaseConnection;
 
-  private UserDaoJdbcImpl() {
-  }
-
-  // Patrón Singleton consistente con UserDaoFileImpl
-  public static synchronized UserDaoJdbcImpl getInstance() {
-    if (instance == null) {
-      instance = new UserDaoJdbcImpl();
-    }
-    return instance;
+  public UserDaoJdbcImpl(DatabaseConnection databaseConnection) {
+    this.databaseConnection = databaseConnection;
   }
 
   @Override
@@ -33,7 +28,7 @@ public class UserDaoJdbcImpl implements UserDao {
     // Try-with-resources: cierra automáticamente Connection, PreparedStatement y
     // ResultSet
     try (
-        Connection conn = DatabaseConnection.getConnection();
+        Connection conn = databaseConnection.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)) {
 
       // Suministrar valores a los parámetros '?'

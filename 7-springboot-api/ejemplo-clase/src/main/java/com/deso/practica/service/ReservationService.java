@@ -11,7 +11,9 @@ import com.deso.practica.exception.UserNotFoundException;
 import com.deso.practica.repository.dao.FlightDao;
 import com.deso.practica.repository.dao.ReservationDao;
 import com.deso.practica.repository.dao.UserDao;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ReservationService {
   private final ReservationDao reservationDao;
   private final UserDao userDao;

@@ -1,24 +1,30 @@
 package com.deso.practica.config;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+// Bean de Spring: la configuración se lee de application.properties (app.db.*)
+@Component
 public class DatabaseConnection {
 
-  // URL de H2 en memoria:
-  // - mem:reservations_db -> Base de datos en memoria
-  // - DB_CLOSE_DELAY=-1 -> Mantiene la base viva mientras corra la JVM
-  // - INIT=RUNSCRIPT... -> Ejecuta el script SQL de inicialización
-  // automáticamente
-  private static final String URL = "jdbc:h2:mem:reservations_db;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM 'classpath:schema.sql'";
-  private static final String USER = "sa";
-  private static final String PASSWORD = "";
+  private final String url;
+  private final String user;
+  private final String password;
 
-  private DatabaseConnection() {
+  public DatabaseConnection(
+      @Value("${app.db.url}") String url,
+      @Value("${app.db.user}") String user,
+      @Value("${app.db.password}") String password) {
+    this.url = url;
+    this.user = user;
+    this.password = password;
   }
 
-  public static Connection getConnection() throws SQLException {
-    return DriverManager.getConnection(URL, USER, PASSWORD);
+  public Connection getConnection() throws SQLException {
+    return DriverManager.getConnection(url, user, password);
   }
 }

@@ -5,7 +5,9 @@ import com.deso.practica.dto.user.UserResponse;
 import com.deso.practica.exception.DataAccessException;
 import com.deso.practica.exception.UserNotFoundException;
 import com.deso.practica.repository.dao.UserDao;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserService {
   private final UserDao userDao;
 
