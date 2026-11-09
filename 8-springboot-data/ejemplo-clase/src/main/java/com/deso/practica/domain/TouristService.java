@@ -1,12 +1,19 @@
 package com.deso.practica.domain;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
+// @MappedSuperclass: no es una tabla propia, pero sus campos se mapean en las tablas de las entidades hijas
+@MappedSuperclass
 @Getter(value = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public abstract class TouristService implements Identifiable {
+  @Id
   protected UUID id;
   protected String company;
 

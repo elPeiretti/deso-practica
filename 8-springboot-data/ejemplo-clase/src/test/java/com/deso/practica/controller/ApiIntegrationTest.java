@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-// controller -> service -> repository (JDBC) contra la H2 en memoria con los datos de schema.sql
+// controller -> service -> repository (Spring Data JPA) contra la H2 en memoria con los datos de data.sql
 @SpringBootTest
 @AutoConfigureMockMvc
 class ApiIntegrationTest {
@@ -63,5 +63,59 @@ class ApiIntegrationTest {
             .contentType(MediaType.APPLICATION_JSON)
             .content("{\"username\":\"\"}"))
         .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void getUsers_returnsAll() throws Exception {
+    mockMvc.perform(get("/api/users"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.length()").value(2));
+  }
+
+  @Test
+  void getFlights_withoutFilters_returnsAll() throws Exception {
+    mockMvc.perform(get("/api/flights"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.length()").value(3));
+  }
+
+  @Test
+  void getFlights_byCompanyAndMinLength_usesJpqlQuery() throws Exception {
+    // FlyDeso tiene ABC123 (1200) y XYZ789 (600): con minLength=1000 queda solo ABC123
+    mockMvc.perform(get("/api/flights").param("company", "FlyDeso").param("minLength", "1000"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.length()").value(1))
+        .andExpect(jsonPath("$[0].number").value("ABC123"))
+        .andExpect(jsonPath("$[0].aircraftName").value("Boeing 747"));
+  }
+
+  @Test
+  void getFlights_byCompanyOrderedByLength() throws Exception {
+    mockMvc.perform(get("/api/flights").param("company", "FlyDeso"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.length()").value(2))
+        .andExpect(jsonPath("$[0].number").value("ABC123"))
+        .andExpect(jsonPath("$[1].number").value("XYZ789"));
+  }
+
+  @Test
+  void getReservations_returnsReservationsOfUser() throws Exception {
+    mockMvc.perform(post("/api/reservations")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("""
+                {"username":"fede","flightNumber":"XYZ789","date":"2026-12-05T10:00:00Z"}
+                """))
+        .andExpect(status().isCreated());
+
+    mockMvc.perform(get("/api/reservations").param("username", "fede"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$[0].ownerUsername").value("fede"))
+        .andExpect(jsonPath("$[0].reservationId").exists());
+  }
+
+  @Test
+  void getReservations_unknownUser_returns404() throws Exception {
+    mockMvc.perform(get("/api/reservations").param("username", "nadie"))
+        .andExpect(status().isNotFound());
   }
 }
