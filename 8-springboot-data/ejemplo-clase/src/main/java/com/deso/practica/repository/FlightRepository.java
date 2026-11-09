@@ -15,7 +15,6 @@ public interface FlightRepository extends JpaRepository<Flight, UUID> {
   Optional<Flight> findByNumberIgnoreCase(String number);
 
   // JPQL: se consulta sobre ENTIDADES y atributos Java (Flight, f.company), no sobre tablas y columnas
-  @Query("SELECT f FROM Flight f WHERE f.company = :company AND f.length >= :minLength ORDER BY f.length DESC")
-  List<Flight> searchByCompanyAndMinLength(@Param("company") String company,
-                                           @Param("minLength") double minLength);
+  @Query("SELECT f FROM Flight f WHERE f.company = :company ORDER BY f.length DESC")
+  List<Flight> searchByCompany(@Param("company") String company);
 }

@@ -46,10 +46,10 @@ class RepositoriesTest {
   }
 
   @Test
-  void searchByCompanyAndMinLength_filtersWithJpql() {
-    List<Flight> flights = flightRepository.searchByCompanyAndMinLength("FlyDeso", 1000);
+  void searchByCompany_filtersAndOrdersWithJpql() {
+    List<Flight> flights = flightRepository.searchByCompany("FlyDeso");
 
-    assertEquals(1, flights.size());
+    assertEquals(2, flights.size());
     assertEquals("ABC123", flights.get(0).getNumber());
   }
 }

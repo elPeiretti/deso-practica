@@ -80,16 +80,6 @@ class ApiIntegrationTest {
   }
 
   @Test
-  void getFlights_byCompanyAndMinLength_usesJpqlQuery() throws Exception {
-    // FlyDeso tiene ABC123 (1200) y XYZ789 (600): con minLength=1000 queda solo ABC123
-    mockMvc.perform(get("/api/flights").param("company", "FlyDeso").param("minLength", "1000"))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$.length()").value(1))
-        .andExpect(jsonPath("$[0].number").value("ABC123"))
-        .andExpect(jsonPath("$[0].aircraftName").value("Boeing 747"));
-  }
-
-  @Test
   void getFlights_byCompanyOrderedByLength() throws Exception {
     mockMvc.perform(get("/api/flights").param("company", "FlyDeso"))
         .andExpect(status().isOk())

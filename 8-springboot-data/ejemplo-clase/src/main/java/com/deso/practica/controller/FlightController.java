@@ -19,8 +19,7 @@ public class FlightController {
   }
 
   @GetMapping
-  public List<FlightResponse> search(@RequestParam(required = false) String company,
-                                     @RequestParam(defaultValue = "0") double minLength) {
-    return flightService.search(company, minLength);
+  public List<FlightResponse> search(@RequestParam(required = false) String company) {
+    return flightService.search(company);
   }
 }

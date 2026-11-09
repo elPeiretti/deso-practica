@@ -16,10 +16,10 @@ public class FlightService {
   }
 
   // Sin compañía: todos los vuelos (findAll). Con compañía: consulta JPQL
-  public List<FlightResponse> search(String company, double minLength) {
+  public List<FlightResponse> search(String company) {
     List<Flight> flights = (company == null || company.isBlank())
         ? flightRepository.findAll()
-        : flightRepository.searchByCompanyAndMinLength(company, minLength);
+        : flightRepository.searchByCompany(company);
     return flights.stream().map(this::toResponse).toList();
   }
 
