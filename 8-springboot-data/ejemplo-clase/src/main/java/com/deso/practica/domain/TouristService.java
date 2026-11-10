@@ -1,15 +1,21 @@
 package com.deso.practica.domain;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-// @MappedSuperclass: no es una tabla propia, pero sus campos se mapean en las tablas de las entidades hijas
-@MappedSuperclass
+// @Inheritance(JOINED): una tabla para TouristService (campos comunes) y una por cada subclase,
+// unidas por el id. Así una Reservation puede apuntar a cualquier tipo de servicio.
+@Entity
+@Table(name = "tourist_services")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Getter(value = AccessLevel.PROTECTED)
 @NoArgsConstructor
 public abstract class TouristService implements Identifiable {

@@ -31,7 +31,7 @@ public class Reservation implements Identifiable {
   // Relación muchas reservas -> un vuelo. La FK es la columna service_id
   @ManyToOne(optional = false)
   @JoinColumn(name = "service_id")
-  private Flight service;
+  private TouristService service;
 
   // Relación muchas reservas -> un usuario. La FK es la columna user_id
   @ManyToOne(optional = false)
@@ -50,7 +50,7 @@ public class Reservation implements Identifiable {
   public static class Builder {
     private Long id;
     private Instant date;
-    private Flight service;
+    private TouristService service;
     private User owner;
 
     public Builder id(Long id) {
@@ -63,7 +63,7 @@ public class Reservation implements Identifiable {
       return this;
     }
 
-    public Builder service(Flight service) {
+    public Builder service(TouristService service) {
       this.service = service;
       return this;
     }
