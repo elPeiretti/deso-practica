@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.panel {
+  border: 2px solid;
+  border-radius: 8px;
+  padding: 1rem 2rem;
+  margin-bottom: 1rem;
+}
+
+.admin {
+  border-color: crimson;
+}
+
+.home {
+  border-color: steelblue;
+}
