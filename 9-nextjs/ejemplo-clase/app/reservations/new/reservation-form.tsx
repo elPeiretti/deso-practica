@@ -29,6 +29,7 @@ export function ReservationForm({ users, flights }: ReservationFormProps) {
   // Vuelo preseleccionado si se llega desde el botón "Reservar" de /flights
   const defaultFlight = useSearchParams().get("flight");
   const [request, setRequest] = useState<CreateReservationRequest | null>(null);
+  const minDate = today(getLocalTimeZone());
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -107,7 +108,7 @@ export function ReservationForm({ users, flights }: ReservationFormProps) {
                 <FieldError>Elegí un vuelo.</FieldError>
               </Select>
 
-              <DatePicker isRequired name="date" minValue={today(getLocalTimeZone())}>
+              <DatePicker isRequired name="date" minValue={minDate}>
                 <Label>Fecha</Label>
                 <DateField.Group fullWidth>
                   <DateField.Input>
@@ -119,9 +120,18 @@ export function ReservationForm({ users, flights }: ReservationFormProps) {
                     </DatePicker.Trigger>
                   </DateField.Suffix>
                 </DateField.Group>
-                <FieldError>La fecha tiene que ser hoy o posterior.</FieldError>
+                {/* El mensaje depende de qué validación falló */}
+                <FieldError>
+                  {({ validationDetails }) =>
+                    validationDetails.valueMissing
+                      ? "Elegí una fecha."
+                      : "La fecha tiene que ser hoy o posterior."
+                  }
+                </FieldError>
                 <DatePicker.Popover>
-                  <Calendar aria-label="Fecha de la reserva">
+                  {/* El Calendar de HeroUI no toma el minValue del DatePicker: hay que pasarlo
+                      también acá para que los días anteriores aparezcan deshabilitados */}
+                  <Calendar aria-label="Fecha de la reserva" minValue={minDate}>
                     <Calendar.Header>
                       <Calendar.YearPickerTrigger>
                         <Calendar.YearPickerTriggerHeading />

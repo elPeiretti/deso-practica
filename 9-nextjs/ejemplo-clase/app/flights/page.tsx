@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -12,6 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { flights, formatPrice } from "@/lib/data";
+import { cn } from "@/lib/utils";
 
 // Página hecha con shadcn/ui: los componentes están copiados en components/ui
 // (se agregan con `npx shadcn@latest add <componente>`) y se pueden modificar.
@@ -20,9 +21,12 @@ export default function FlightsPage() {
     // .shadcn aplica los colores de shadcn (ver globals.css)
     <div className="shadcn">
       <PageHeader title="Vuelos" description="Vuelos disponibles para reservar">
-        <Button nativeButton={false} render={<Link href="/reservations/new" />}>
+        {/* Links con estilo de botón: buttonVariants da las clases del Button de shadcn.
+            cn() resuelve los conflictos entre clases (ej. border-transparent vs border-border),
+            como hace el componente Button internamente */}
+        <Link href="/reservations/new" className={cn(buttonVariants())}>
           Nueva reserva
-        </Button>
+        </Link>
       </PageHeader>
 
       <Card>
@@ -55,14 +59,12 @@ export default function FlightsPage() {
                   <TableCell className="text-right">{flight.length} km</TableCell>
                   <TableCell className="text-right">{formatPrice(flight.price)}</TableCell>
                   <TableCell className="text-right">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      nativeButton={false}
-                      render={<Link href={`/reservations/new?flight=${flight.number}`} />}
+                    <Link
+                      href={`/reservations/new?flight=${flight.number}`}
+                      className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
                     >
                       Reservar
-                    </Button>
+                    </Link>
                   </TableCell>
                 </TableRow>
               ))}
