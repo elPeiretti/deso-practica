@@ -1,32 +1,11 @@
 import { connection } from "next/server";
 
-// Forma de los usuarios que devuelve https://jsonplaceholder.typicode.com/users
-// (solo los campos que usamos)
-export type User = {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  address: {
-    street: string;
-    city: string;
-  };
-};
-
-// Alojamientos basados en el dominio del sistema de turismo de las clases anteriores
-export type Accommodation = {
-  id: string;
-  name: string;
-  pricePerNight: number;
-  location: {
-    city: string;
-    address: string;
-  };
-  amenities: string[];
-};
+// Los usuarios vienen de https://jsonplaceholder.typicode.com/users.
+// De cada uno usamos: { id, name, username, email, address: { city } }
 
 // JSONPlaceholder no tiene alojamientos, así que los definimos acá
-const accommodations: Accommodation[] = [
+// (basados en el dominio del sistema de turismo de las clases anteriores)
+const accommodations = [
   {
     id: "1",
     name: "Hotel Puerto",
@@ -53,11 +32,11 @@ const accommodations: Accommodation[] = [
 // Demora artificial para que se llegue a ver el estado de carga
 const DELAY_MS = 1500;
 
-function sleep(ms: number) {
+function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export async function getUsers(): Promise<User[]> {
+export async function getUsers() {
   // Hace que la página se renderice en cada request (y no una sola vez en el build),
   // así se ve el estado de carga
   await connection();
@@ -70,7 +49,7 @@ export async function getUsers(): Promise<User[]> {
   return res.json();
 }
 
-export async function getAccommodations(): Promise<Accommodation[]> {
+export async function getAccommodations() {
   await connection();
   await sleep(DELAY_MS);
   return accommodations;

@@ -1,4 +1,4 @@
-// Next.js envuelve automáticamente page.tsx en un <Suspense> con este componente como fallback
+// Next.js envuelve automáticamente page.jsx en un <Suspense> con este componente como fallback
 export default function Loading() {
   return (
     <div className="flex items-center gap-3">

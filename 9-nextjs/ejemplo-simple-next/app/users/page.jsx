@@ -1,7 +1,7 @@
 import { getUsers } from "@/lib/data";
 
 // Server Component asíncrono: los datos se buscan en el servidor al entrar a /users.
-// Mientras se espera, Next.js muestra app/users/loading.tsx
+// Mientras se espera, Next.js muestra app/users/loading.jsx
 export default async function UsersPage() {
   const users = await getUsers();
 

@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import RoomList from "./room-list";
 
-// A diferencia de /users, acá usamos <Suspense> en vez de loading.tsx:
+// A diferencia de /users, acá usamos <Suspense> en vez de loading.jsx:
 // el título se muestra al instante y solo la lista espera a los datos
 export default function RoomsPage() {
   return (
