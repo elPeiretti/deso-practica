@@ -19,6 +19,3 @@ export const flights = [
   { number: "XYZ789", company: "FlyDeso", aircraftName: "Airbus A320", length: 600, price: 1980 },
   { number: "LAT456", company: "LatAir", aircraftName: "Embraer 190", length: 900, price: 3682.8 },
 ];
-
-export const formatPrice = (price) =>
-  new Intl.NumberFormat("es-AR", { style: "currency", currency: "USD" }).format(price);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { startTransition, useActionState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   Alert,
@@ -18,26 +18,33 @@ import {
   Select,
 } from "@heroui/react";
 import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
-import { formatPrice } from "@/lib/data";
+import { formatPrice } from "@/lib/format";
+import { createReservationAction } from "./actions";
 
 export function ReservationForm({ users, flights }) {
   // Vuelo preseleccionado si se llega desde el botón "Reservar" de /flights
   const defaultFlight = useSearchParams().get("flight");
-  const [request, setRequest] = useState(null);
   const minDate = today(getLocalTimeZone());
+
+  // useActionState guarda lo que devuelve la Server Action:
+  // { request } si salió bien, { message } si hubo un error al crear la reserva,
+  // o { errors } si falló la validación del servidor. pending es true mientras se envía.
+  const [state, submitAction, pending] = useActionState(createReservationAction, {});
 
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
-    // Arma el body de POST /api/reservations
-    setRequest({
-      username: String(formData.get("username")),
-      flightNumber: String(formData.get("flightNumber")),
-      date: parseDate(String(formData.get("date")))
-        .toDate(getLocalTimeZone())
-        .toISOString(),
-    });
+    // La API espera un Instant: se convierte la fecha elegida (aaaa-mm-dd) a la medianoche
+    // de la zona horaria del usuario, que solo se conoce acá en el navegador
+    formData.set(
+      "date",
+      parseDate(String(formData.get("date"))).toDate(getLocalTimeZone()).toISOString(),
+    );
+
+    // Se llama a la acción a mano (en vez de <Form action={submitAction}>) porque con action
+    // React vacía el formulario al terminar, y si hubo un error se perderían los datos cargados
+    startTransition(() => submitAction(formData));
   };
 
   return (
@@ -50,7 +57,12 @@ export function ReservationForm({ users, flights }) {
             <Card.Description>Todos los campos son obligatorios.</Card.Description>
           </Card.Header>
           <Card.Content>
-            <Form className="flex flex-col gap-4" onSubmit={onSubmit}>
+            <Form
+              className="flex flex-col gap-4"
+              onSubmit={onSubmit}
+              // Errores de validación devueltos por el servidor: se muestran en cada campo
+              validationErrors={state.errors}
+            >
               <Select isRequired name="username" placeholder="Elegí un usuario">
                 <Label>Usuario</Label>
                 <Select.Trigger>
@@ -117,10 +129,12 @@ export function ReservationForm({ users, flights }) {
                 </DateField.Group>
                 {/* El mensaje depende de qué validación falló */}
                 <FieldError>
-                  {({ validationDetails }) =>
+                  {({ validationDetails, validationErrors }) =>
                     validationDetails.valueMissing
                       ? "Elegí una fecha."
-                      : "La fecha tiene que ser hoy o posterior."
+                      : validationDetails.rangeUnderflow
+                        ? "La fecha tiene que ser hoy o posterior."
+                        : validationErrors.join(" ")
                   }
                 </FieldError>
                 <DatePicker.Popover>
@@ -152,38 +166,57 @@ export function ReservationForm({ users, flights }) {
                 </DatePicker.Popover>
               </DatePicker>
 
-              <Button type="submit" variant="primary" className="mt-2">
-                Reservar
+              <Button type="submit" variant="primary" className="mt-2" isPending={pending}>
+                {pending ? "Reservando..." : "Reservar"}
               </Button>
             </Form>
           </Card.Content>
         </Card>
 
-        {request ? (
-          <Alert status="success" className="h-fit">
-            <Alert.Indicator />
-            <Alert.Content>
-              <Alert.Title>Reserva lista para enviar</Alert.Title>
-              <Alert.Description>
-                Este es el body que se enviaría a <code>POST /api/reservations</code>:
-                <pre className="mt-2 overflow-x-auto rounded-lg bg-white/70 p-3 text-xs text-foreground">
-                  {JSON.stringify(request, null, 2)}
-                </pre>
-              </Alert.Description>
-            </Alert.Content>
-          </Alert>
-        ) : (
-          <Alert className="h-fit">
-            <Alert.Indicator />
-            <Alert.Content>
-              <Alert.Title>Sin enviar</Alert.Title>
-              <Alert.Description>
-                Completá el formulario para ver el request que se enviaría a la API.
-              </Alert.Description>
-            </Alert.Content>
-          </Alert>
-        )}
+        <ReservationResult state={state} />
       </div>
     </I18nProvider>
+  );
+}
+
+// Panel de la derecha: muestra el body que se enviaría a la API o el error
+function ReservationResult({ state }) {
+  if (state.request) {
+    return (
+      <Alert status="success" className="h-fit">
+        <Alert.Indicator />
+        <Alert.Content>
+          <Alert.Title>Reserva lista para enviar</Alert.Title>
+          <Alert.Description>
+            Este es el body que se enviaría a <code>POST /api/reservations</code>:
+            <pre className="mt-2 overflow-x-auto rounded-lg bg-white/70 p-3 text-xs text-foreground">
+              {JSON.stringify(state.request, null, 2)}
+            </pre>
+          </Alert.Description>
+        </Alert.Content>
+      </Alert>
+    );
+  }
+
+  if (state.message) {
+    return (
+      <Alert status="danger" className="h-fit">
+        <Alert.Indicator />
+        <Alert.Content>
+          <Alert.Title>No se pudo crear la reserva</Alert.Title>
+          <Alert.Description>{state.message}</Alert.Description>
+        </Alert.Content>
+      </Alert>
+    );
+  }
+
+  return (
+    <Alert className="h-fit">
+      <Alert.Indicator />
+      <Alert.Content>
+        <Alert.Title>Sin enviar</Alert.Title>
+        <Alert.Description>Completá el formulario para ver el request que se enviaría a la API.</Alert.Description>
+      </Alert.Content>
+    </Alert>
   );
 }
