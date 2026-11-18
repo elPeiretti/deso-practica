@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   Alert,
@@ -18,20 +18,15 @@ import {
   Select,
 } from "@heroui/react";
 import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
-import { formatPrice, type CreateReservationRequest, type Flight, type User } from "@/lib/data";
+import { formatPrice } from "@/lib/data";
 
-type ReservationFormProps = {
-  users: User[];
-  flights: Flight[];
-};
-
-export function ReservationForm({ users, flights }: ReservationFormProps) {
+export function ReservationForm({ users, flights }) {
   // Vuelo preseleccionado si se llega desde el botón "Reservar" de /flights
   const defaultFlight = useSearchParams().get("flight");
-  const [request, setRequest] = useState<CreateReservationRequest | null>(null);
+  const [request, setRequest] = useState(null);
   const minDate = today(getLocalTimeZone());
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 

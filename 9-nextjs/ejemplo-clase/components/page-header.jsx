@@ -1,14 +1,6 @@
-import type { ReactNode } from "react";
-
 // Componente propio: no usa ninguna librería, solo Tailwind.
-// Recibe props tipadas y un `children` opcional para las acciones de la derecha.
-type PageHeaderProps = {
-  title: string;
-  description?: string;
-  children?: ReactNode;
-};
-
-export function PageHeader({ title, description, children }: PageHeaderProps) {
+// Recibe un título, una descripción opcional y un `children` opcional para las acciones de la derecha.
+export function PageHeader({ title, description, children }) {
   return (
     <div className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-4">
       <div>

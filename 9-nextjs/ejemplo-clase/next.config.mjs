@@ -1,6 +1,5 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   // Evita que `next dev` genere AGENTS.md
   agentRules: false,
   cacheComponents: true,
