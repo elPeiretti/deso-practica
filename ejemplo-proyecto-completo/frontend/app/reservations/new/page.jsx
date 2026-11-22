@@ -11,7 +11,7 @@ export default function NewReservationPage() {
     <>
       <PageHeader
         title="Nueva reserva"
-        description="Formulario hecho con HeroUI. Todavía no se envía a la API."
+        description="Formulario hecho con HeroUI. Se envía a la API con una Server Action."
       />
       {/* El título se muestra al instante; el formulario, cuando responde la API */}
       <Suspense fallback={<FormSkeleton />}>

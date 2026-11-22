@@ -18,7 +18,8 @@ import {
   Select,
 } from "@heroui/react";
 import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
-import { formatPrice } from "@/lib/format";
+import Link from "next/link";
+import { formatDate, formatPrice } from "@/lib/format";
 import { createReservationAction } from "./actions";
 
 export function ReservationForm({ users, flights }) {
@@ -27,7 +28,7 @@ export function ReservationForm({ users, flights }) {
   const minDate = today(getLocalTimeZone());
 
   // useActionState guarda lo que devuelve la Server Action:
-  // { request } si salió bien, { message } si hubo un error al crear la reserva,
+  // { reservation } si salió bien, { message } si la API devolvió un error,
   // o { errors } si falló la validación del servidor. pending es true mientras se envía.
   const [state, submitAction, pending] = useActionState(createReservationAction, {});
 
@@ -179,19 +180,34 @@ export function ReservationForm({ users, flights }) {
   );
 }
 
-// Panel de la derecha: muestra el body que se enviaría a la API o el error
+// Panel de la derecha: muestra la reserva que devolvió la API o el error
 function ReservationResult({ state }) {
-  if (state.request) {
+  const { reservation } = state;
+  if (reservation) {
     return (
       <Alert status="success" className="h-fit">
         <Alert.Indicator />
         <Alert.Content>
-          <Alert.Title>Reserva lista para enviar</Alert.Title>
+          <Alert.Title>Reserva creada</Alert.Title>
           <Alert.Description>
-            Este es el body que se enviaría a <code>POST /api/reservations</code>:
-            <pre className="mt-2 overflow-x-auto rounded-lg bg-white/70 p-3 text-xs text-foreground">
-              {JSON.stringify(state.request, null, 2)}
-            </pre>
+            <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
+              <dt>Número</dt>
+              <dd className="font-mono">{reservation.reservationId}</dd>
+              <dt>Usuario</dt>
+              <dd>{reservation.ownerUsername}</dd>
+              <dt>Servicio</dt>
+              <dd>{reservation.serviceName}</dd>
+              <dt>Fecha</dt>
+              <dd>{formatDate(reservation.date)}</dd>
+              <dt>Precio</dt>
+              <dd>{formatPrice(reservation.price)}</dd>
+            </dl>
+            <Link
+              href={`/reservations?username=${encodeURIComponent(reservation.ownerUsername)}`}
+              className="mt-3 inline-block font-medium underline"
+            >
+              Ver las reservas de {reservation.ownerUsername}
+            </Link>
           </Alert.Description>
         </Alert.Content>
       </Alert>
@@ -215,7 +231,7 @@ function ReservationResult({ state }) {
       <Alert.Indicator />
       <Alert.Content>
         <Alert.Title>Sin enviar</Alert.Title>
-        <Alert.Description>Completá el formulario para ver el request que se enviaría a la API.</Alert.Description>
+        <Alert.Description>Completá el formulario para crear la reserva.</Alert.Description>
       </Alert.Content>
     </Alert>
   );

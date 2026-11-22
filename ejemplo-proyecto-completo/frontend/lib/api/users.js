@@ -1,7 +1,7 @@
 import "server-only";
-import { users } from "@/lib/data";
+import { apiFetch } from "./client";
 
 // GET /api/users -> [{ id, username }]
 export async function getUsers() {
-  return users;
+  return apiFetch("/api/users");
 }

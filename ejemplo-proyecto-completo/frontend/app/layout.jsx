@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "Turismo DESO",
-  description: "Ejemplo de clase 9 - Next.js con shadcn/ui y HeroUI",
+  description: "Ejemplo de proyecto completo - Next.js + API de Spring Boot",
 };
 
 export default function RootLayout({ children }) {
@@ -31,6 +31,9 @@ export default function RootLayout({ children }) {
             </Link>
             <Link href="/reservations/new" className="hover:underline">
               Nueva reserva
+            </Link>
+            <Link href="/reservations" className="hover:underline">
+              Mis reservas
             </Link>
           </nav>
         </header>

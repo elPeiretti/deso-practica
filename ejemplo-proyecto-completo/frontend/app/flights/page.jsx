@@ -22,7 +22,7 @@ export default function FlightsPage() {
         <CardHeader>
           <CardTitle>Listado de vuelos</CardTitle>
           <CardDescription>
-            Misma forma que la respuesta de <code>GET /api/flights</code>
+            Datos de <code>GET /api/flights</code>, pedidos desde el servidor de Next
           </CardDescription>
         </CardHeader>
         <CardContent>
