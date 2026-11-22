@@ -29,9 +29,6 @@ export default function RootLayout({ children }) {
             <Link href="/flights" className="hover:underline">
               Vuelos
             </Link>
-            <Link href="/reservations/new" className="hover:underline">
-              Nueva reserva
-            </Link>
             <Link href="/reservations" className="hover:underline">
               Mis reservas
             </Link>
