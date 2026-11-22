@@ -2,11 +2,7 @@
 
 // Ejemplo de datos pedidos desde el navegador, en contraste con el resto de la app,
 // donde los pide el servidor de Next (Server Components y Server Actions).
-//
-// Como esta página corre en http://localhost:3000 y la API en http://localhost:8080,
-// el navegador hace un request a otro origen. Para que el JavaScript pueda leer la respuesta,
-// la API tiene que devolver el header Access-Control-Allow-Origin (ver CorsConfig en la API).
-// Si no lo devuelve, el request llega igual a la API, pero fetch falla con un error de CORS.
+// Se debe configurar CORS correctamente para que la página funcione.
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -47,11 +43,7 @@ async function fetchFromApi(path, signal) {
 export function MyReservations() {
   const router = useRouter();
 
-  // El usuario elegido sale de la URL (?username=) y no de un useState.
-  // Con cacheComponents, Next.js no desmonta la página al navegar a otra: la oculta con
-  // <Activity> y conserva su estado. Si el usuario estuviera en un useState, al volver con
-  // el link "Ver las reservas de karen" seguiría elegido el usuario anterior.
-  // Tomándolo de la URL, siempre se muestra lo que pide el link (o nada, si no hay ?username=).
+  // El usuario elegido sale de la URL (?username=).
   const username = useSearchParams().get("username") ?? "";
 
   const [users, setUsers] = useState([]);
@@ -61,7 +53,6 @@ export function MyReservations() {
   const [result, setResult] = useState(null);
 
   // Efecto 1: se ejecuta después del primer render y trae los usuarios para el select.
-  // También se vuelve a ejecutar cada vez que la página se muestra de nuevo (ver Activity arriba).
   useEffect(() => {
     const controller = new AbortController();
     fetchFromApi("/api/users", controller.signal)
@@ -69,7 +60,9 @@ export function MyReservations() {
       .catch((error) => {
         if (error.name !== "AbortError") setUsersError(error.message);
       });
-    // Cleanup: si el componente se desmonta antes de que llegue la respuesta, se cancela el request
+
+    // Cleanup: si el componente se desmonta (o se oculta) antes de que llegue la respuesta,
+    // se cancela el request
     return () => controller.abort();
   }, []);
 
@@ -91,7 +84,8 @@ export function MyReservations() {
   }, [username]);
 
   // Elegir un usuario cambia la URL; eso cambia username y dispara el efecto 2.
-  // replace (en vez de push) para no llenar el historial con cada usuario elegido.
+  // replace reemplaza la entrada actual del historial en vez de agregar una nueva
+  // (como router.push), así el botón Atrás no pasa por cada usuario elegido.
   const onUserChange = (e) => {
     const value = e.target.value;
     router.replace(value ? `/reservations?username=${encodeURIComponent(value)}` : "/reservations", {

@@ -22,9 +22,9 @@ import Link from "next/link";
 import { formatDate, formatPrice } from "@/lib/format";
 import { createReservationAction } from "./actions";
 
-// Con cacheComponents, Next.js no desmonta la página al navegar a otra: la oculta con <Activity>
-// y conserva su estado (los campos, el resultado de la reserva). Sin hacer nada, al volver se
-// vería la reserva anterior y el vuelo de ?flight= no se aplicaría.
+// Con cacheComponents activado, Next.js no desmonta la página al navegar a otra: la oculta
+// y conserva su estado. Sin hacer nada, al volver se
+// vería la reserva anterior y el valor del param "flight" no se aplicaría.
 // Para empezar de cero, se usa bfcacheId como key: cambia cada vez que se llega a la página
 // con un link (o router.push), y con otra key React crea el formulario de nuevo.
 // Con los botones Atrás/Adelante del navegador no cambia, así que ahí se recupera lo cargado.
@@ -33,9 +33,6 @@ export function ReservationForm({ users, flights }) {
   // Vuelo preseleccionado si se llega desde el botón "Reservar" de /flights
   const defaultFlight = useSearchParams().get("flight");
 
-  // defaultFlight no puede ir en la key: mientras la página está oculta se vuelve a renderizar
-  // con los query params de la página visible (sin ?flight=), así que la key cambiaría al salir
-  // y se perdería lo cargado también con el botón Atrás
   return (
     <ReservationFormContent
       key={bfcacheId}

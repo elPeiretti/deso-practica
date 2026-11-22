@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 // (otro protocolo, dominio o puerto). La página de Next corre en http://localhost:3000
 // y esta API en http://localhost:8080: son orígenes distintos.
 //
-// Solo hace falta para los requests que hace el navegador, como el fetch de la página
+// Solo es necesario para los requests que hace el navegador, como el fetch de la página
 // "Mis reservas" del frontend. Los requests que hace el servidor de Next (Server Components
 // y Server Actions) no pasan por el navegador, así que CORS no los afecta.
 //
