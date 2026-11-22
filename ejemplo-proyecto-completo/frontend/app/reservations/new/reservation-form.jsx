@@ -1,7 +1,7 @@
 "use client";
 
-import { startTransition, useActionState, useLayoutEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { startTransition, useActionState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Alert,
   Button,
@@ -23,25 +23,22 @@ import { formatDate, formatPrice } from "@/lib/format";
 import { createReservationAction } from "./actions";
 
 // Con cacheComponents, Next.js no desmonta la página al navegar a otra: la oculta con <Activity>
-// y conserva su estado (los campos, el resultado de la reserva). Al volver se vería la reserva
-// anterior, y el vuelo de ?flight= no se aplicaría porque el Select ya estaba creado.
-// Para empezar de cero cada vez, se cambia la key del formulario cuando la página se oculta:
-// con otra key, React descarta el componente y crea uno nuevo, con su estado inicial.
+// y conserva su estado (los campos, el resultado de la reserva). Sin hacer nada, al volver se
+// vería la reserva anterior y el vuelo de ?flight= no se aplicaría.
+// Para empezar de cero, se usa bfcacheId como key: cambia cada vez que se llega a la página
+// con un link (o router.push), y con otra key React crea el formulario de nuevo.
+// Con los botones Atrás/Adelante del navegador no cambia, así que ahí se recupera lo cargado.
 export function ReservationForm({ users, flights }) {
+  const { bfcacheId } = useRouter();
   // Vuelo preseleccionado si se llega desde el botón "Reservar" de /flights
   const defaultFlight = useSearchParams().get("flight");
-  const [resetCount, setResetCount] = useState(0);
 
-  // El cleanup corre cuando Activity oculta la página (al navegar a otra)
-  useLayoutEffect(() => {
-    return () => setResetCount((count) => count + 1);
-  }, []);
-
-  // defaultFlight también va en la key: si cambia el ?flight= estando en la página
-  // (por ejemplo, con el link "Nueva reserva" de la barra), el formulario se reinicia
+  // defaultFlight no puede ir en la key: mientras la página está oculta se vuelve a renderizar
+  // con los query params de la página visible (sin ?flight=), así que la key cambiaría al salir
+  // y se perdería lo cargado también con el botón Atrás
   return (
     <ReservationFormContent
-      key={`${resetCount}-${defaultFlight}`}
+      key={bfcacheId}
       users={users}
       flights={flights}
       defaultFlight={defaultFlight}
