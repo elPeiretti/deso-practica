@@ -1,6 +1,6 @@
 "use client";
 
-import { startTransition, useActionState } from "react";
+import { startTransition, useActionState, useLayoutEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   Alert,
@@ -22,9 +22,34 @@ import Link from "next/link";
 import { formatDate, formatPrice } from "@/lib/format";
 import { createReservationAction } from "./actions";
 
+// Con cacheComponents, Next.js no desmonta la página al navegar a otra: la oculta con <Activity>
+// y conserva su estado (los campos, el resultado de la reserva). Al volver se vería la reserva
+// anterior, y el vuelo de ?flight= no se aplicaría porque el Select ya estaba creado.
+// Para empezar de cero cada vez, se cambia la key del formulario cuando la página se oculta:
+// con otra key, React descarta el componente y crea uno nuevo, con su estado inicial.
 export function ReservationForm({ users, flights }) {
   // Vuelo preseleccionado si se llega desde el botón "Reservar" de /flights
   const defaultFlight = useSearchParams().get("flight");
+  const [resetCount, setResetCount] = useState(0);
+
+  // El cleanup corre cuando Activity oculta la página (al navegar a otra)
+  useLayoutEffect(() => {
+    return () => setResetCount((count) => count + 1);
+  }, []);
+
+  // defaultFlight también va en la key: si cambia el ?flight= estando en la página
+  // (por ejemplo, con el link "Nueva reserva" de la barra), el formulario se reinicia
+  return (
+    <ReservationFormContent
+      key={`${resetCount}-${defaultFlight}`}
+      users={users}
+      flights={flights}
+      defaultFlight={defaultFlight}
+    />
+  );
+}
+
+function ReservationFormContent({ users, flights, defaultFlight }) {
   const minDate = today(getLocalTimeZone());
 
   // useActionState guarda lo que devuelve la Server Action:

@@ -9,7 +9,7 @@
 // Si no lo devuelve, el request llega igual a la API, pero fetch falla con un error de CORS.
 
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -45,16 +45,23 @@ async function fetchFromApi(path, signal) {
 }
 
 export function MyReservations() {
-  // Usuario preseleccionado si se llega desde el link de "Reserva creada"
-  const initialUsername = useSearchParams().get("username") ?? "";
+  const router = useRouter();
+
+  // El usuario elegido sale de la URL (?username=) y no de un useState.
+  // Con cacheComponents, Next.js no desmonta la página al navegar a otra: la oculta con
+  // <Activity> y conserva su estado. Si el usuario estuviera en un useState, al volver con
+  // el link "Ver las reservas de karen" seguiría elegido el usuario anterior.
+  // Tomándolo de la URL, siempre se muestra lo que pide el link (o nada, si no hay ?username=).
+  const username = useSearchParams().get("username") ?? "";
 
   const [users, setUsers] = useState([]);
   const [usersError, setUsersError] = useState(null);
-  const [username, setUsername] = useState(initialUsername);
-  // status: "idle" (sin usuario elegido), "loading", "success" o "error"
-  const [result, setResult] = useState({ status: initialUsername ? "loading" : "idle" });
+  // Última respuesta de la API: { username, reservations } o { username, message } si hubo error.
+  // Guarda el username para saber si corresponde al usuario elegido ahora.
+  const [result, setResult] = useState(null);
 
-  // Efecto 1: se ejecuta una vez, después del primer render, y trae los usuarios para el select
+  // Efecto 1: se ejecuta después del primer render y trae los usuarios para el select.
+  // También se vuelve a ejecutar cada vez que la página se muestra de nuevo (ver Activity arriba).
   useEffect(() => {
     const controller = new AbortController();
     fetchFromApi("/api/users", controller.signal)
@@ -72,9 +79,9 @@ export function MyReservations() {
 
     const controller = new AbortController();
     fetchFromApi(`/api/reservations?username=${encodeURIComponent(username)}`, controller.signal)
-      .then((reservations) => setResult({ status: "success", reservations }))
+      .then((reservations) => setResult({ username, reservations }))
       .catch((error) => {
-        if (error.name !== "AbortError") setResult({ status: "error", message: error.message });
+        if (error.name !== "AbortError") setResult({ username, message: error.message });
       });
 
     // Cleanup: corre antes de la próxima ejecución del efecto. Si se cambia de usuario
@@ -83,12 +90,22 @@ export function MyReservations() {
     return () => controller.abort();
   }, [username]);
 
+  // Elegir un usuario cambia la URL; eso cambia username y dispara el efecto 2.
+  // replace (en vez de push) para no llenar el historial con cada usuario elegido.
   const onUserChange = (e) => {
     const value = e.target.value;
-    setUsername(value);
-    // El estado de carga se actualiza acá, en el evento, y no dentro del efecto
-    setResult({ status: value ? "loading" : "idle" });
+    router.replace(value ? `/reservations?username=${encodeURIComponent(value)}` : "/reservations", {
+      scroll: false,
+    });
   };
+
+  // El estado se deriva de username y result: si la última respuesta es de otro usuario,
+  // todavía se está cargando la del usuario elegido
+  let status;
+  if (!username) status = "idle";
+  else if (result?.username !== username) status = "loading";
+  else if (result.message) status = "error";
+  else status = "success";
 
   return (
     <Card>
@@ -122,20 +139,20 @@ export function MyReservations() {
           {usersError && <p className="text-sm text-destructive">{usersError}</p>}
         </div>
 
-        <ReservationsResult result={result} />
+        <ReservationsResult status={status} result={result} />
       </CardContent>
     </Card>
   );
 }
 
-function ReservationsResult({ result }) {
-  if (result.status === "idle") {
+function ReservationsResult({ status, result }) {
+  if (status === "idle") {
     return <p className="text-sm text-muted-foreground">Elegí un usuario para ver sus reservas.</p>;
   }
-  if (result.status === "loading") {
+  if (status === "loading") {
     return <div className="h-24 animate-pulse rounded-md bg-muted" />;
   }
-  if (result.status === "error") {
+  if (status === "error") {
     return <p className="text-sm text-destructive">{result.message}</p>;
   }
   if (result.reservations.length === 0) {
