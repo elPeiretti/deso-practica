@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { Skeleton } from "@heroui/react";
 import { PageHeader } from "@/components/page-header";
 import { getFlights } from "@/lib/api/flights";
 import { getUsers } from "@/lib/api/users";
@@ -32,7 +33,7 @@ async function ReservationFormWithData() {
 function FormSkeleton() {
   return (
     <div className="grid gap-6 md:grid-cols-2">
-      <div className="h-80 animate-pulse rounded-3xl bg-default" />
+      <Skeleton className="h-80 rounded-3xl" />
     </div>
   );
 }

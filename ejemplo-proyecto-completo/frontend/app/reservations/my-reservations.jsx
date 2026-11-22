@@ -4,41 +4,12 @@
 // donde los pide el servidor de Next (Server Components y Server Actions).
 // Se debe configurar CORS correctamente para que la página funcione.
 
-import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { formatDate, formatPrice } from "@/lib/format";
-
-// Solo las variables con prefijo NEXT_PUBLIC_ llegan al navegador
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-// fetch desde el navegador. Si falla la conexión (API caída o error de CORS),
-// fetch lanza un TypeError sin más detalle: el motivo solo aparece en la consola del navegador.
-async function fetchFromApi(path, signal) {
-  let response;
-  try {
-    response = await fetch(`${API_URL}${path}`, { signal });
-  } catch (error) {
-    if (error.name === "AbortError") throw error;
-    throw new Error(
-      "No se pudo conectar con la API. Si está corriendo, revisá la consola del navegador: puede ser un error de CORS.",
-    );
-  }
-
-  const data = await response.json().catch(() => null);
-  if (!response.ok) {
-    throw new Error(data?.message ?? `La API respondió con error ${response.status}`);
-  }
-  return data;
-}
+import { Skeleton } from "@/components/ui/skeleton";
+import { ReservationsTable } from "./reservations-table";
+import { useReservations } from "./use-reservations";
+import { useUsers } from "./use-users";
 
 export function MyReservations() {
   const router = useRouter();
@@ -46,44 +17,10 @@ export function MyReservations() {
   // El usuario elegido sale de la URL (?username=).
   const username = useSearchParams().get("username") ?? "";
 
-  const [users, setUsers] = useState([]);
-  const [usersError, setUsersError] = useState(null);
-  // Última respuesta de la API: { username, reservations } o { username, message } si hubo error.
-  // Guarda el username para saber si corresponde al usuario elegido ahora.
-  const [result, setResult] = useState(null);
+  const { users, error: usersError } = useUsers();
+  const reservations = useReservations(username);
 
-  // Efecto 1: se ejecuta después del primer render y trae los usuarios para el select.
-  useEffect(() => {
-    const controller = new AbortController();
-    fetchFromApi("/api/users", controller.signal)
-      .then(setUsers)
-      .catch((error) => {
-        if (error.name !== "AbortError") setUsersError(error.message);
-      });
-
-    // Cleanup: si el componente se desmonta (o se oculta) antes de que llegue la respuesta,
-    // se cancela el request
-    return () => controller.abort();
-  }, []);
-
-  // Efecto 2: se ejecuta cada vez que cambia username y trae sus reservas
-  useEffect(() => {
-    if (!username) return;
-
-    const controller = new AbortController();
-    fetchFromApi(`/api/reservations?username=${encodeURIComponent(username)}`, controller.signal)
-      .then((reservations) => setResult({ username, reservations }))
-      .catch((error) => {
-        if (error.name !== "AbortError") setResult({ username, message: error.message });
-      });
-
-    // Cleanup: corre antes de la próxima ejecución del efecto. Si se cambia de usuario
-    // antes de que llegue la respuesta anterior, se cancela ese request; si no, podría
-    // llegar después y mostrar las reservas del usuario equivocado.
-    return () => controller.abort();
-  }, [username]);
-
-  // Elegir un usuario cambia la URL; eso cambia username y dispara el efecto 2.
+  // Elegir un usuario cambia la URL; eso cambia username y dispara el efecto de useReservations.
   // replace reemplaza la entrada actual del historial en vez de agregar una nueva
   // (como router.push), así el botón Atrás no pasa por cada usuario elegido.
   const onUserChange = (e) => {
@@ -92,14 +29,6 @@ export function MyReservations() {
       scroll: false,
     });
   };
-
-  // El estado se deriva de username y result: si la última respuesta es de otro usuario,
-  // todavía se está cargando la del usuario elegido
-  let status;
-  if (!username) status = "idle";
-  else if (result?.username !== username) status = "loading";
-  else if (result.message) status = "error";
-  else status = "success";
 
   return (
     <Card>
@@ -133,46 +62,24 @@ export function MyReservations() {
           {usersError && <p className="text-sm text-destructive">{usersError}</p>}
         </div>
 
-        <ReservationsResult status={status} result={result} />
+        <ReservationsResult {...reservations} />
       </CardContent>
     </Card>
   );
 }
 
-function ReservationsResult({ status, result }) {
+function ReservationsResult({ status, reservations, message }) {
   if (status === "idle") {
     return <p className="text-sm text-muted-foreground">Elegí un usuario para ver sus reservas.</p>;
   }
   if (status === "loading") {
-    return <div className="h-24 animate-pulse rounded-md bg-muted" />;
+    return <Skeleton className="h-24" />;
   }
   if (status === "error") {
-    return <p className="text-sm text-destructive">{result.message}</p>;
+    return <p className="text-sm text-destructive">{message}</p>;
   }
-  if (result.reservations.length === 0) {
+  if (reservations.length === 0) {
     return <p className="text-sm text-muted-foreground">Este usuario todavía no tiene reservas.</p>;
   }
-
-  return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Número</TableHead>
-          <TableHead>Servicio</TableHead>
-          <TableHead>Fecha</TableHead>
-          <TableHead className="text-right">Precio</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {result.reservations.map((reservation) => (
-          <TableRow key={reservation.reservationId}>
-            <TableCell className="font-mono">{reservation.reservationId}</TableCell>
-            <TableCell>{reservation.serviceName}</TableCell>
-            <TableCell>{formatDate(reservation.date)}</TableCell>
-            <TableCell className="text-right">{formatPrice(reservation.price)}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  );
+  return <ReservationsTable reservations={reservations} />;
 }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -70,7 +71,7 @@ export function FlightsTableSkeleton() {
         {[1, 2, 3].map((i) => (
           <TableRow key={i}>
             <TableCell colSpan={6}>
-              <div className="h-7 animate-pulse rounded-md bg-muted" />
+              <Skeleton className="h-7" />
             </TableCell>
           </TableRow>
         ))}
