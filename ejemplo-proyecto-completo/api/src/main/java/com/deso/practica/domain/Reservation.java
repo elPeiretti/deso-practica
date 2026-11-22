@@ -1,16 +1,41 @@
 package com.deso.practica.domain;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
 
+@Entity
+@Table(name = "reservations")
 @Getter
 @Setter
+@NoArgsConstructor
 public class Reservation implements Identifiable {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @Column(name = "reservation_date", nullable = false)
   private Instant date;
+
+  // Relación muchas reservas -> un vuelo. La FK es la columna service_id
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "service_id")
   private TouristService service;
+
+  // Relación muchas reservas -> un usuario. La FK es la columna user_id
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "user_id")
   private User owner;
 
   public double calculatePrice() {
@@ -19,7 +44,7 @@ public class Reservation implements Identifiable {
 
   @Override
   public String getId() {
-    return id.toString();
+    return id == null ? null : id.toString();
   }
 
   public static class Builder {
