@@ -19,6 +19,7 @@ import {
 } from "@heroui/react";
 import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
 import Link from "next/link";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { formatDate, formatPrice } from "@/lib/format";
 import { createReservationAction } from "./actions";
 
@@ -203,24 +204,29 @@ function ReservationFormContent({ users, flights, defaultFlight }) {
 function ReservationResult({ state }) {
   const { reservation } = state;
   if (reservation) {
+    const rows = [
+      ["Número", <span className="font-mono">{reservation.reservationId}</span>],
+      ["Usuario", reservation.ownerUsername],
+      ["Servicio", reservation.serviceName],
+      ["Fecha", formatDate(reservation.date)],
+      ["Precio", formatPrice(reservation.price)],
+    ];
     return (
       <Alert status="success" className="h-fit">
         <Alert.Indicator />
         <Alert.Content>
           <Alert.Title>Reserva creada</Alert.Title>
           <Alert.Description>
-            <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
-              <dt>Número</dt>
-              <dd className="font-mono">{reservation.reservationId}</dd>
-              <dt>Usuario</dt>
-              <dd>{reservation.ownerUsername}</dd>
-              <dt>Servicio</dt>
-              <dd>{reservation.serviceName}</dd>
-              <dt>Fecha</dt>
-              <dd>{formatDate(reservation.date)}</dd>
-              <dt>Precio</dt>
-              <dd>{formatPrice(reservation.price)}</dd>
-            </dl>
+            <Table className="mt-2">
+              <TableBody>
+                {rows.map(([label, value]) => (
+                  <TableRow key={label} className="hover:bg-transparent">
+                    <TableCell className="font-medium">{label}</TableCell>
+                    <TableCell>{value}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
             <Link
               href={`/reservations?username=${encodeURIComponent(reservation.ownerUsername)}`}
               className="mt-3 inline-block font-medium underline"
