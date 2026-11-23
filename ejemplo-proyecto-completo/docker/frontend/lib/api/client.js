@@ -4,6 +4,7 @@
 // nunca le habla a la API directamente, así que acá no hace falta CORS.
 // La página "Mis reservas" es la excepción: llama a la API desde el navegador (ver app/reservations).
 import "server-only";
+import { connection } from "next/server";
 
 // Sin el prefijo NEXT_PUBLIC_, la variable solo existe en el servidor y no llega al navegador
 const API_URL = process.env.API_URL;
@@ -11,6 +12,10 @@ const API_URL = process.env.API_URL;
 // Hace el request y devuelve el body ya parseado.
 // Si la API responde con un error (4xx o 5xx), lanza un Error con el message del ErrorResponse.
 export async function apiFetch(path, { body, ...options } = {}) {
+  // Los datos se piden siempre al recibir el request, nunca durante `next build`:
+  // en Docker, API_URL recién existe cuando arranca el contenedor
+  await connection();
+
   if (!API_URL) {
     throw new Error("Falta la variable de entorno API_URL (ver .env.example)");
   }
