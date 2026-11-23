@@ -30,7 +30,10 @@ Abrir http://localhost:3000.
 ### API
 
 - `pom.xml`: el driver de Postgres reemplaza a H2, que queda solo para los tests (`src/test/resources/application-test.properties`), así `./mvnw test` no necesita Docker.
-- `application.properties`: apunta a Postgres. En Docker, `compose.yaml` reemplaza la URL, el usuario y la contraseña con las variables `SPRING_DATASOURCE_*`: Spring Boot convierte automáticamente cada variable de entorno en la propiedad equivalente (`SPRING_DATASOURCE_URL` → `spring.datasource.url`).
+- `application.properties`: apunta a Postgres, y la configuración llega por variables de entorno de dos formas:
+  - `${DB_USERNAME}` y `${DB_PASSWORD}`: las credenciales no se guardan en el repositorio. No tienen valor por defecto, así que si faltan la API no arranca.
+  - `SPRING_DATASOURCE_URL`: Spring Boot convierte automáticamente cada variable de entorno en la propiedad equivalente (`SPRING_DATASOURCE_URL` → `spring.datasource.url`), así que no hace falta nombrarla en `application.properties`.
+- Para correr la API fuera de Docker, con un Postgres local, hay que definir `DB_USERNAME` y `DB_PASSWORD`, por ejemplo en la configuración de ejecución de IntelliJ.
 - `ddl-auto=update` en lugar de `create-drop`, para no borrar los datos al reiniciar.
 - `data.sql`: `MERGE INTO ... KEY` es sintaxis de H2; en Postgres se usa `INSERT ... ON CONFLICT DO NOTHING`. Además hace falta `spring.sql.init.mode=always`, porque Spring solo ejecuta `data.sql` por defecto con bases embebidas.
 
