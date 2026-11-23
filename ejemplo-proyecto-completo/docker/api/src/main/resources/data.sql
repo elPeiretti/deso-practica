@@ -1,5 +1,4 @@
 -- Datos iniciales (las tablas las crea Hibernate a partir de las entidades).
--- ON CONFLICT DO NOTHING: como la base persiste entre reinicios, no vuelve a insertar las filas que ya existen
 INSERT INTO users (id, username, name) VALUES
     ('d5c88ca9-5235-4006-83a6-344775c41281', 'karen', 'Karen'),
     ('e5b88627-79da-4ca0-bc53-175bcb825710', 'fede', 'Federico')
