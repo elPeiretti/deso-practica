@@ -5,6 +5,7 @@ import com.deso.practica.domain.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 // Prueba directa de los repositories contra la H2 en memoria cargada con data.sql
 @SpringBootTest
+@ActiveProfiles("test")
 class RepositoriesTest {
 
   @Autowired
