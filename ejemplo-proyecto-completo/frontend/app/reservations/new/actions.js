@@ -25,10 +25,10 @@ export async function createReservationAction(prevState, formData) {
   }
 
   try {
-    // Comprueba que el usuario y el vuelo existan. Todavía no se guarda la reserva:
-    // se devuelve el request, que es el body que se enviaría a POST /api/reservations
-    await createReservation(request);
-    return { request };
+    // El request a POST /api/reservations lo hace el servidor de Next, no el navegador:
+    // por eso este formulario funciona aunque la API no tenga CORS configurado
+    const reservation = await createReservation(request);
+    return { reservation };
   } catch (error) {
     return { message: error.message };
   }

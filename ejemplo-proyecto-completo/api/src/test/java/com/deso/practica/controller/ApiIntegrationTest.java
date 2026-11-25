@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -44,6 +45,7 @@ class ApiIntegrationTest {
                 """))
         .andExpect(status().isCreated())
         .andExpect(jsonPath("$.ownerUsername").value("karen"))
+        .andExpect(jsonPath("$.serviceName").value("Vuelo ABC123 de FlyDeso"))
         .andExpect(jsonPath("$.reservationId").exists());
   }
 
@@ -107,5 +109,20 @@ class ApiIntegrationTest {
   void getReservations_unknownUser_returns404() throws Exception {
     mockMvc.perform(get("/api/reservations").param("username", "nadie"))
         .andExpect(status().isNotFound());
+  }
+
+  // CORS: un request del navegador desde el frontend incluye el header Origin.
+  // La respuesta tiene que habilitar ese origen para que el navegador la deje leer.
+  @Test
+  void cors_allowsFrontendOrigin() throws Exception {
+    mockMvc.perform(get("/api/users").header("Origin", "http://localhost:3000"))
+        .andExpect(status().isOk())
+        .andExpect(header().string("Access-Control-Allow-Origin", "http://localhost:3000"));
+  }
+
+  @Test
+  void cors_rejectsOtherOrigins() throws Exception {
+    mockMvc.perform(get("/api/users").header("Origin", "http://otro-sitio.com"))
+        .andExpect(status().isForbidden());
   }
 }

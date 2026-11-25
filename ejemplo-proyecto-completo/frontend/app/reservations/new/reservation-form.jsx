@@ -1,7 +1,7 @@
 "use client";
 
 import { startTransition, useActionState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Alert,
   Button,
@@ -18,16 +18,37 @@ import {
   Select,
 } from "@heroui/react";
 import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
-import { formatPrice } from "@/lib/format";
+import Link from "next/link";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { formatDate, formatPrice } from "@/lib/format";
 import { createReservationAction } from "./actions";
 
+// Con cacheComponents activado, Next.js no desmonta la página al navegar a otra: la oculta
+// y conserva su estado. Sin hacer nada, al volver se
+// vería la reserva anterior y el valor del param "flight" no se aplicaría.
+// Para empezar de cero, se usa bfcacheId como key: cambia cada vez que se llega a la página
+// con un link (o router.push), y con otra key React crea el formulario de nuevo.
+// Con los botones Atrás/Adelante del navegador no cambia, así que ahí se recupera lo cargado.
 export function ReservationForm({ users, flights }) {
+  const { bfcacheId } = useRouter();
   // Vuelo preseleccionado si se llega desde el botón "Reservar" de /flights
   const defaultFlight = useSearchParams().get("flight");
+
+  return (
+    <ReservationFormContent
+      key={bfcacheId}
+      users={users}
+      flights={flights}
+      defaultFlight={defaultFlight}
+    />
+  );
+}
+
+function ReservationFormContent({ users, flights, defaultFlight }) {
   const minDate = today(getLocalTimeZone());
 
   // useActionState guarda lo que devuelve la Server Action:
-  // { request } si salió bien, { message } si hubo un error al crear la reserva,
+  // { reservation } si salió bien, { message } si la API devolvió un error,
   // o { errors } si falló la validación del servidor. pending es true mientras se envía.
   const [state, submitAction, pending] = useActionState(createReservationAction, {});
 
@@ -179,19 +200,39 @@ export function ReservationForm({ users, flights }) {
   );
 }
 
-// Panel de la derecha: muestra el body que se enviaría a la API o el error
+// Panel de la derecha: muestra la reserva que devolvió la API o el error
 function ReservationResult({ state }) {
-  if (state.request) {
+  const { reservation } = state;
+  if (reservation) {
+    const rows = [
+      ["Número", <span className="font-mono">{reservation.reservationId}</span>],
+      ["Usuario", reservation.ownerUsername],
+      ["Servicio", reservation.serviceName],
+      ["Fecha", formatDate(reservation.date)],
+      ["Precio", formatPrice(reservation.price)],
+    ];
     return (
       <Alert status="success" className="h-fit">
         <Alert.Indicator />
         <Alert.Content>
-          <Alert.Title>Reserva lista para enviar</Alert.Title>
+          <Alert.Title>Reserva creada</Alert.Title>
           <Alert.Description>
-            Este es el body que se enviaría a <code>POST /api/reservations</code>:
-            <pre className="mt-2 overflow-x-auto rounded-lg bg-white/70 p-3 text-xs text-foreground">
-              {JSON.stringify(state.request, null, 2)}
-            </pre>
+            <Table className="mt-2">
+              <TableBody>
+                {rows.map(([label, value]) => (
+                  <TableRow key={label} className="hover:bg-transparent">
+                    <TableCell className="font-medium">{label}</TableCell>
+                    <TableCell>{value}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            <Link
+              href={`/reservations?username=${encodeURIComponent(reservation.ownerUsername)}`}
+              className="mt-3 inline-block font-medium underline"
+            >
+              Ver las reservas de {reservation.ownerUsername}
+            </Link>
           </Alert.Description>
         </Alert.Content>
       </Alert>
@@ -215,7 +256,7 @@ function ReservationResult({ state }) {
       <Alert.Indicator />
       <Alert.Content>
         <Alert.Title>Sin enviar</Alert.Title>
-        <Alert.Description>Completá el formulario para ver el request que se enviaría a la API.</Alert.Description>
+        <Alert.Description>Completá el formulario para crear la reserva.</Alert.Description>
       </Alert.Content>
     </Alert>
   );

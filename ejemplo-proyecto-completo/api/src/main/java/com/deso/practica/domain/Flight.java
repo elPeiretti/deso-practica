@@ -51,6 +51,12 @@ public class Flight extends TouristService {
     return company;
   }
 
+  // Nombre que se muestra en la reserva (serviceName en ReservationResponse)
+  @Override
+  protected String getName() {
+    return String.format("Vuelo %s de %s", number, company);
+  }
+
   @Override
   public double calculatePrice() {
     return FUEL_PRICE_PER_LITER * length * aircraft.litersPerKm();

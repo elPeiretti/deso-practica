@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { Skeleton } from "@heroui/react";
 import { PageHeader } from "@/components/page-header";
 import { getFlights } from "@/lib/api/flights";
 import { getUsers } from "@/lib/api/users";
@@ -11,7 +12,7 @@ export default function NewReservationPage() {
     <>
       <PageHeader
         title="Nueva reserva"
-        description="Formulario hecho con HeroUI. Todavía no se envía a la API."
+        description="Formulario hecho con HeroUI. Se envía a la API con una Server Action."
       />
       {/* El título se muestra al instante; el formulario, cuando responde la API */}
       <Suspense fallback={<FormSkeleton />}>
@@ -32,7 +33,7 @@ async function ReservationFormWithData() {
 function FormSkeleton() {
   return (
     <div className="grid gap-6 md:grid-cols-2">
-      <div className="h-80 animate-pulse rounded-3xl bg-default" />
+      <Skeleton className="h-80 rounded-3xl" />
     </div>
   );
 }
